@@ -4,6 +4,7 @@
 using namespace std;
 using namespace sf;
 //###//
+//ich bin gigabased.
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
