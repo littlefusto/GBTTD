@@ -6,12 +6,6 @@ using namespace std;
 using namespace sf;
 //###//
 
-void thread_function()
-{
-	std::cout << std::this_thread::get_id() << "Goodbye, cruel world!" << std::endl;
-}
-
-
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
@@ -31,7 +25,5 @@ int main()
 		window.draw(shape);
 		window.display();
 	}
-	std::thread thread(&thread_function);
-	thread.join();
 	return 0;
 }
