@@ -3,8 +3,9 @@ project(GBTTD)
 
 set(CMAKE_CXX_STANDARD 23)
 
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
-find_package(SFML 1.6 REQUIRED system window graphics network audio)
-target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES})
+set(EXECUTABLE_NAME "GBTTD")
+add_executable(${EXECUTABLE_NAME} main.cpp)
 
-add_executable(GBTTD main.cpp)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+find_package(SFML 2.5 REQUIRED system window graphics network audio)
+target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES})

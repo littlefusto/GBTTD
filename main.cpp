@@ -5,7 +5,6 @@
 using namespace std;
 using namespace sf;
 //###//
-//ich bin gigabased.
 
 void thread_function()
 {
