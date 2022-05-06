@@ -2,7 +2,6 @@
 #include <thread>
 #include <SFML/Graphics.hpp>
 #include <Domain.h>
-#include <png.h>
 #include <Map.h>
 #include <Renderer.h>
 //###//
