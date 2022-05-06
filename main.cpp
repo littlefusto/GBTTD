@@ -27,29 +27,40 @@ int main()
 				window.close();
             if (event.type == sf::Event::MouseWheelScrolled) {
                 if(event.mouseWheelScroll.delta > 0.0f) {
-                    context.zoom += 0.1f;
+                    context.zoom *= 1.1;
                 } else {
-                    context.zoom -= 0.1f;
+                    context.zoom /= 1.1;
                 }
             }
             if (event.type == sf::Event::KeyPressed) {
                 if(event.key.code == sf::Keyboard::Left) {
-                    movement.x = 0.1f;
+                    movement.x += 0.1f;
                 } else if(event.key.code == sf::Keyboard::Right) {
-                    movement.x = -0.1f;
+                    movement.x += -0.1f;
                 } else if(event.key.code == sf::Keyboard::Up) {
-                    movement.y = 0.1f;
+                    movement.y += 0.1f;
                 } else if(event.key.code == sf::Keyboard::Down) {
-                    movement.y = -0.1f;
+                    movement.y += -0.1f;
                 }
             }
             if (event.type == sf::Event::KeyReleased) {
-                if(event.key.code == sf::Keyboard::Left || event.key.code == sf::Keyboard::Right) {
-                    movement.x = 0.0f;
-                } else if(event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Down) {
-                    movement.y = 0.0f;
+                if (event.key.code == sf::Keyboard::Left) {
+                    movement.x += -0.1f;
+                }
+                else if(event.key.code == sf::Keyboard::Right) {
+                    movement.x += 0.1f;
+                }
+                else if(event.key.code == sf::Keyboard::Up) {
+                    movement.y += -0.1f;
+                }
+                else if(event.key.code == sf::Keyboard::Down) {
+                    movement.y += 0.1f;
                 }
             }
+            if(movement.x > 0.1f) movement.x = 0.1f;
+            if(movement.x < -0.1f) movement.x = -0.1f;
+            if(movement.y > 0.1f) movement.y = 0.1f;
+            if(movement.y < -0.1f) movement.y = -0.1f;
 		}
         context.camera_pos.x += movement.x;
         context.camera_pos.y += movement.y;
