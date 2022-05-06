@@ -14,8 +14,8 @@ FOREACH(DIR IN LISTS SRC_DIRS)
     set(INCLUDE_FILES ${INCLUDE_FILES} ${SOURCES})
 ENDFOREACH(DIR)
 
-add_executable(GBTTD ${SRC_FILES} ${INCLUDE_FILES})
-target_include_directories(GBTTD PRIVATE ${SRC_DIRS} )
+add_executable(GBTTD ${SRC_FILES})
+target_include_directories(GBTTD PRIVATE ${SRC_DIRS})
 
 set(CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules/" ${CMAKE_MODULE_PATH})
 find_package(SFML REQUIRED system window graphics network audio)

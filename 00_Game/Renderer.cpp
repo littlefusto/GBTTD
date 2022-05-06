@@ -5,6 +5,8 @@
 #include "Renderer.h"
 #include <Domain.h>
 
+using namespace textures;
+
 
 Renderer::Renderer(Map& map) : map(map) {
     generateMap();
@@ -13,11 +15,11 @@ Renderer::Renderer(Map& map) : map(map) {
 bool Renderer::generateMap() {
     //muss hier weg
     sf::Image tile1;
-    if (!tile1.loadFromFile(textures::tiles + "tile.png")) {
+    if (!tile1.loadFromFile(tiles + "tile.png")) {
         return -1;
     }
     sf::Image tile2;
-    if (!tile2.loadFromFile(textures::tiles + "tile2.png")) {
+    if (!tile2.loadFromFile(tiles + "tile2.png")) {
         return -1;
     }
     // bis hier
@@ -32,7 +34,6 @@ bool Renderer::generateMap() {
         for(int j = 0; j < MAP_SIZE; j++) {
             int x = TILE_WIDTH/2*i - TILE_WIDTH/2*j + (3 * TILE_WIDTH)/2;
             int y = TILE_HEIGTH/2*i + TILE_HEIGTH/2*j;
-            printf("Placing Tile (%d,%d) at %d, %d\n",i,j, x,y);
             if(content[i][j] == DEFAULT) {
                 map_image.copy(tile1,x,y,sf::IntRect(0, 0, 0, 0),true);
             } else {
