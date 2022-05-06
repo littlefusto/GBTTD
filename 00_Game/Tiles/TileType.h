@@ -14,10 +14,11 @@ enum TileNames {
 
 class TileType {
 private:
+    sf::Image tile_image;
     TileNames tile_name;
 public:
-    TileType(TileNames tile_name);
-    TileNames getTileTypeId(){return tile_name;}
+    TileType(std::string image_path,TileNames tile_name);
+    sf::Image& getTileImage() {return tile_image;}
 };
 
 
