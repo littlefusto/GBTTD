@@ -11,7 +11,7 @@ FOREACH(DIR IN LISTS SRC_DIRS)
     file(GLOB SOURCES "${DIR}/*.cpp")
     set(SRC_FILES ${SRC_FILES} ${SOURCES})
     file(GLOB SOURCES "${DIR}/*.h")
-    set(INCLUDE_FILES ${INCLUDE_FILES} ${SOURCES})
+    set(INCLUDE_FILES ${INCLUDE_FILES} ${SOURCES} 02_Domain/Textures.h)
 ENDFOREACH(DIR)
 
 add_executable(GBTTD ${SRC_FILES})

@@ -3,7 +3,9 @@
 //
 
 #include "Renderer.h"
-#include <Domain.h>
+#include <Textures.h>
+
+using namespace textures;
 
 using namespace textures;
 
