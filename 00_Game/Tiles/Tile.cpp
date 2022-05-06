@@ -3,6 +3,6 @@
 //
 
 #include "Tile.h"
-Tile::Tile() {
+Tile::Tile(TileType* tile_type) : tile_type(tile_type)  {
 
 }

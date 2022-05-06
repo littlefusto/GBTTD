@@ -3,27 +3,13 @@
 //
 
 #include "Renderer.h"
-#include <Textures.h>
-
-using namespace textures;
 
 Renderer::Renderer(Map& map) : map(map) {
     generateMap();
 }
 
 bool Renderer::generateMap() {
-    //muss hier weg
-    sf::Image tile1;
-    if (!tile1.loadFromFile(tiles + "tile.png")) {
-        return -1;
-    }
-    sf::Image tile2;
-    if (!tile2.loadFromFile(tiles + "tile2.png")) {
-        return -1;
-    }
-    // bis hier
-
-    vector<vector<TileNames>>& content = map.getContent();
+    vector<vector<Tile*>>& content = map.getContent();
     sf::Image map_image;
     map_image.create(MAP_SIZE * TILE_WIDTH,MAP_SIZE * TILE_HEIGTH);
     sf::Color color = sf::Color(255,255,255);
@@ -35,11 +21,7 @@ bool Renderer::generateMap() {
             //rest is adjusting
             int x = TILE_WIDTH/2*i - TILE_WIDTH/2*j + (MAP_SIZE * TILE_WIDTH)/2 - TILE_WIDTH/2;
             int y = TILE_HEIGTH/2*i + TILE_HEIGTH/2*j;
-            if(content[j][i] == DEFAULT) {
-                map_image.copy(tile1,x,y,sf::IntRect(0, 0, 0, 0),true);
-            } else {
-                map_image.copy(tile2,x,y,sf::IntRect(0, 0, 0, 0),true);
-            }
+            map_image.copy(content[j][i]->getTileType()->getTileImage(),x,y,sf::IntRect(0, 0, 0, 0),true);
         }
     }
     map_texture.loadFromImage(map_image);

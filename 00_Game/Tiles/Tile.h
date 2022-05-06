@@ -8,15 +8,15 @@
 #define TILE_WIDTH 64
 #define TILE_HEIGTH 32
 
-enum TileNames {
-    DEFAULT,
-    GREEN
-};
+#include <TileType.h>
 
 class Tile {
+private:
+    TileType* tile_type;
 
 public:
-    Tile();
+    Tile(TileType* tileType);
+    TileType* getTileType() {return tile_type;}
 
 };
 
