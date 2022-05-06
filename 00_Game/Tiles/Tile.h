@@ -5,8 +5,8 @@
 #ifndef GBTTD_TILE_H
 #define GBTTD_TILE_H
 
-#define TILE_WIDTH 32
-#define TILE_HEIGTH 16
+#define TILE_WIDTH 64
+#define TILE_HEIGTH 32
 
 enum TileNames {
     DEFAULT,

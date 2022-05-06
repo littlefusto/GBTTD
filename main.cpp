@@ -12,7 +12,7 @@ using namespace textures;
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1280, 720), "GBTTD",sf::Style::Close);
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "GBTTD");
 	Map map = Map();
 	Renderer renderer = Renderer(map);
 	sf::Event event{};

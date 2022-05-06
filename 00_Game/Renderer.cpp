@@ -7,9 +7,6 @@
 
 using namespace textures;
 
-using namespace textures;
-
-
 Renderer::Renderer(Map& map) : map(map) {
     generateMap();
 }
