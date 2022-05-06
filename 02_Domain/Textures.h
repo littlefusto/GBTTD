@@ -6,9 +6,10 @@
 
 #include <string>
 
-namespace textures {
+struct textures
+{
 	const std::string textures = "../01_Graphics/";
 	const std::string tiles = "../01_Graphics/tiles/";
-}
+};
 
 //GBTTD_TEXTURES_H
