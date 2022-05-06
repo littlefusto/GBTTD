@@ -12,17 +12,19 @@
 
 using namespace std;
 
-class Map {
+class Map
+{
 private:
-    vector<vector<TileNames>> content= {{RED,RED,RED,RED,DEFAULT,DEFAULT},
-                                       {RED,RED,DEFAULT,DEFAULT,DEFAULT,DEFAULT},
-                                       {RED,RED,DEFAULT,RED,DEFAULT,DEFAULT},
-                                       {RED,RED,DEFAULT,DEFAULT,DEFAULT,DEFAULT},
-                                       {DEFAULT,RED,DEFAULT,RED,DEFAULT,DEFAULT},
-                                       {DEFAULT,RED,RED,DEFAULT,DEFAULT,DEFAULT}};
+	vector<vector<TileNames>> content = {{ RED,     RED, RED,     RED,     DEFAULT, DEFAULT },
+					     { RED,     RED, DEFAULT, DEFAULT, DEFAULT, DEFAULT },
+					     { RED,     RED, DEFAULT, RED,     DEFAULT, DEFAULT },
+					     { RED,     RED, DEFAULT, DEFAULT, DEFAULT, DEFAULT },
+					     { DEFAULT, RED, DEFAULT, RED,     DEFAULT, DEFAULT },
+					     { DEFAULT, RED, RED,     DEFAULT, DEFAULT, DEFAULT }};
 public:
-    Map();
-    vector<vector<TileNames>>& getContent() {return content;}
+	Map();
+
+	vector<vector<TileNames>> &getContent() { return content; }
 };
 
 
