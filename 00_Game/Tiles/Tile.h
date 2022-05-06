@@ -17,7 +17,6 @@ private:
 public:
     Tile(TileType* tileType);
     TileType* getTileType() {return tile_type;}
-
 };
 
 

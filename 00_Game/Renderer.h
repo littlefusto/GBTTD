@@ -7,6 +7,7 @@
 
 #include <Map.h>
 #include <SFML/Graphics.hpp>
+#include <TextureHandler.h>
 
 struct CameraContext {
     float zoom;
@@ -16,6 +17,7 @@ struct CameraContext {
 class Renderer {
 private:
     Map& map;
+    TextureHandler textureHandler;
     sf::Texture map_texture;
     sf::Sprite map_sprite;
 public:
