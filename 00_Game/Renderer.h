@@ -11,6 +11,7 @@
 class Renderer {
 private:
     Map& map;
+    sf::Texture map_texture;
     sf::Sprite map_sprite;
 public:
     Renderer(Map& map);

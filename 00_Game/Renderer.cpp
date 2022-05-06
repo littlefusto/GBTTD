@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include <Domain.h>
 
+
 Renderer::Renderer(Map& map) : map(map) {
     generateMap();
 }
@@ -32,16 +33,15 @@ bool Renderer::generateMap() {
             int x = TILE_WIDTH/2*i - TILE_WIDTH/2*j + (3 * TILE_WIDTH)/2;
             int y = TILE_HEIGTH/2*i + TILE_HEIGTH/2*j;
             printf("Placing Tile (%d,%d) at %d, %d\n",i,j, x,y);
-            if(content[i][j] == 0) {
+            if(content[i][j] == DEFAULT) {
                 map_image.copy(tile1,x,y,sf::IntRect(0, 0, 0, 0),true);
             } else {
                 map_image.copy(tile2,x,y,sf::IntRect(0, 0, 0, 0),true);
             }
         }
     }
-    sf::Texture texture;
-    texture.loadFromImage(map_image);
-    map_sprite.setTexture(texture);
+    map_texture.loadFromImage(map_image);
+    map_sprite.setTexture(map_texture);
     map_sprite.setPosition(10.f,50.f);
     return true;
 }
