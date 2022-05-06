@@ -1,18 +1,26 @@
 #include <iostream>
 #include <thread>
 #include <SFML/Graphics.hpp>
+#include "02_Domain/Domain.h"
 //###//
 using namespace std;
 using namespace sf;
+using namespace textures;
 //###//
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow window(sf::VideoMode(1280, 720), "GBTTD");
+    sf::Texture texture;
+    if (!texture.loadFromFile(textures::tiles + "tile.png")) {
+        return -1;
+    }
+    sf::Sprite sprite;
+    sf::Sprite sprite1;
+    sprite.setTexture(texture);
+    sprite.setPosition(10.f,50.f);
 
-	while (window.isOpen())
+    while (window.isOpen())
 	{
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -22,7 +30,7 @@ int main()
 		}
 
 		window.clear();
-		window.draw(shape);
+		window.draw(sprite);
 		window.display();
 	}
 	return 0;
