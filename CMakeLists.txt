@@ -2,7 +2,14 @@ cmake_minimum_required(VERSION 3.20)
 project(GBTTD)
 
 set(CMAKE_CXX_STANDARD 17)
-set(SRC_DIRS ${CMAKE_SOURCE_DIR} "00_Game" "01_Graphics" "02_Domain" "00_Game/Tiles")
+set(SRC_DIRS ${CMAKE_SOURCE_DIR}
+        "00_Game"
+        "00_Game/Tiles"
+
+        "01_Graphics"
+
+        "02_Domain"
+        )
 
 # Get all src files
 set(SRC_FILES "")

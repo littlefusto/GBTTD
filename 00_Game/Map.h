@@ -15,12 +15,13 @@ using namespace std;
 class Map
 {
 private:
-	vector<vector<TileNames>> content = {{ RED,     RED, RED,     RED,     DEFAULT, DEFAULT },
-					     { RED,     RED, DEFAULT, DEFAULT, DEFAULT, DEFAULT },
-					     { RED,     RED, DEFAULT, RED,     DEFAULT, DEFAULT },
-					     { RED,     RED, DEFAULT, DEFAULT, DEFAULT, DEFAULT },
-					     { DEFAULT, RED, DEFAULT, RED,     DEFAULT, DEFAULT },
-					     { DEFAULT, RED, RED,     DEFAULT, DEFAULT, DEFAULT }};
+	vector<vector<TileNames>> content = {
+            { GREEN,    GREEN,      GREEN,      GREEN,      DEFAULT,    DEFAULT },
+            { GREEN,    GREEN,      DEFAULT,    DEFAULT,    DEFAULT,    DEFAULT },
+            { GREEN,    GREEN,      DEFAULT,    GREEN,      DEFAULT,    DEFAULT },
+            { GREEN,    GREEN,      DEFAULT,    DEFAULT,    DEFAULT,    DEFAULT },
+            { DEFAULT,  GREEN,      DEFAULT,    GREEN,      DEFAULT,    DEFAULT },
+            { DEFAULT,  GREEN,      GREEN,      DEFAULT,    DEFAULT,    DEFAULT }};
 public:
 	Map();
 

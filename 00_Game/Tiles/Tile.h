@@ -10,7 +10,7 @@
 
 enum TileNames {
     DEFAULT,
-    RED
+    GREEN
 };
 
 class Tile {
