@@ -25,10 +25,12 @@ int main()
 	{
 		while (window.pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-			if (event.type == sf::Event::MouseWheelScrolled)
+			switch (event.type)
 			{
+			case sf::Event::Closed:
+				window.close();
+				break;
+			case sf::Event::MouseWheelScrolled:
 				if (event.mouseWheelScroll.delta > 0.0f)
 				{
 					context.zoom *= 1.1;
@@ -36,49 +38,58 @@ int main()
 				{
 					context.zoom /= 1.1;
 				}
-			}
-			if (event.type == sf::Event::KeyPressed)
-			{
-				if (event.key.code == sf::Keyboard::Left)
+				break;
+			case sf::Event::KeyPressed:
+				switch (event.key.code)
 				{
+				case sf::Keyboard::Left:
 					movement.x += 0.1f;
-				} else if (event.key.code == sf::Keyboard::Right)
-				{
+					break;
+				case sf::Keyboard::Right:
 					movement.x += -0.1f;
-				} else if (event.key.code == sf::Keyboard::Up)
-				{
+					break;
+				case sf::Keyboard::Up:
 					movement.y += 0.1f;
-				} else if (event.key.code == sf::Keyboard::Down)
-				{
+					break;
+				case sf::Keyboard::Down:
 					movement.y += -0.1f;
+					break;
+				default:
+					break;
 				}
-			}
-			if (event.type == sf::Event::KeyReleased)
-			{
-				if (event.key.code == sf::Keyboard::Left)
+				break;
+			case sf::Event::KeyReleased:
+				switch (event.key.code)
 				{
+				case sf::Keyboard::Left:
 					movement.x += -0.1f;
-				} else if (event.key.code == sf::Keyboard::Right)
-				{
+					break;
+				case sf::Keyboard::Right:
 					movement.x += 0.1f;
-				} else if (event.key.code == sf::Keyboard::Up)
-				{
+					break;
+				case sf::Keyboard::Up:
 					movement.y += -0.1f;
-				} else if (event.key.code == sf::Keyboard::Down)
-				{
+					break;
+				case sf::Keyboard::Down:
 					movement.y += 0.1f;
+					break;
+				default:
+					break;
 				}
-			}
-			if (event.type == sf::Event::MouseButtonPressed)
-			{
+				break;
+			case Event::Resized:
+			case Event::LostFocus:
+			case Event::GainedFocus:
+			case Event::TextEntered:
+			case Event::MouseWheelMoved:
+				break;
+			case Event::MouseButtonPressed:
 				mouseButtonPressed = true;
-			}
-			if (event.type == sf::Event::MouseButtonReleased)
-			{
+				break;
+			case Event::MouseButtonReleased:
 				mouseButtonPressed = false;
-			}
-			if (event.type == sf::Event::MouseMoved)
-			{
+				break;
+			case Event::MouseMoved:
 				if (mouseButtonPressed)
 				{
 					context.camera_pos.x -= oldMouse.x - event.mouseMove.x;
@@ -90,6 +101,20 @@ int main()
 					oldMouse.x = event.mouseMove.x;
 					oldMouse.y = event.mouseMove.y;
 				}
+				break;
+			case Event::MouseEntered:
+			case Event::MouseLeft:
+			case Event::JoystickButtonPressed:
+			case Event::JoystickButtonReleased:
+			case Event::JoystickMoved:
+			case Event::JoystickConnected:
+			case Event::JoystickDisconnected:
+			case Event::TouchBegan:
+			case Event::TouchMoved:
+			case Event::TouchEnded:
+			case Event::SensorChanged:
+			case Event::Count:
+				break;
 			}
 			if (movement.x > 0.1f) movement.x = 0.1f;
 			if (movement.x < -0.1f) movement.x = -0.1f;
