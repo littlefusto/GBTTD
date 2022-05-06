@@ -5,6 +5,14 @@
 #ifndef GBTTD_TILE_H
 #define GBTTD_TILE_H
 
+#define TILE_WIDTH 32
+#define TILE_HEIGTH 16
+
+enum TileNames {
+    DEFAULT,
+    RED
+};
+
 class Tile {
 
 public:
