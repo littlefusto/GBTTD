@@ -2,8 +2,7 @@
 // Created by cpukiller on 06.05.22.
 //
 
-#ifndef GBTTD_MAP_H
-#define GBTTD_MAP_H
+#pragma once
 
 #include <TileType.h>
 #include <Tile.h>
@@ -17,14 +16,14 @@ class Map
 {
 private:
 	vector<vector<TileNames>> contentBase = { //Should be generated or loaded from file
-            { GREEN,    GREEN,      GREEN,      GREEN,      DEFAULT,    DEFAULT },
-            { GREEN,    GREEN,      DEFAULT,    DEFAULT,    DEFAULT,    DEFAULT },
-            { GREEN,    GREEN,      DEFAULT,    GREEN,      DEFAULT,    DEFAULT },
-            { GREEN,    GREEN,      DEFAULT,    DEFAULT,    DEFAULT,    DEFAULT },
-            { DEFAULT,  GREEN,      DEFAULT,    GREEN,      DEFAULT,    DEFAULT },
-            { DEFAULT,  GREEN,      GREEN,      DEFAULT,    DEFAULT,    DEFAULT }};
-    vector<vector<Tile*>> content;
-    vector<TileType*> tile_types;
+		{ GREEN,   GREEN, GREEN,   GREEN,   DEFAULT, DEFAULT },
+		{ GREEN,   GREEN, DEFAULT, DEFAULT, DEFAULT, DEFAULT },
+		{ GREEN,   GREEN, DEFAULT, GREEN,   DEFAULT, DEFAULT },
+		{ GREEN,   GREEN, DEFAULT, DEFAULT, DEFAULT, DEFAULT },
+		{ DEFAULT, GREEN, DEFAULT, GREEN,   DEFAULT, DEFAULT },
+		{ DEFAULT, GREEN, GREEN,   DEFAULT, DEFAULT, DEFAULT }};
+	vector<vector<Tile*>> content;
+	vector<TileType*> tile_types;
 public:
 	Map();
 
@@ -32,4 +31,4 @@ public:
 };
 
 
-#endif //GBTTD_MAP_H
+//GBTTD_MAP_H
