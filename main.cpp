@@ -77,12 +77,6 @@ int main()
 					break;
 				}
 				break;
-			case Event::Resized:
-			case Event::LostFocus:
-			case Event::GainedFocus:
-			case Event::TextEntered:
-			case Event::MouseWheelMoved:
-				break;
 			case Event::MouseButtonPressed:
 				mouseButtonPressed = true;
 				break;
@@ -102,18 +96,7 @@ int main()
 					oldMouse.y = event.mouseMove.y;
 				}
 				break;
-			case Event::MouseEntered:
-			case Event::MouseLeft:
-			case Event::JoystickButtonPressed:
-			case Event::JoystickButtonReleased:
-			case Event::JoystickMoved:
-			case Event::JoystickConnected:
-			case Event::JoystickDisconnected:
-			case Event::TouchBegan:
-			case Event::TouchMoved:
-			case Event::TouchEnded:
-			case Event::SensorChanged:
-			case Event::Count:
+			default:
 				break;
 			}
 			if (movement.x > 0.1f) movement.x = 0.1f;
