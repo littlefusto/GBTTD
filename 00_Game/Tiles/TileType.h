@@ -2,24 +2,26 @@
 // Created by cpukiller on 06.05.22.
 //
 
-#ifndef GBTTD_TILETYPE_H
-#define GBTTD_TILETYPE_H
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
-enum TileNames {
-    DEFAULT=0,
-    GREEN=1
+enum TileNames
+{
+	DEFAULT = 0,
+	GREEN = 1
 };
 
-class TileType {
+class TileType
+{
 private:
-    sf::Image tile_image;
-    TileNames tile_name;
+	sf::Image tile_image;
+	TileNames tile_name;
 public:
-    TileType(std::string image_path,TileNames tile_name);
-    sf::Image& getTileImage() {return tile_image;}
+	TileType(std::string image_path, TileNames tile_name);
+
+	sf::Image &getTileImage() { return tile_image; }
 };
 
 
-#endif //GBTTD_TILETYPE_H
+//GBTTD_TILETYPE_H

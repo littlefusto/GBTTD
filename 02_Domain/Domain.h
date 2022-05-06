@@ -3,12 +3,11 @@
 //
 //
 
-#ifndef GBTTD_DOMAIN_H
-#define GBTTD_DOMAIN_H
+#pragma once
 
 //INCLUDE all Domain headers here:
 #include "Textures.h"
 
 //
 
-#endif //GBTTD_DOMAIN_H
+//GBTTD_DOMAIN_H
