@@ -48,8 +48,13 @@ bool Renderer::generateMap() {
     return true;
 }
 
-void Renderer::renderMap(sf::RenderWindow& window) {
+void Renderer::renderMap(sf::RenderWindow& window, CameraContext& context) {
     window.clear();
+    sf::Vector2f pos = context.camera_pos;
+    pos.x -= MAP_SIZE * TILE_WIDTH * (context.zoom/2-1);
+    pos.y -= MAP_SIZE * TILE_HEIGTH * (context.zoom/2-1);
+    map_sprite.setPosition(pos);
+    map_sprite.setScale(context.zoom,context.zoom);
     window.draw(map_sprite);
     window.display();
 }

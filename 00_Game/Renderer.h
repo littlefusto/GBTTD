@@ -8,6 +8,11 @@
 #include <Map.h>
 #include <SFML/Graphics.hpp>
 
+struct CameraContext {
+    float zoom;
+    sf::Vector2f camera_pos;
+};
+
 class Renderer {
 private:
     Map& map;
@@ -16,7 +21,7 @@ private:
 public:
     Renderer(Map& map);
     bool generateMap();
-    void renderMap(sf::RenderWindow& window);
+    void renderMap(sf::RenderWindow& window, CameraContext& context);
 };
 
 
