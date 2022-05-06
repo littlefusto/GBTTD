@@ -1,9 +1,23 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.20)
 project(GBTTD)
 
 set(CMAKE_CXX_STANDARD 17)
-add_executable(GBTTD main.cpp 02_Domain/Textures.h 02_Domain/Domain.h 00_Game/Tiles/Tile.cpp 00_Game/Tiles/Tile.h)
+set(SRC_DIRS ${CMAKE_SOURCE_DIR} "00_Game" "01_Graphics" "02_Domain" "00_Game/Tiles")
 
+# Get all src files
+set(SRC_FILES "")
+set(INCLUDE_FILES "")
+FOREACH(DIR IN LISTS SRC_DIRS)
+    file(GLOB SOURCES "${DIR}/*.cpp")
+    set(SRC_FILES ${SRC_FILES} ${SOURCES})
+    file(GLOB SOURCES "${DIR}/*.h")
+    set(INCLUDE_FILES ${INCLUDE_FILES} ${SOURCES})
+ENDFOREACH(DIR)
+
+add_executable(GBTTD ${SRC_FILES} ${INCLUDE_FILES})
+target_include_directories(GBTTD PRIVATE ${SRC_DIRS} )
+
+set(CMAKE_MODULE_PATH "/usr/share/SFML/cmake/Modules/" ${CMAKE_MODULE_PATH})
 find_package(SFML REQUIRED system window graphics network audio)
 if(SFML_FOUND)
     target_link_libraries(GBTTD sfml-graphics)
