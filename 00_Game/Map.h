@@ -6,18 +6,23 @@
 #define GBTTD_MAP_H
 
 #include <Tile.h>
+#include <vector>
 
-#define MAP_SIZE 4
+#define MAP_SIZE 6
+
+using namespace std;
 
 class Map {
 private:
-    TileNames content[MAP_SIZE][MAP_SIZE]= {{RED,RED,RED,RED},
-                                           {RED,RED,DEFAULT,DEFAULT},
-                                           {DEFAULT,RED,DEFAULT,RED},
-                                           {DEFAULT,RED,RED,DEFAULT}};
+    vector<vector<TileNames>> content= {{RED,RED,RED,RED,DEFAULT,DEFAULT},
+                                       {RED,RED,DEFAULT,DEFAULT,DEFAULT,DEFAULT},
+                                       {RED,RED,DEFAULT,RED,DEFAULT,DEFAULT},
+                                       {RED,RED,DEFAULT,DEFAULT,DEFAULT,DEFAULT},
+                                       {DEFAULT,RED,DEFAULT,RED,DEFAULT,DEFAULT},
+                                       {DEFAULT,RED,RED,DEFAULT,DEFAULT,DEFAULT}};
 public:
     Map();
-    void getContent(TileNames map_content[MAP_SIZE][MAP_SIZE]) {map_content=content;}
+    vector<vector<TileNames>>& getContent() {return content;}
 };
 
 
