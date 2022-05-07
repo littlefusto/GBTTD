@@ -10,7 +10,7 @@
 
 struct CameraContext
 {
-	float zoom;
+	float zoom{};
 	sf::Vector2f camera_pos;
 };
 
