@@ -27,6 +27,7 @@ class TileType
 private:
 	sf::Image tile_image;
 	TileNames tile_name;
+	slope slope;
 public:
 	TileType(std::string image_path, TileNames tile_name);
 

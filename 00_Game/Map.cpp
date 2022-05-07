@@ -6,6 +6,18 @@
 #include "Map.h"
 #include <Textures.h>
 
+std::string Map::TileSlopePath(slope slope)
+{
+	std::string path;
+	if (!slope) { return "flat"; }
+	else if (slope & STEEP) { path += "steep_"; } else { path += "sloped_"; }
+	if (slope & N)path += "N";
+	if (slope & E)path += "E";
+	if (slope & S)path += "S";
+	if (slope & W)path += "W";
+	return path;
+}
+
 Map::Map()
 {
 	tile_types.resize(10);
