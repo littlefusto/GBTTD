@@ -2,9 +2,9 @@
 // Created by cpukiller on 06.05.22.
 //
 
-#include "TileType.h"
+#include "TileInfo.h"
 
-TileType::TileType(std::string image_path, TileNames tile_name) : tile_name(tile_name)
+TileInfo::TileInfo(std::string image_path, TileType tile_type) : tile_type(tile_type)
 {
 	if (!tile_image.loadFromFile(image_path))
 	{

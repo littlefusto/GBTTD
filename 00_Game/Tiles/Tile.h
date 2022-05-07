@@ -7,17 +7,17 @@
 #define TILE_WIDTH 64
 #define TILE_HEIGTH 32
 
-#include <TileType.h>
+#include <TileInfo.h>
 
 class Tile
 {
 private:
-	TileType* tile_type;
+	TileInfo* tile_info;
 
 public:
-	Tile(TileType* tileType);
+	Tile(TileInfo* tileInfo);
 
-	TileType* getTileType() { return tile_type; }
+	TileInfo* getTileInfo() { return tile_info; }
 };
 
 

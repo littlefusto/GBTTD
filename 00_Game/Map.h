@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <TileType.h>
+#include <TileInfo.h>
 #include <Tile.h>
 #include <vector>
 
@@ -15,7 +15,7 @@ using namespace std;
 class Map
 {
 private:
-	vector<vector<TileNames>> contentBase = { //Should be generated or loaded from file
+	vector<vector<TileType>> contentBase = { //Should be generated or loaded from file
 		{ GRASS,   GRASS, GRASS,   GRASS,   DEFAULT, DEFAULT },
 		{ GRASS,   GRASS, DEFAULT, DEFAULT, DEFAULT, DEFAULT },
 		{ GRASS,   GRASS, DEFAULT, GRASS,   DEFAULT, DEFAULT },
@@ -23,13 +23,13 @@ private:
 		{ DEFAULT, GRASS, DEFAULT, GRASS,   DEFAULT, DEFAULT },
 		{ DEFAULT, GRASS, GRASS,   DEFAULT, DEFAULT, DEFAULT }};
 	vector<vector<Tile*>> content;
-	vector<TileType*> tile_types;
+	vector<TileInfo*> tile_infos;
 public:
 	static std::string TileSlopePath(Slope);
 
 	Map();
 
-	void fillMap(vector<vector<TileNames>> &map)
+	void fillMap(vector<vector<TileType>> &map)
 	{
 		map.resize(MAP_SIZE);
 		for (int w = 0; w < MAP_SIZE; w++)
@@ -37,7 +37,7 @@ public:
 			map[w].resize(MAP_SIZE);
 			for (int h = 0; h < MAP_SIZE; h++)
 			{
-				map[w][h] = TileNames::GRASS;
+				map[w][h] = TileType::GRASS;
 			}
 		}
 	}

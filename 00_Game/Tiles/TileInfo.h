@@ -26,20 +26,20 @@ enum Slope //bitflag N E S W dictates high corners
 	STEEP_NEW = 0b11101
 };
 
-enum TileNames
+enum TileType
 {
 	DEFAULT = 0,
 	GRASS = 1
 };
 
-class TileType
+class TileInfo
 {
 private:
 	sf::Image tile_image;
-	TileNames tile_name;
+	TileType tile_type;
 	Slope slope;
 public:
-	TileType(std::string image_path, TileNames tile_name);
+	TileInfo(std::string image_path, TileType tile_type);
 
 	sf::Image &getTileImage() { return tile_image; }
 };
