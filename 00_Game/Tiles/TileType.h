@@ -6,6 +6,16 @@
 
 #include <SFML/Graphics.hpp>
 
+enum slope //bitflag N E S W dictates high corners
+{
+	FLAT = 0,
+	W = 0b0001,
+	S = 0b0010,
+	E = 0b0100,
+	N = 0b1000,
+	STEEP = 0b10000,
+};
+
 enum TileNames
 {
 	DEFAULT = 0,
