@@ -6,7 +6,7 @@
 
 #include <gbttd.h>
 
-struct textures
+namespace textures
 {
 	const std::string textures = "../01_Graphics/";
 	const std::string tiles = "../01_Graphics/tiles/";
