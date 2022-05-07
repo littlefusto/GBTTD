@@ -1,30 +1,31 @@
 //
-// Created by tscharn on 06.05.22.
+// Created by cpukiller on 06.05.22.
 //
-#pragma once
 
-#include "00_Game/Map.h"
+#ifndef GBTTD_RENDERER_H
+#define GBTTD_RENDERER_H
+
+#include <Map.h>
 #include <SFML/Graphics.hpp>
 
-struct CameraContext
-{
-	float zoom{};
-	sf::Vector2f camera_pos;
+struct CameraContext {
+    float zoom;
+    sf::Vector2f camera_pos;
 };
 
-class Renderer
-{
+class Renderer {
 private:
-	Map &map;
-	sf::Texture map_texture;
-	sf::Sprite map_sprite;
+    Map& map;
+    sf::Texture map_texture;
+    sf::Sprite map_sprite;
+    sf::Vector2i point_at;
+    sf::Vector2i selected_tile;
 public:
-	Renderer(Map &map);
-
-	bool generateMap();
-
-	void renderMap(sf::RenderWindow &window, CameraContext &context);
+    Renderer(Map& map);
+    bool generateMap();
+    void renderMap(sf::RenderWindow& window, CameraContext& context);
+    Tile* getClickedTile(sf::Vector2i pos, CameraContext& context);
 };
 
 
-//GBTTD_RENDERER_H
+#endif //GBTTD_RENDERER_H
