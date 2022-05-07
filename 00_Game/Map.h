@@ -26,16 +26,22 @@ private:
 	vector<TileType*> tile_types;
 public:
 	static std::string TileSlopePath(Slope);
+
 	Map();
-	void fillMap(vector<vector<TileNames>>& map){
+
+	void fillMap(vector<vector<TileNames>> &map)
+	{
 		map.resize(MAP_SIZE);
-		for(int w=0;w<MAP_SIZE;w++){
+		for (int w = 0; w < MAP_SIZE; w++)
+		{
 			map[w].resize(MAP_SIZE);
-			for(int h=0;h<MAP_SIZE;h++){
+			for (int h = 0; h < MAP_SIZE; h++)
+			{
 				map[w][h] = TileNames::GRASS;
 			}
 		}
 	}
+
 	vector<vector<Tile*>> &getContent() { return content; }
 };
 
