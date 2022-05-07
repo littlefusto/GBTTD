@@ -6,10 +6,10 @@
 
 #include <string>
 
-struct TexturePaths
+struct textures
 {
-	constexpr static const char textures[] = "../01_Graphics/";
-	constexpr static const char tiles[] = "../01_Graphics/tiles/";
+	const std::string textures = "../01_Graphics/";
+	const std::string tiles = "../01_Graphics/tiles/";
 };
 
 //GBTTD_TEXTURES_H
