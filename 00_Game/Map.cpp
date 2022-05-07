@@ -6,7 +6,7 @@
 #include "Map.h"
 #include <Textures.h>
 
-std::string Map::TileSlopePath(SLOPE slope)
+std::string Map::TileSlopePath(Slope slope)
 {
 	std::string path;
 	if (!slope)return "flat";
