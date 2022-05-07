@@ -19,7 +19,7 @@ int main()
 	CameraContext context = CameraContext{ zoom : 2.0f, camera_pos : Vector2f(0.0f, 0.0f) };
 	Vector2f movement = { 0.0f, 0.0f };
 	Vector2f oldMouse = { 0.0f, 0.0f };
-	bool mouseButtonPressed = false;
+	bool RMBPressed = false;
 	sf::Event event{};
 
 	while (window.isOpen())
@@ -81,7 +81,7 @@ int main()
 			case Event::MouseButtonPressed:
 				if (event.mouseButton.button == sf::Mouse::Right)
 				{
-					mouseButtonPressed = true;
+					RMBPressed = true;
 				} else if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					sf::Vector2i pos;
@@ -91,10 +91,13 @@ int main()
 				}
 				break;
 			case Event::MouseButtonReleased:
-				mouseButtonPressed = false;
+				if (event.mouseButton.button == sf::Mouse::Right)
+				{
+					RMBPressed = false;
+				}
 				break;
 			case Event::MouseMoved:
-				if (mouseButtonPressed)
+				if (RMBPressed)
 				{
 					context.camera_pos.x -= oldMouse.x - event.mouseMove.x;
 					context.camera_pos.y -= oldMouse.y - event.mouseMove.y;
