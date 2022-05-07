@@ -29,8 +29,8 @@ bool Renderer::generateMap()
 			int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + ((MAP_SIZE * TILE_WIDTH) / 2) -
 				(TILE_WIDTH / 2);
 			int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j);
-			map_image.copy(content[j][i]->getTileType()->getTileImage(), x, y, sf::IntRect(0, 0, 0, 0),
-				       true);
+			map_image.copy(content[j][i]->getTileType()->getTileImage(), x, y,
+				       sf::IntRect(0, 0, 0, 0), true);
 		}
 	}
 	if (selected_tile.x >= 0)
