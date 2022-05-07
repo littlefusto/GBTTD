@@ -37,7 +37,7 @@ std::string Map::TileSlopePath(Slope slope)
 			if ((slope & NES) == NES)//if sloped in all directions tile is invalid
 			{
 				throw std::invalid_argument(
-					"improper constructed tile: cannot have a tile with NESW flags set");
+					"improperly constructed tile: cannot have a tile with NESW flags set");
 			} else { path += "W"; }
 		}
 	}
