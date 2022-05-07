@@ -5,6 +5,8 @@
 #include <Map.h>
 #include "01_Graphics/Renderer.h"
 //###//
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu-designator"
 using namespace std;
 using namespace sf;
 //###//
@@ -12,12 +14,12 @@ using namespace sf;
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "GBTTD");
-    Map map = Map();
-    Renderer renderer = Renderer(map);
-    CameraContext context = CameraContext{zoom : 2.0f,camera_pos : Vector2f(0.0f,0.0f)};
-    Vector2f movement = {0.0f,0.0f};
-    Vector2f oldMouse = {0.0f,0.0f};
-    bool mouseButtonPressed = false;
+	Map map = Map();
+	Renderer renderer = Renderer(map);
+	CameraContext context = CameraContext{ zoom : 2.0f, camera_pos : Vector2f(0.0f, 0.0f) };
+	Vector2f movement = { 0.0f, 0.0f };
+	Vector2f oldMouse = { 0.0f, 0.0f };
+	bool mouseButtonPressed = false;
 	sf::Event event{};
 
 	while (window.isOpen())
@@ -77,14 +79,16 @@ int main()
 				}
 				break;
 			case Event::MouseButtonPressed:
-                if(event.mouseButton.button == sf::Mouse::Right) {
-                    mouseButtonPressed = true;
-                } else if(event.mouseButton.button == sf::Mouse::Left) {
-                    sf::Vector2i pos;
-                    pos.x = event.mouseButton.x;
-                    pos.y = event.mouseButton.y;
-                    renderer.getClickedTile(pos,context);
-                }
+				if (event.mouseButton.button == sf::Mouse::Right)
+				{
+					mouseButtonPressed = true;
+				} else if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					sf::Vector2i pos;
+					pos.x = event.mouseButton.x;
+					pos.y = event.mouseButton.y;
+					renderer.getClickedTile(pos, context);
+				}
 				break;
 			case Event::MouseButtonReleased:
 				mouseButtonPressed = false;
@@ -116,3 +120,5 @@ int main()
 	}
 	return 0;
 }
+
+#pragma clang diagnostic pop
