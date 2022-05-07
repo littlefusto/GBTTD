@@ -39,7 +39,8 @@ bool Renderer::generateMap()
 		int j = selected_tile.y;
 		int x = TILE_WIDTH / 2 * i - TILE_WIDTH / 2 * j + (MAP_SIZE * TILE_WIDTH) / 2 - TILE_WIDTH / 2;
 		int y = TILE_HEIGTH / 2 * i + TILE_HEIGTH / 2 * j;
-		map_image.copy(selected_tile_image, x, y, sf::IntRect(0, 0, 0, 0), true);
+		map_image.copy(selected_tile_image, x, y,
+			       sf::IntRect(0, 0, 0, 0), true);
 	}
 	sf::Color color = sf::Color(255, 0, 0);
 	map_image.setPixel(point_at.x, point_at.y, color);
