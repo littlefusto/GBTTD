@@ -8,23 +8,28 @@
 #include <Map.h>
 #include <SFML/Graphics.hpp>
 
-struct CameraContext {
-    float zoom;
-    sf::Vector2f camera_pos;
+struct CameraContext
+{
+	float zoom;
+	sf::Vector2f camera_pos;
 };
 
-class Renderer {
+class Renderer
+{
 private:
-    Map& map;
-    sf::Texture map_texture;
-    sf::Sprite map_sprite;
-    sf::Vector2i point_at;
-    sf::Vector2i selected_tile;
+	Map &map;
+	sf::Texture map_texture;
+	sf::Sprite map_sprite;
+	sf::Vector2i point_at;
+	sf::Vector2i selected_tile;
 public:
-    Renderer(Map& map);
-    bool generateMap();
-    void renderMap(sf::RenderWindow& window, CameraContext& context);
-    Tile* getClickedTile(sf::Vector2i pos, CameraContext& context);
+	Renderer(Map &map);
+
+	bool generateMap();
+
+	void renderMap(sf::RenderWindow &window, CameraContext &context);
+
+	Tile* getClickedTile(sf::Vector2i pos, CameraContext &context);
 };
 
 
