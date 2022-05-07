@@ -16,7 +16,6 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "GBTTD");
 	Map map = Map();
-	textures textures{};
 	Renderer renderer = Renderer(map);
 	CameraContext context = CameraContext{ zoom : 2.0f, camera_pos : Vector2f(0.0f, 0.0f) };
 	Vector2f movement = { 0.0f, 0.0f };
