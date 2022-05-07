@@ -32,14 +32,25 @@ const std::string tiles[] = {
 TextureHandler::TextureHandler()
 {
 	for (const std::string& tile_path : tiles) {
-		sf::Image tile_image;
-		if (!tile_image.loadFromFile("../01_Graphics/tiles/" + tile_path))
+		sf::Image* tile_image = new sf::Image;
+		if (!tile_image->loadFromFile("../01_Graphics/tiles/" + tile_path))
 		{
 			std::cerr << "Image at" + tile_path + " not found" << std::endl;
 		} else {
 			data.insert(std::pair(tile_path, tile_image));
 		}
 	}
+}
+
+TextureHandler::~TextureHandler() {
+	deleteImages();
+}
+
+void TextureHandler::deleteImages() {
+	for (std::pair<const std::string,sf::Image*> image : data) {
+		delete image.second;
+	}
+	data.clear();
 }
 
 TextureHandler* TextureHandler::getInstance()
@@ -55,7 +66,7 @@ sf::Image* TextureHandler::getImage(const char* key) {
 	if(it == data.end()) {
 		return NULL;
 	} else {
-		return &it->second;
+		return it->second;
 	}
 }
 

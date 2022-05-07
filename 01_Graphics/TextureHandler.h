@@ -10,9 +10,11 @@
 class TextureHandler
 {
 private:
-	std::map<std::string,sf::Image> data;
-	TextureHandler();
+	std::map<std::string,sf::Image*> data;
 	static TextureHandler* singleton_;
+	TextureHandler();
+	~TextureHandler();
+	void deleteImages();
 public:
 	TextureHandler(TextureHandler &other) = delete;
 	void operator=(const TextureHandler &) = delete;
