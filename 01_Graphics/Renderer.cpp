@@ -19,7 +19,6 @@ bool Renderer::generateMap()
 	{
 		throw std::invalid_argument("Image not found");
 	}
-	sf::Image map_image;
 	map_image.create(MAP_SIZE * TILE_WIDTH, MAP_SIZE * TILE_HEIGTH);
 	for (int i = 0; i < MAP_SIZE; i++)
 	{

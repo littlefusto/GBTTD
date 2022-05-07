@@ -20,6 +20,7 @@ private:
 	Map &map;
 	sf::Texture map_texture;
 	sf::Sprite map_sprite;
+	sf::Image map_image;
 	sf::Vector2i point_at;
 	sf::Vector2i selected_tile;
 	sf::Vector2f pos;
