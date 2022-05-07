@@ -25,7 +25,6 @@ private:
 	vector<vector<Tile*>> content;
 	vector<TileInfo*> tile_infos;
 public:
-	static std::string TileSlopePath(Slope);
 
 	Map();
 
@@ -41,6 +40,8 @@ public:
 			}
 		}
 	}
+
+	static std::string TileSlopePath(Slope);
 
 	vector<vector<Tile*>> &getContent() { return content; }
 };

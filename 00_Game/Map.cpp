@@ -6,6 +6,25 @@
 #include "Map.h"
 #include <Textures.h>
 
+
+Map::Map()
+{
+	tile_infos.resize(10);
+	//fillMap(contentBase);
+	content.resize(contentBase.size());
+	textures textures{};
+	tile_infos[DEFAULT] = new TileInfo(textures.tiles + "tile.png", DEFAULT);
+	tile_infos[GRASS] = new TileInfo(textures.tiles + "grass_flat.png", GRASS);
+	for (int i = 0; i < MAP_SIZE; i++)
+	{
+		content[i].resize(contentBase.size());
+		for (int j = 0; j < MAP_SIZE; j++)
+		{
+			content[i][j] = new Tile(tile_infos[contentBase[i][j]]);
+		}
+	}
+}
+
 std::string Map::TileSlopePath(Slope slope)
 {
 	std::string path;
@@ -43,22 +62,4 @@ std::string Map::TileSlopePath(Slope slope)
 	}
 
 	return path;
-}
-
-Map::Map()
-{
-	tile_infos.resize(10);
-	//fillMap(contentBase);
-	content.resize(contentBase.size());
-	textures textures{};
-	tile_infos[DEFAULT] = new TileInfo(textures.tiles + "tile.png", DEFAULT);
-	tile_infos[GRASS] = new TileInfo(textures.tiles + "grass_flat.png", GRASS);
-	for (int i = 0; i < MAP_SIZE; i++)
-	{
-		content[i].resize(contentBase.size());
-		for (int j = 0; j < MAP_SIZE; j++)
-		{
-			content[i][j] = new Tile(tile_infos[contentBase[i][j]]);
-		}
-	}
 }
