@@ -1,10 +1,4 @@
-#include <iostream>
-#include <thread>
-#include <SFML/Graphics.hpp>
-#include <Textures.h>
-#include <Map.h>
-#include "01_Graphics/Renderer.h"
-#include <Game.h>
+#include <gbttd.h>
 //###//
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wgnu-designator"

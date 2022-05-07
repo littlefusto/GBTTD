@@ -5,15 +5,13 @@
 #ifndef GBTTD_TEXTUREHANDLER_H
 #define GBTTD_TEXTUREHANDLER_H
 
-#include <SFML/Graphics.hpp>
-#include <string>
-#include <map>
+#include <gbttd.h>
 
 class TextureHandler
 {
 private:
 	std::map<std::string,sf::Image> data;
-	TextureHandler singleton;
+	//TextureHandler singleton;
 public:
 	TextureHandler();
 	sf::Image* getImage(std::string& key);

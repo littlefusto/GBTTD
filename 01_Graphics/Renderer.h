@@ -5,8 +5,7 @@
 #ifndef GBTTD_RENDERER_H
 #define GBTTD_RENDERER_H
 
-#include <Map.h>
-#include <SFML/Graphics.hpp>
+#include <gbttd.h>
 
 struct CameraContext
 {

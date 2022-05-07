@@ -2,9 +2,7 @@
 // Created by cpukiller on 07.05.22.
 //
 
-#include "TextureHandler.h"
-#include <Textures.h>
-#include <iostream>
+#include <gbttd.h>
 
 const std::string tiles[] = {
 		"grass_flat.png",

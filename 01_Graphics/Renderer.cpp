@@ -2,7 +2,7 @@
 // Created by cpukiller on 06.05.22.
 //
 
-#include "Renderer.h"
+#include <gbttd.h>
 
 Renderer::Renderer(Map &map) : map(map)
 {

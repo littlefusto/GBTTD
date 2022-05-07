@@ -4,9 +4,7 @@
 
 #pragma once
 
-#include <TileInfo.h>
-#include <Tile.h>
-#include <vector>
+#include <gbttd.h>
 
 #define MAP_SIZE 6
 

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include <gbttd.h>
 
 enum Slope //bitflag N E S W dictates high corners
 {

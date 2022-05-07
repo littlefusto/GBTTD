@@ -7,7 +7,7 @@
 #define TILE_WIDTH 64
 #define TILE_HEIGTH 32
 
-#include <TileInfo.h>
+#include <gbttd.h>
 
 class Tile
 {

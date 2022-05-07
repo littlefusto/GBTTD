@@ -2,7 +2,7 @@
 // Created by cpukiller on 06.05.22.
 //
 
-#include "TileInfo.h"
+#include <gbttd.h>
 
 TileInfo::TileInfo(std::string image_path, TileType tile_type) : tile_type(tile_type)
 {
