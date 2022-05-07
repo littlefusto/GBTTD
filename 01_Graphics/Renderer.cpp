@@ -83,7 +83,7 @@ Tile* Renderer::getClickedTile(sf::Vector2i pos, CameraContext &context)
 
 	//Using the perp dot product to determine if the clicked point is above or below a line
 	//Considered lines are along the edges of the tiles
-	//Alternative: calculate the distance of the clicked point from one edge of the map
+	//TODO: Alternative: calculate the distance of the clicked point from one edge of the map
 	//and divide it by the diagonal of one tile
 	//First we consider lines running from left to right starting with the tile at the top
 	int lastRun = 1;
