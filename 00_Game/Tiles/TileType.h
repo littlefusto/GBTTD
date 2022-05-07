@@ -19,7 +19,7 @@ enum slope //bitflag N E S W dictates high corners
 enum TileNames
 {
 	DEFAULT = 0,
-	GREEN = 1
+	GRASS = 1
 };
 
 class TileType
