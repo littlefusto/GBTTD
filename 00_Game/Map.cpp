@@ -12,9 +12,8 @@ Map::Map()
 	tile_infos.resize(10);
 	//fillMap(contentBase);
 	content.resize(contentBase.size());
-	textures textures{};
-	tile_infos[DEFAULT] = new TileInfo(textures.tiles + "tile.png", DEFAULT);
-	tile_infos[GRASS] = new TileInfo(textures.tiles + "grass_flat.png", GRASS);
+	tile_infos[DEFAULT] = new TileInfo(textures::tiles + "tile.png", DEFAULT);
+	tile_infos[GRASS] = new TileInfo(textures::tiles + "grass_flat.png", GRASS);
 	for (int i = 0; i < MAP_SIZE; i++)
 	{
 		content[i].resize(contentBase.size());
