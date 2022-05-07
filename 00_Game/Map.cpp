@@ -6,32 +6,25 @@
 #include "Map.h"
 #include <Textures.h>
 
-std::string Map::TileSlopePath(slope slope)
+std::string Map::TileSlopePath(SLOPE slope)
 {
 	std::string path;
-	if (!slope) return "flat";
-	else if (slope & STEEP)
+	if (!slope)return "flat";
+	if (slope & STEEP)
 	{
 		path += "steep_";
-		if (slope & N)
+		switch (slope & NESW)
 		{
-			path += "N";
-			return path;
-		}
-		if (slope & E)
-		{
-			path += "E";
-			return path;
-		}
-		if (slope & S)
-		{
-			path += "S";
-			return path;
-		}
-		if (slope & W)
-		{
-			path += "W";
-			return path;
+		case N:
+			return path += "N";
+		case E:
+			return path += "E";
+		case S:
+			return path += "S";
+		case W:
+			return path += "W";
+		default:
+			throw std::invalid_argument("invalid arguments: tile is improperly constructed");
 		}
 	} else
 	{
@@ -41,7 +34,7 @@ std::string Map::TileSlopePath(slope slope)
 		if (slope & S)path += "S";
 		if (slope & W)
 		{
-			if ((slope & NES) == NES)
+			if ((slope & NES) == NES)//if sloped in all directions tile is invalid
 			{
 				throw std::invalid_argument(
 					"improper constructed tile: cannot have a tile with NESW flags set");

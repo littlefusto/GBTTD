@@ -6,7 +6,7 @@
 
 #include <SFML/Graphics.hpp>
 
-enum slope //bitflag N E S W dictates high corners
+enum SLOPE //bitflag N E S W dictates high corners
 {
 	FLAT = 0,
 	W = 0b0001,
@@ -37,7 +37,7 @@ class TileType
 private:
 	sf::Image tile_image;
 	TileNames tile_name;
-	slope slope;
+	SLOPE slope;
 public:
 	TileType(std::string image_path, TileNames tile_name);
 

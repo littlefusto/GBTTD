@@ -25,7 +25,7 @@ private:
 	vector<vector<Tile*>> content;
 	vector<TileType*> tile_types;
 public:
-	std::string TileSlopePath(slope);
+	std::string TileSlopePath(SLOPE);
 	Map();
 	void fillMap(vector<vector<TileNames>>& map){
 		map.resize(MAP_SIZE);
