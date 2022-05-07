@@ -4,10 +4,6 @@
 
 #include <gbttd.h>
 
-TileInfo::TileInfo(std::string image_path, TileType tile_type) : tile_type(tile_type)
+TileInfo::TileInfo(sf::Image* tile_image, TileType tile_type) : tile_type(tile_type), tile_image(tile_image)
 {
-	if (!tile_image.loadFromFile(image_path))
-	{
-		throw std::invalid_argument("Image at" + image_path + " not found");
-	}
 }

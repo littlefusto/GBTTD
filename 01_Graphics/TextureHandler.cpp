@@ -4,6 +4,8 @@
 
 #include <gbttd.h>
 
+TextureHandler* TextureHandler::singleton_ = 0;
+
 const std::string tiles[] = {
 		"grass_flat.png",
 		"grass_sloped_N.png",
@@ -31,7 +33,7 @@ TextureHandler::TextureHandler()
 {
 	for (const std::string& tile_path : tiles) {
 		sf::Image tile_image;
-		if (!tile_image.loadFromFile(tile_path))
+		if (!tile_image.loadFromFile("../01_Graphics/tiles/" + tile_path))
 		{
 			std::cerr << "Image at" + tile_path + " not found" << std::endl;
 		} else {
@@ -40,12 +42,24 @@ TextureHandler::TextureHandler()
 	}
 }
 
-sf::Image* TextureHandler::getImage(std::string& key)
+TextureHandler* TextureHandler::getInstance()
 {
+	if(singleton_==nullptr){
+		singleton_ = new TextureHandler();
+	}
+	return singleton_;
+}
+
+sf::Image* TextureHandler::getImage(const char* key) {
 	auto it = data.find(key);
 	if(it == data.end()) {
 		return NULL;
 	} else {
 		return &it->second;
 	}
+}
+
+sf::Image* TextureHandler::getImage(std::string& key)
+{
+	return getImage(key.c_str());
 }

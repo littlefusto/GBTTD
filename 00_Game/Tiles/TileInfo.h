@@ -35,13 +35,13 @@ enum TileType
 class TileInfo
 {
 private:
-	sf::Image tile_image;
+	sf::Image* tile_image;
 	TileType tile_type;
 	Slope slope;
 public:
-	TileInfo(std::string image_path, TileType tile_type);
+	TileInfo(sf::Image* tile_image, TileType tile_type);
 
-	sf::Image &getTileImage() { return tile_image; }
+	sf::Image* getTileImage() { return tile_image; }
 };
 
 

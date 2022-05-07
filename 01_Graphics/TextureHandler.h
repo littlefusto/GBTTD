@@ -11,10 +11,14 @@ class TextureHandler
 {
 private:
 	std::map<std::string,sf::Image> data;
-	//TextureHandler singleton;
-public:
 	TextureHandler();
+	static TextureHandler* singleton_;
+public:
+	TextureHandler(TextureHandler &other) = delete;
+	void operator=(const TextureHandler &) = delete;
+	static TextureHandler *getInstance();
 	sf::Image* getImage(std::string& key);
+	sf::Image* getImage(const char* key);
 };
 
 

@@ -6,18 +6,15 @@
 
 Renderer::Renderer(Map &map) : map(map)
 {
-	generateMap();
 	point_at = sf::Vector2i(0, 0);
 	selected_tile = sf::Vector2i(-1, -1);
+	selected_tile_image = TextureHandler::getInstance()->getImage("selected_tile.png");
+	generateMap();
 }
 
 bool Renderer::generateMap()
 {
 	vector<vector<Tile*>> &content = map.getContent();
-	if (!selected_tile_image.loadFromFile("../01_Graphics/tiles/selected_tile.png"))
-	{
-		throw std::invalid_argument("Image not found");
-	}
 	map_image.create(MAP_SIZE * TILE_WIDTH, MAP_SIZE * TILE_HEIGTH);
 	for (int i = 0; i < MAP_SIZE; i++)
 	{
@@ -29,7 +26,7 @@ bool Renderer::generateMap()
 			int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + ((MAP_SIZE * TILE_WIDTH) / 2) -
 				(TILE_WIDTH / 2);
 			int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j);
-			map_image.copy(content[j][i]->getTileInfo()->getTileImage(), x, y,
+			map_image.copy(*content[j][i]->getTileInfo()->getTileImage(), x, y,
 				       sf::IntRect(0, 0, 0, 0), true);
 		}
 	}
@@ -39,7 +36,7 @@ bool Renderer::generateMap()
 		int j = selected_tile.y;
 		int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + (MAP_SIZE * TILE_WIDTH) / 2 - TILE_WIDTH / 2;
 		int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j);
-		map_image.copy(selected_tile_image, x, y,
+		map_image.copy(*selected_tile_image, x, y,
 			       sf::IntRect(0, 0, 0, 0), true);
 	}
 	sf::Color color = sf::Color(255, 0, 0);
