@@ -14,7 +14,6 @@ Renderer::Renderer(Map &map) : map(map)
 bool Renderer::generateMap()
 {
 	vector<vector<Tile*>> &content = map.getContent();
-	sf::Image selected_tile_image; //TODO texture handler class
 	if (!selected_tile_image.loadFromFile("../01_Graphics/tiles/selected_tile.png"))
 	{
 		throw std::invalid_argument("Image not found");
