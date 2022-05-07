@@ -21,7 +21,7 @@ int main()
 	Vector2f movement = { 0.0f, 0.0f };
 	Vector2f oldMouse = { 0.0f, 0.0f };
 	bool RMBPressed = false;
-	game_state gameState = state_menu;
+	game_state gameState = state_map;
 	sf::Event event{};
 
 	while (window.isOpen())
