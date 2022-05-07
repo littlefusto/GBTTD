@@ -22,6 +22,7 @@ private:
 	sf::Sprite map_sprite;
 	sf::Vector2i point_at;
 	sf::Vector2i selected_tile;
+	sf::Vector2f pos;
 public:
 	Renderer(Map &map);
 
