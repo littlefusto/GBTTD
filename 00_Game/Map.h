@@ -8,7 +8,7 @@
 #include <Tile.h>
 #include <vector>
 
-#define MAP_SIZE 6
+#define MAP_SIZE 12
 
 using namespace std;
 
@@ -26,7 +26,15 @@ private:
 	vector<TileType*> tile_types;
 public:
 	Map();
-
+	void fillMap(vector<vector<TileNames>>& map){
+		map.resize(MAP_SIZE);
+		for(int w=0;w<MAP_SIZE;w++){
+			map[w].resize(MAP_SIZE);
+			for(int h=0;h<MAP_SIZE;h++){
+				map[w][h] = TileNames::DEFAULT;
+			}
+		}
+	}
 	vector<vector<Tile*>> &getContent() { return content; }
 };
 

@@ -9,6 +9,7 @@
 Map::Map()
 {
 	tile_types.resize(10);
+	fillMap(contentBase);
 	content.resize(contentBase.size());
 	textures textures{};
 	tile_types[DEFAULT] = new TileType(textures.tiles + "tile.png", DEFAULT);;
