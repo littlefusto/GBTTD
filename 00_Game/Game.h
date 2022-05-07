@@ -2,6 +2,7 @@
 // Created by noop on 07.05.2022.
 //
 #pragma once
+#include <gbttd.h>
 enum game_state
 {
 	state_menu = 0,

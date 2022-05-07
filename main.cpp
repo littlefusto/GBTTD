@@ -2,8 +2,6 @@
 //###//
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wgnu-designator"
-using namespace std;
-using namespace sf;
 //###//
 
 int main()
