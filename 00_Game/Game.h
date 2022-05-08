@@ -16,6 +16,7 @@ struct Game
 private:
 	sf::RenderWindow* window = nullptr;
 	Map* map = nullptr;
+	MapLoader* mapLoader = nullptr;
 	Renderer* renderer = nullptr;
 
 	CameraContext context{ .zoom = 2.0, .camera_pos = Vector2f{ 0.0, 0.0 }};

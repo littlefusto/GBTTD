@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <iostream>
+#include <fstream>
 #include <thread>
 #include <algorithm>
 #include <vector>
@@ -18,8 +19,8 @@ using namespace sf;
 
 #include <TextureHandler.h>
 #include <Tile.h>
-#include <MapLoader.h>
 #include <Map.h>
+#include <MapLoader.h>
 #include <Textures.h>
 #include <Renderer.h>
 

@@ -10,6 +10,7 @@ void Game::init()
 	window = new RenderWindow(sf::VideoMode(1280, 720), "GBTTD");
 	map = new Map();
 	renderer = new Renderer(*map);
+	mapLoader = new MapLoader();
 }
 
 void Game::poll()
@@ -155,6 +156,7 @@ void Game::cleanup()
 void Game::run()
 {
 	init();
+	mapLoader->saveMap(*map, "test1");
 	while (!shouldClose)
 	{
 		poll();
