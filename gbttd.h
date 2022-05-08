@@ -17,12 +17,12 @@ using namespace std;
 using namespace sf;
 
 #include <TextureHandler.h>
-#include <TileInfo.h>
 #include <Tile.h>
+#include <MapLoader.h>
 #include <Map.h>
 #include <Textures.h>
 #include <Renderer.h>
-#include <MapLoader.h>
+
 
 
 #include <Game.h>

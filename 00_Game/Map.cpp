@@ -7,17 +7,17 @@
 Map::Map()
 {
 	mapLoader = new MapLoader();
-	tile_infos.resize(10);
+	tileTypes.resize(10);
 	//fillMap(contentBase);
-	content.resize(contentBase.size());
-	tile_infos[DEFAULT] = new TileInfo(TextureHandler::getInstance()->getImage("tile.png"), DEFAULT);
-	tile_infos[GRASS] = new TileInfo(TextureHandler::getInstance()->getImage("grass_flat.png"), GRASS);
+	content.resize(tileTypes.size());
+//	tile_infos[DEFAULT] = new Tile(DEFAULT, FLAT);
+//	tile_infos[GRASS] = new Tile(GRASS, FLAT);
 	for (int i = 0; i < MAP_SIZE; i++)
 	{
-		content[i].resize(contentBase.size());
+		content[i].resize(tileTypes.size());
 		for (int j = 0; j < MAP_SIZE; j++)
 		{
-			content[i][j] = new Tile(tile_infos[contentBase[i][j]]);
+			content[i][j] = new Tile(tileTypes[i][j], FLAT);
 		}
 	}
 }
@@ -72,7 +72,7 @@ std::string Map::tileSlopePathName(Slope slope) {
 	return path;
 }
 
-std::string Map::tileTypePathName(TileInfo* tileInfo) {
+std::string Map::tileTypePathName(Tile* tileInfo) {
 	std::string path;
 	if (!tileInfo->getTileType()) {
 		return "tile.png";

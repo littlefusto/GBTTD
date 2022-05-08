@@ -27,7 +27,7 @@ bool Renderer::generateMap()
 				(TILE_WIDTH / 2);
 			int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j);
 			sf::Image source;
-			source.loadFromFile(textures::tiles + Map::tileTypePathName(content[j][i]->getTileInfo()));
+			source.loadFromFile(textures::tiles + Map::tileTypePathName(content[j][i]));
 			map_image.copy(source, x, y + 8 * (MAX_MAP_HEIGHT - content[i][j]->getHeight()),
 				       sf::IntRect(0, 0, 0, 0), true);
 		}
@@ -71,7 +71,7 @@ int perpDotProduct(sf::Vector2i a, sf::Vector2i b, sf::Vector2i c)
 	return (a.x - c.x) * (b.y - c.y) - (a.y - c.y) * (b.x - c.x);
 }
 
-Tile* Renderer::getClickedTile(sf::Vector2i pos, CameraContext &context)
+void Renderer::getClickedTile(sf::Vector2i pos, CameraContext &context)
 {
 	//Remove zoom and shift of the map
 	sf::Vector2f map_pos = map_sprite.getPosition();

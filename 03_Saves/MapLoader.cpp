@@ -8,13 +8,13 @@ MapLoader* MapLoader::singleton_ = nullptr;
 
 std::string MapLoader::saveTile(Tile* tile){
 	std::string tileBlock = "";
-
+	return tileBlock;
 }
 
 MapLoader::MapLoader(){
 }
 
-void MapLoader::saveMap( Map& map , std::string name){
+void MapLoader::saveMap( std::string name){
 	std::string data = "";
 
 }

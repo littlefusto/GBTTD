@@ -17,7 +17,7 @@ public:
 
 	MapLoader(MapLoader &other) = delete;
 
-	void saveMap(Map& map, std::string name);
+	void saveMap(std::string name);
 	static MapLoader *getInstance();
 
 };

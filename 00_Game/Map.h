@@ -15,7 +15,7 @@ class Map
 {
 private:
 	MapLoader* mapLoader;
-	vector<vector<TileType>> contentBase = { //Should be generated or loaded from file
+	vector<vector<TileType>> tileTypes = { //Should be generated or loaded from file
 		{ GRASS,   GRASS, GRASS,   GRASS,   DEFAULT, DEFAULT },
 		{ GRASS,   GRASS, DEFAULT, DEFAULT, DEFAULT, DEFAULT },
 		{ GRASS,   GRASS, DEFAULT, GRASS,   DEFAULT, DEFAULT },
@@ -24,7 +24,6 @@ private:
 		{ DEFAULT, GRASS, GRASS,   DEFAULT, DEFAULT, DEFAULT }};
 	vector<vector<Tile*>> content;
 	vector<vector<sf::Image*>> textures;
-	vector<TileInfo*> tile_infos;
 public:
 
 	Map();
@@ -33,7 +32,7 @@ public:
 
 	static std::string tileSlopePathName(Slope slope);
 
-	static std::string tileTypePathName(TileInfo* tileInfo);
+	static std::string tileTypePathName(Tile* tileInfo);
 
 	vector<vector<Tile*>> &getContent() { return content; }
 };

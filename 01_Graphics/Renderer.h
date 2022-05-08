@@ -31,7 +31,7 @@ public:
 
 	void renderMap(sf::RenderWindow &window, CameraContext &context);
 
-	Tile* getClickedTile(sf::Vector2i pos, CameraContext &context);
+	void getClickedTile(sf::Vector2i pos, CameraContext &context);
 };
 
 
