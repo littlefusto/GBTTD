@@ -17,12 +17,15 @@ private:
 	sf::RenderWindow* window = nullptr;
 	Map* map = nullptr;
 	Renderer* renderer = nullptr;
+
 	CameraContext context{ .zoom = 2.0, .camera_pos = Vector2f{ 0.0, 0.0 }};
 	Vector2f movement{ 0.0, 0.0 };
 	Vector2f oldMouse{ 0.0, 0.0 };
-	bool RMBPressed = false;
+
 	game_state gameState = state_map;
 	sf::Event event{};
+
+	bool RMBPressed = false;
 	bool shouldClose = false;
 
 	void init();
@@ -34,6 +37,7 @@ private:
 	void draw();
 
 	void cleanup();
+
 public:
 	void run();
 };
