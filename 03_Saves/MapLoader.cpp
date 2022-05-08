@@ -110,19 +110,19 @@ Tile* MapLoader::loadTile(std::string tileString){
 }
 
 void MapLoader::loadMap(Map& map, std::string name){
-	std::string input;
+	std::string input = "";
 	ifstream fileToRead(saves::saves + name + ".map");
 	getline(fileToRead, input);
-	mapXsize = input[0];
-	mapYsize = input[2];
+	mapXsize = input[0]-'0';
+	mapYsize = input[2]-'0';
 	map.getContent().resize(mapXsize);
 	for(int i=0;i<mapXsize;i++){
 		map.getContent()[i].resize(mapYsize);
 	}
-	while (input.length() > 0) {
+	while (input.length() > 4) {
 		input = input.substr(input.find("file")+4);
-		int x = input[0];
-		int y = input[2];
+		int x = input[0]-'0';
+		int y = input[2]-'0';
 		Tile* tile = loadTile(input.substr(input.find("tile")-1));
 		map.getContent()[x][y] = tile;
 		input.substr(input.find("tile")+4);

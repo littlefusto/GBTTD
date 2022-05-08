@@ -32,7 +32,7 @@ bool Renderer::generateMap()
 				std::cerr << "Tile at x:" << i << " y:" << j << " has invalid type or slope" << std::endl;
 			} else
 			{
-				map_image.copy(*source, x, y + 8 * (MAX_MAP_HEIGHT - content[i][j]->getHeight()),
+				map_image.copy(*source, x, y + 8 * (MAX_MAP_HEIGHT - content[j][i]->getHeight()),
 							   sf::IntRect(0, 0, 0, 0), true);
 			}
 		}
