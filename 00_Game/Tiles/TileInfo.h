@@ -15,7 +15,7 @@ enum Slope : unsigned char//bitflag N E S W dictates high corners
 	STEEP = 0b10000, STEEP_N = (STEEP | N), STEEP_E = (STEEP | E), STEEP_S = (STEEP | S), STEEP_W = (STEEP | W)
 };
 
-enum TileType
+enum TileType : unsigned char
 {
 	DEFAULT = 0,
 	GRASS = 1
