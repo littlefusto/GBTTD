@@ -16,7 +16,7 @@ Map::Map()
 		content[i].resize(tileTypes.size());
 		for (int j = 0; j < MAP_SIZE; j++)
 		{
-			content[i][j] = new Tile(tileTypes[i][j], FLAT);
+			content[i][j] = new Tile(1, tileTypes[i][j], FLAT);
 		}
 	}
 }

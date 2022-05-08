@@ -8,7 +8,7 @@
 
 namespace saves
 {
-	const std::string textures = "../03_Saves/";
+	const std::string saves = "../03_Saves/";
 
 };
 

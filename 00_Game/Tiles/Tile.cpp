@@ -4,7 +4,8 @@
 
 #include <gbttd.h>
 
-Tile::Tile( TileType tile_typeTemp, Slope slopeTemp ){
+Tile::Tile( int heightTemp, TileType tile_typeTemp, Slope slopeTemp ){
+	height = heightTemp;
 	tile_type = tile_typeTemp;
 	slope = slopeTemp;
 }

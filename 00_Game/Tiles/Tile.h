@@ -34,7 +34,7 @@ private:
 public:
 	Tile();
 
-	Tile( TileType tile_typeTemp, Slope slopeTemp );
+	Tile( int heightTemp, TileType tile_typeTemp, Slope slopeTemp );
 
 	int getHeight() const { return height; }
 

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 project(GBTTD)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 set(SRC_DIRS ${CMAKE_SOURCE_DIR}
         "00_Game"
         "00_Game/Tiles"

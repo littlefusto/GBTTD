@@ -156,7 +156,8 @@ void Game::cleanup()
 void Game::run()
 {
 	init();
-	mapLoader->saveMap(*map, "test1");
+	mapLoader->loadMap(*map, "test1");
+	renderer->generateMap();
 	while (!shouldClose)
 	{
 		poll();

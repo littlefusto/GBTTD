@@ -1,4 +1,146 @@
-height = 2
+6x6
+tile0_0
+height = 1
+type = default
+slope = flat
+tile0_1
+height = 1
 type = grass
+slope = flat
+tile0_2
+height = 1
+type = grass
+slope = flat
+tile0_3
+height = 1
+type = grass
+slope = flat
+tile0_4
+height = 1
+type = default
+slope = flat
+tile0_5
+height = 1
+type = default
+slope = flat
+tile1_0
+height = 1
+type = grass
+slope = flat
+tile1_1
+height = 1
+type = grass
+slope = flat
+tile1_2
+height = 1
+type = default
+slope = flat
+tile1_3
+height = 1
+type = default
+slope = flat
+tile1_4
+height = 1
+type = default
+slope = flat
+tile1_5
+height = 1
+type = default
+slope = flat
+tile2_0
+height = 1
+type = grass
+slope = flat
+tile2_1
+height = 1
+type = grass
+slope = flat
+tile2_2
+height = 1
+type = default
+slope = flat
+tile2_3
+height = 1
+type = grass
+slope = flat
+tile2_4
+height = 1
+type = default
+slope = flat
+tile2_5
+height = 1
+type = default
+slope = flat
+tile3_0
+height = 1
+type = grass
+slope = flat
+tile3_1
+height = 1
+type = grass
+slope = flat
+tile3_2
+height = 1
+type = default
+slope = flat
+tile3_3
+height = 1
+type = default
+slope = flat
+tile3_4
+height = 1
+type = default
+slope = flat
+tile3_5
+height = 1
+type = default
+slope = flat
+tile4_0
+height = 1
+type = default
+slope = flat
+tile4_1
+height = 1
+type = grass
+slope = flat
+tile4_2
+height = 1
+type = default
+slope = flat
+tile4_3
+height = 1
+type = grass
+slope = flat
+tile4_4
+height = 1
+type = default
+slope = flat
+tile4_5
+height = 1
+type = default
+slope = flat
+tile5_0
+height = 1
+type = default
+slope = flat
+tile5_1
+height = 1
+type = grass
+slope = flat
+tile5_2
+height = 1
+type = grass
+slope = flat
+tile5_3
+height = 1
+type = default
+slope = flat
+tile5_4
+height = 1
+type = default
+slope = flat
+tile5_5
+height = 1
+type = default
 slope = flat
 
