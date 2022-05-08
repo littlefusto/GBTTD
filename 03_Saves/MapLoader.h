@@ -6,7 +6,6 @@
 
 #include <gbttd.h>
 
-
 class MapLoader {
 private:
 	static MapLoader* singleton_;
@@ -17,7 +16,7 @@ public:
 
 	MapLoader(MapLoader &other) = delete;
 
-	void saveMap(std::string name);
+	void saveMap(Map& map, std::string name);
 	static MapLoader *getInstance();
 
 };

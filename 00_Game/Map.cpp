@@ -6,7 +6,6 @@
 
 Map::Map()
 {
-	mapLoader = new MapLoader();
 	tileTypes.resize(10);
 	//fillMap(contentBase);
 	content.resize(tileTypes.size());
