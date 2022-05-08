@@ -34,7 +34,7 @@ void Map::fillMap(vector<vector<TileType>> &map) {
 	}
 }
 
-std::string Map::tileSlopeName(Slope slope) {
+std::string Map::tileSlopePathName(Slope slope) {
 	std::string path;
 	if (!slope)return "flat";
 	if (slope & STEEP)
@@ -80,5 +80,5 @@ std::string Map::tileTypePathName(TileInfo* tileInfo) {
 	else if(tileInfo->getTileType() == GRASS){
 		path += "grass";
 	}
-	return (path + "_" + tileSlopeName(tileInfo->getTileSlope()) + ".png");
+	return (path + "_" + tileSlopePathName(tileInfo->getTileSlope()) + ".png");
 }

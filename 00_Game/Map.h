@@ -30,7 +30,7 @@ public:
 
 	void fillMap(vector<vector<TileType>> &map);
 
-	static std::string tileSlopeName(Slope);
+	static std::string tileSlopePathName(Slope slope);
 
 	static std::string tileTypePathName(TileInfo* tileInfo);
 
