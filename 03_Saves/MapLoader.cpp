@@ -124,16 +124,16 @@ void MapLoader::loadMap(Map& map, std::string name){
 	while(continue_loop) {
 		int x = input[4]- '0';
 		int y = input[6]- '0';
-		string tile_stuff = "";
+		string tile_stuff;
 		do{
-			if(getline(fileToRead, input).flags() & ios_base::badbit) { //TODO funktioniert nicht
+			if((getline(fileToRead, input)).eof()) { //TODO funktioniert nicht
 				continue_loop=false;
 				break;
 			}
-			if(input.empty()) { //Workaround
+			/*if(input.empty()) { //Workaround
 				continue_loop=false;
 				break;
-			}
+			}*/
 			printf("%d\n",input.empty());
 			tile_stuff += input;
 		} while(input.find("tile")== std::string::npos);
