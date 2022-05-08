@@ -110,7 +110,7 @@ Tile* MapLoader::loadTile(std::string tileString){
 }
 
 void MapLoader::loadMap(Map& map, std::string name){
-	std::string input = "";
+	std::string input;
 	ifstream fileToRead(saves::saves + name + ".map");
 	getline(fileToRead, input);
 	mapXsize = input[0]-'0';
