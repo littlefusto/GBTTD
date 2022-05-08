@@ -14,7 +14,6 @@ void Game::init()
 
 void Game::poll()
 {
-
 	while (window->pollEvent(event))
 	{
 		switch (gameState)
