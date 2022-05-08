@@ -16,11 +16,11 @@ private:
 	int height = 2;
 
 public:
-	Tile(TileInfo* tileInfo);
+	Tile(TileInfo* tile_info);
 
-	int getHeight() {return height; }
+	int getHeight() const { return height; }
 
-	TileInfo* getTileInfo() { return tile_info; }
+	TileInfo* getTileInfo() const { return tile_info; }
 };
 
 

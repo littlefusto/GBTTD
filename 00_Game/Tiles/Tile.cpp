@@ -4,6 +4,6 @@
 
 #include <gbttd.h>
 
-Tile::Tile(TileInfo* tile_type) : tile_info(tile_type)
+Tile::Tile(TileInfo* tile_info) : tile_info(tile_info)
 {
 }
