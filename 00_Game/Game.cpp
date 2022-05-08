@@ -145,10 +145,10 @@ void Game::draw()
 void Game::cleanup()
 {
 	delete window;
-	window = nullptr;
 	delete map;
-	map = nullptr;
 	delete renderer;
+	window = nullptr;
+	map = nullptr;
 	renderer = nullptr;
 }
 
