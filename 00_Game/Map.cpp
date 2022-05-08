@@ -73,7 +73,7 @@ std::string Map::tileSlopePathName(Slope slope) {
 }
 
 std::string Map::tileTypePathName(TileInfo* tileInfo) {
-	std::string path = "";
+	std::string path;
 	if (!tileInfo->getTileType()) {
 		return "tile.png";
 	}
