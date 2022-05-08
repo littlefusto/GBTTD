@@ -28,7 +28,8 @@ bool Renderer::generateMap()
 			int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j);
 			sf::Image source;
 			source.loadFromFile(textures::tiles + map.tileTypePathName(content[j][i]->getTileInfo()));
-			map_image.copy(source, x, y + 8 * (MAX_MAP_HEIGHT - content[i][j]->getHeight()), sf::IntRect(0, 0, 0, 0), true);
+			map_image.copy(source, x, y + 8 * (MAX_MAP_HEIGHT - content[i][j]->getHeight()),
+				       sf::IntRect(0, 0, 0, 0), true);
 		}
 	}
 	if (selected_tile.x >= 0)
@@ -37,8 +38,9 @@ bool Renderer::generateMap()
 		int j = selected_tile.y;
 		int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + (MAP_SIZE * TILE_WIDTH) / 2 - TILE_WIDTH / 2;
 		int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j);
-		map_image.copy(*selected_tile_image, x, y + 8, sf::IntRect(0, 0, 0, 0), true); //MAYBE CHANGE 8 TO SMTH ELSE!!!
-	}
+		map_image.copy(*selected_tile_image, x, y /*+ 8*/, sf::IntRect(0, 0, 0, 0),
+			       true); //MAYBE CHANGE 8 TO SMTH ELSE!!!
+	}                                                                //+ 8 offsets the hitbox to an odd place
 	sf::Color color = sf::Color(255, 0, 0);
 	map_image.setPixel(point_at.x, point_at.y, color);
 	map_texture.loadFromImage(map_image);

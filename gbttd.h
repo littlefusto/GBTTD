@@ -15,7 +15,7 @@
 #include <map>
 using namespace std;
 using namespace sf;
-#include <Game.h>
+
 
 #include <TextureHandler.h>
 #include <TileInfo.h>
@@ -25,6 +25,6 @@ using namespace sf;
 #include <Renderer.h>
 #include <MapLoader.h>
 
-
+#include <Game.h>
 
 //GBTTD_GBTTD_H

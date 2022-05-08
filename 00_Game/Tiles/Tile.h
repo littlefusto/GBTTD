@@ -13,7 +13,7 @@ class Tile
 {
 private:
 	TileInfo* tile_info;
-	int height = 1;
+	int height = 2;
 
 public:
 	Tile(TileInfo* tileInfo);
