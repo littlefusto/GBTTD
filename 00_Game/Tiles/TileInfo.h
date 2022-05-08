@@ -6,7 +6,7 @@
 
 #include <gbttd.h>
 
-enum Slope //bitflag N E S W dictates high corners
+enum Slope : unsigned char//bitflag N E S W dictates high corners
 {
 	FLAT = 0,
 	N = 0b1000,
@@ -37,8 +37,10 @@ private:
 public:
 	TileInfo(sf::Image* tile_image, TileType tile_type);
 
-	Slope getTileSlope() {return slope; }
-	TileType getTileType() {return tile_type; }
+	Slope getTileSlope() const { return slope; }
+
+	TileType getTileType() const { return tile_type; }
+
 	sf::Image &getTileImage() { return tile_image; }
 };
 

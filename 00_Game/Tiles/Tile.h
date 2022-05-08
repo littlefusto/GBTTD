@@ -14,6 +14,7 @@ class Tile
 private:
 	TileInfo* tile_info;
 	int height = 2;
+	Slope slope = FLAT;
 
 public:
 	Tile(TileInfo* tile_info);
