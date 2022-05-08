@@ -6,14 +6,20 @@
 
 #include <gbttd.h>
 
+
 class MapLoader {
 private:
-
 	static MapLoader* singleton_;
-	MapLoader();
+	std::string saveTile(Tile* tile);
+
 public:
+	MapLoader();
+
 	MapLoader(MapLoader &other) = delete;
+
+	void saveMap(Map& map, std::string name);
 	static MapLoader *getInstance();
+
 };
 
 

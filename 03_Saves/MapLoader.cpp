@@ -4,9 +4,18 @@
 
 #include <gbttd.h>
 
-MapLoader* MapLoader::singleton_ = 0;
+MapLoader* MapLoader::singleton_ = nullptr;
+
+std::string MapLoader::saveTile(Tile* tile){
+	std::string tileBlock = "";
+
+}
 
 MapLoader::MapLoader(){
+}
+
+void MapLoader::saveMap( Map& map , std::string name){
+	std::string data = "";
 
 }
 

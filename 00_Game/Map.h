@@ -14,6 +14,7 @@ using namespace std;
 class Map
 {
 private:
+	MapLoader* mapLoader;
 	vector<vector<TileType>> contentBase = { //Should be generated or loaded from file
 		{ GRASS,   GRASS, GRASS,   GRASS,   DEFAULT, DEFAULT },
 		{ GRASS,   GRASS, DEFAULT, DEFAULT, DEFAULT, DEFAULT },

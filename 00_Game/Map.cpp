@@ -4,9 +4,9 @@
 
 #include <gbttd.h>
 
-
 Map::Map()
 {
+	mapLoader = new MapLoader();
 	tile_infos.resize(10);
 	//fillMap(contentBase);
 	content.resize(contentBase.size());

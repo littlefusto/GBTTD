@@ -16,7 +16,6 @@
 using namespace std;
 using namespace sf;
 
-
 #include <TextureHandler.h>
 #include <TileInfo.h>
 #include <Tile.h>
@@ -24,6 +23,7 @@ using namespace sf;
 #include <Textures.h>
 #include <Renderer.h>
 #include <MapLoader.h>
+
 
 #include <Game.h>
 
