@@ -113,19 +113,33 @@ void MapLoader::loadMap(Map& map, std::string name){
 	std::string input;
 	ifstream fileToRead(saves::saves + name + ".map");
 	getline(fileToRead, input);
-	mapXsize = input[0]-'0';
-	mapYsize = input[2]-'0';
+	mapXsize = input[0] - '0';
+	mapYsize = input[2] - '0';
 	map.getContent().resize(mapXsize);
 	for(int i=0;i<mapXsize;i++){
 		map.getContent()[i].resize(mapYsize);
 	}
-	while (input.length() > 4) {
-		input = input.substr(input.find("file")+4);
-		int x = input[0]-'0';
-		int y = input[2]-'0';
-		Tile* tile = loadTile(input.substr(input.find("tile")-1));
+	getline(fileToRead, input);
+	bool continue_loop = true;
+	while(continue_loop) {
+		int x = input[4]- '0';
+		int y = input[6]- '0';
+		string tile_stuff = "";
+		do{
+			if(getline(fileToRead, input).flags() & ios_base::badbit) { //TODO funktioniert nicht
+				continue_loop=false;
+				break;
+			}
+			if(input.empty()) { //Workaround
+				continue_loop=false;
+				break;
+			}
+			printf("%d\n",input.empty());
+			tile_stuff += input;
+		} while(input.find("tile")== std::string::npos);
+		//printf("TileStuff:\n%s\n",tile_stuff.c_str());
+		Tile* tile = loadTile(tile_stuff);
 		map.getContent()[x][y] = tile;
-		input.substr(input.find("tile")+4);
 	}
 }
 

@@ -9,7 +9,6 @@ Renderer::Renderer(Map &map) : map(map)
 	point_at = sf::Vector2i(0, 0);
 	selected_tile = sf::Vector2i(-1, -1);
 	selected_tile_image = TextureHandler::getInstance()->getImage("selected_tile.png");
-	generateMap();
 }
 
 bool Renderer::generateMap()
