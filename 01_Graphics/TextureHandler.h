@@ -2,8 +2,7 @@
 // Created by cpukiller on 07.05.22.
 //
 
-#ifndef GBTTD_TEXTUREHANDLER_H
-#define GBTTD_TEXTUREHANDLER_H
+#pragma once
 
 #include <gbttd.h>
 
@@ -24,4 +23,4 @@ public:
 };
 
 
-#endif //GBTTD_TEXTUREHANDLER_H
+//GBTTD_TEXTUREHANDLER_H

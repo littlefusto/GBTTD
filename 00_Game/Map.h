@@ -7,6 +7,7 @@
 #include <gbttd.h>
 
 #define MAP_SIZE 6
+#define MAX_MAP_HEIGHT 2
 
 using namespace std;
 

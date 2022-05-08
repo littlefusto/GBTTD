@@ -9,6 +9,8 @@ set(SRC_DIRS ${CMAKE_SOURCE_DIR}
         "01_Graphics"
 
         "02_Domain"
+
+        "03_Saves"
         )
 
 # Get all src files
@@ -16,7 +18,7 @@ set(SRC_FILES "")
 set(INCLUDE_FILES "")
 FOREACH(DIR IN LISTS SRC_DIRS)
     file(GLOB SOURCES "${DIR}/*.cpp")
-    set(SRC_FILES ${SRC_FILES} ${SOURCES})
+    set(SRC_FILES ${SRC_FILES} ${SOURCES} 03_Saves/MapLoader.cpp 03_Saves/MapLoader.h 02_Domain/Saves.h)
     file(GLOB SOURCES "${DIR}/*.h")
     set(INCLUDE_FILES ${INCLUDE_FILES} ${SOURCES} 02_Domain/Textures.h)
 ENDFOREACH(DIR)

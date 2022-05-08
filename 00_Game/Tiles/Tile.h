@@ -13,9 +13,12 @@ class Tile
 {
 private:
 	TileInfo* tile_info;
+	int height = 1;
 
 public:
 	Tile(TileInfo* tileInfo);
+
+	int getHeight() {return height; }
 
 	TileInfo* getTileInfo() { return tile_info; }
 };
