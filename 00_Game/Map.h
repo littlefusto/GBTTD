@@ -23,16 +23,12 @@ private:
 		{ DEFAULT, GRASS, DEFAULT, GRASS,   DEFAULT, DEFAULT },
 		{ DEFAULT, GRASS, GRASS,   DEFAULT, DEFAULT, DEFAULT }};
 	vector<vector<Tile*>> content;
-	vector<vector<sf::Image*>> textures;
+	//vector<vector<sf::Image*>> textures;
 public:
 
 	Map();
 
 	void fillMap(vector<vector<TileType>> &map);
-
-	static std::string tileSlopePathName(Slope slope);
-
-	static std::string tileTypePathName(Tile* tileInfo);
 
 	vector<vector<Tile*>> &getContent() { return content; }
 };

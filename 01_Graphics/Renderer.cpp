@@ -24,12 +24,17 @@ bool Renderer::generateMap()
 			//left and down for every j
 			//rest is adjusting
 			int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + ((MAP_SIZE * TILE_WIDTH) / 2) -
-				(TILE_WIDTH / 2);
+					(TILE_WIDTH / 2);
 			int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j);
-			sf::Image source;
-			source.loadFromFile(textures::tiles + Map::tileTypePathName(content[j][i]));
-			map_image.copy(source, x, y + 8 * (MAX_MAP_HEIGHT - content[i][j]->getHeight()),
-				       sf::IntRect(0, 0, 0, 0), true);
+			sf::Image* source = TextureHandler::getInstance()->getTextureByTileType(content[j][i]);
+			if (source == nullptr)
+			{
+				std::cerr << "Tile at x:" << i << " y:" << j << " has invalid type or slope" << std::endl;
+			} else
+			{
+				map_image.copy(*source, x, y + 8 * (MAX_MAP_HEIGHT - content[i][j]->getHeight()),
+							   sf::IntRect(0, 0, 0, 0), true);
+			}
 		}
 	}
 	if (selected_tile.x >= 0)
@@ -39,7 +44,7 @@ bool Renderer::generateMap()
 		int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + (MAP_SIZE * TILE_WIDTH) / 2 - TILE_WIDTH / 2;
 		int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j);
 		map_image.copy(*selected_tile_image, x, y /*+ 8*/, sf::IntRect(0, 0, 0, 0),
-			       true); //MAYBE CHANGE 8 TO SMTH ELSE!!!
+					   true); //MAYBE CHANGE 8 TO SMTH ELSE!!!
 	}                                                                //+ 8 offsets the hitbox to an odd place
 	sf::Color color = sf::Color(255, 0, 0);
 	map_image.setPixel(point_at.x, point_at.y, color);
@@ -92,7 +97,7 @@ void Renderer::getClickedTile(sf::Vector2i pos, CameraContext &context)
 	{
 		sf::Vector2i v1 = { MAP_SIZE / 2 * TILE_WIDTH - i * TILE_WIDTH / 2, i * TILE_HEIGTH / 2 };
 		sf::Vector2i v2 = {
-			MAP_SIZE * TILE_WIDTH - i * TILE_WIDTH / 2, MAP_SIZE / 2 * TILE_HEIGTH + i * TILE_HEIGTH / 2
+				MAP_SIZE * TILE_WIDTH - i * TILE_WIDTH / 2, MAP_SIZE / 2 * TILE_HEIGTH + i * TILE_HEIGTH / 2
 		};
 		int pdp = perpDotProduct(v1, v2, point_at);
 		this_run = (pdp > 0) ? 1 : -1;
