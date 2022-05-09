@@ -13,7 +13,7 @@ void Game::init()
 	mapLoader = new MapLoader();
 }
 
-void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoom)
+void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow &window, float zoom)
 {
 	const sf::Vector2f beforeCoord{ window.mapPixelToCoords(pixel) };
 	sf::View view{ window.getView() };
@@ -132,9 +132,10 @@ void Game::poll()
 			case Event::MouseMoved:
 				if (RMBPressed)
 				{
-					float zoom_x_mult = (float)view->getSize().x/window->getSize().x;
-					float zoom_y_mult = (float)view->getSize().y/window->getSize().y;
-					view->move(zoom_x_mult*(oldMouse.x - event.mouseMove.x),zoom_y_mult*(oldMouse.y - event.mouseMove.y));
+					float zoom_x_mult = (float) view->getSize().x / window->getSize().x;
+					float zoom_y_mult = (float) view->getSize().y / window->getSize().y;
+					view->move(zoom_x_mult * (oldMouse.x - event.mouseMove.x),
+						   zoom_y_mult * (oldMouse.y - event.mouseMove.y));
 					oldMouse.x = event.mouseMove.x;
 					oldMouse.y = event.mouseMove.y;
 				} else
@@ -171,10 +172,14 @@ void Game::cleanup()
 {
 	delete window;
 	delete map;
+	delete view;
 	delete renderer;
+	delete mapLoader;
 	window = nullptr;
 	map = nullptr;
+	view = nullptr;
 	renderer = nullptr;
+	mapLoader = nullptr;
 }
 
 void Game::run()
