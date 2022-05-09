@@ -68,7 +68,6 @@ std::string MapLoader::getAttribute(const std::string& tileString, const std::st
 	std::string handlerString;
 	handlerString = tileString.substr(tileString.find(attribute + " = ")+attribute.length() + 3);
 	handlerString = handlerString.substr(0,handlerString.find('\n'));
-	//cout << handlerString << endl;
 	return handlerString;
 }
 
