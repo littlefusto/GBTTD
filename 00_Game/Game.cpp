@@ -11,6 +11,10 @@ void Game::init()
 	map = new Map();
 	renderer = new Renderer(*map);
 	mapLoader = new MapLoader();
+
+	window->setView(*view);
+	mapLoader->loadMap(*map, "test1");
+	renderer->generateMap();
 }
 
 void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow &window, float zoom)
@@ -185,9 +189,6 @@ void Game::cleanup()
 void Game::run()
 {
 	init();
-	window->setView(*view);
-	mapLoader->loadMap(*map, "test1");
-	renderer->generateMap();
 	while (!shouldClose)
 	{
 		poll();
