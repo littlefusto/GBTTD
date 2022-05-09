@@ -96,9 +96,9 @@ Map* JSONMapLoader::loadMap(std::string& path) {
 	ifstream fileToRead(saves::saves + path + ".json");
 	Json::Value savefile;
 	fileToRead >> savefile;
-	Map* map = new Map();
 	int mapXsize = savefile["Header"]["Size"][0].asInt();
 	int mapYsize = savefile["Header"]["Size"][1].asInt();
+	Map* map = new Map(mapXsize, mapYsize);
 	for (int w = 0; w < mapXsize; w++)
 	{
 		for (int h = 0; h < mapYsize; h++)

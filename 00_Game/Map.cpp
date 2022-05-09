@@ -4,19 +4,16 @@
 
 #include <gbttd.h>
 
-Map::Map()
-{
-	tileTypes.resize(10);
-	//fillMap(contentBase);
-	content.resize(tileTypes.size());
-//	tile_infos[DEFAULT] = new Tile(DEFAULT, FLAT);
-//	tile_infos[GRASS] = new Tile(GRASS, FLAT);
-	for (int i = 0; i < getSize().x; i++)
+Map::Map(int width, int height){
+	x = width;
+	y = height;
+	content.resize(y);
+	for (int i = 0; i < y; i++)
 	{
-		content[i].resize(tileTypes.size());
-		for (int j = 0; j < getSize().y; j++)
+		content[i].resize(x);
+		for (int j = 0; j < getSize().x; j++)
 		{
-			content[i][j] = new Tile(1, tileTypes[i][j], FLAT);
+			content[i][j] = new Tile(1, DEFAULT, FLAT);
 		}
 	}
 }
