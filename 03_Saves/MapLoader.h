@@ -12,14 +12,14 @@ private:
 	int mapYsize;
 	static MapLoader* singleton_;
 	static std::string saveTile(Tile* tile);
-	static std::string getAttribute(std::string tileString, std::string attribute);
-	static Tile* loadTile(std::string tileString);
+	static std::string getAttribute(const std::string& tileString, const std::string& attribute);
+	static Tile* loadTile(const std::string& tileString);
 
 public:
 	MapLoader();
 
-	void saveMap(Map& map, std::string name);
-	void loadMap(Map& map, std::string name);
+	void saveMap(Map& map, const std::string& name);
+	void loadMap(Map& map, const std::string& name);
 	static MapLoader *getInstance();
 
 };

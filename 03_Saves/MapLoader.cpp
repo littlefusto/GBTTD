@@ -49,7 +49,7 @@ std::string MapLoader::saveTile(Tile* tile){
 	return tileBlock;
 }
 
-void MapLoader::saveMap(Map& map, std::string name){
+void MapLoader::saveMap(Map& map, const std::string& name){
 
 	std::string data = to_string(mapXsize) + "x" + to_string(mapYsize) + "\n";
 
@@ -65,16 +65,16 @@ void MapLoader::saveMap(Map& map, std::string name){
 	outfile.close();
 }
 
-std::string MapLoader::getAttribute(std::string tileString, std::string attribute){
-	std::string handlerString = "";
+std::string MapLoader::getAttribute(const std::string& tileString, const std::string& attribute){
+	std::string handlerString;
 	handlerString = tileString.substr(tileString.find(attribute + " = ")+attribute.length() + 3);
 	handlerString = handlerString.substr(0,handlerString.find('\n'));
 	//cout << handlerString << endl;
 	return handlerString;
 }
 
-Tile* MapLoader::loadTile(std::string tileString){
-	std::string currAttribute = "";
+Tile* MapLoader::loadTile(const std::string& tileString){
+	std::string currAttribute;
 	int height = stoi(getAttribute(tileString, "height"));
 
 	TileType tileType = DEFAULT;
@@ -92,22 +92,22 @@ Tile* MapLoader::loadTile(std::string tileString){
 		slope |= STEEP;
 		currAttribute.substr(5,currAttribute.length()-5);
 	}
-	if(currAttribute.find("N") != std::string::npos) {
+	if(currAttribute.find('N') != std::string::npos) {
 		slope |= N;
 	}
-	if(currAttribute.find("E") != std::string::npos) {
+	if(currAttribute.find('E') != std::string::npos) {
 		slope |= E;
 	}
-	if(currAttribute.find("S") != std::string::npos) {
+	if(currAttribute.find('S') != std::string::npos) {
 		slope |= S;
 	}
-	if(currAttribute.find("W") != std::string::npos) {
+	if(currAttribute.find('W') != std::string::npos) {
 		slope |= W;
 	}
 	return new Tile(height, tileType, static_cast<Slope>(slope));
 }
 
-void MapLoader::loadMap(Map& map, std::string name){
+void MapLoader::loadMap(Map& map, const std::string& name){
 	std::string input;
 	ifstream fileToRead(saves::saves + name + ".map");
 	getline(fileToRead, input);
