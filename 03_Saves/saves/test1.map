@@ -6,7 +6,7 @@ slope = flat
 tile0_1
 height = 1
 type = grass
-slope = E
+slope = W
 tile0_2
 height = 1
 type = grass
@@ -18,11 +18,11 @@ slope = NEW
 tile0_4
 height = 0
 type = grass
-slope = NE
+slope = NW
 tile0_5
 height = 0
 type = grass
-slope = NES
+slope = NSW
 tile1_0
 height = 1
 type = grass
@@ -38,7 +38,7 @@ slope = flat
 tile1_3
 height = 0
 type = grass
-slope = NW
+slope = NE
 tile1_4
 height = 0
 type = grass
@@ -46,11 +46,11 @@ slope = flat
 tile1_5
 height = 0
 type = grass
-slope = ES
+slope = SW
 tile2_0
 height = 1
 type = grass
-slope = W
+slope = E
 tile2_1
 height = 1
 type = grass
@@ -58,15 +58,15 @@ slope = S
 tile2_2
 height = 1
 type = grass
-slope = SW
+slope = ES
 tile2_3
 height = 0
 type = grass
-slope = steep_W
+slope = steep_E
 tile2_4
 height = 0
 type = grass
-slope = SW
+slope = ES
 tile2_5
 height = 0
 type = grass
@@ -74,11 +74,11 @@ slope = EW
 tile3_0
 height = 1
 type = grass
-slope = NW
+slope = NE
 tile3_1
 height = 1
 type = grass
-slope = ES
+slope = SW
 tile3_2
 height = 2
 type = grass
@@ -86,7 +86,7 @@ slope = flat
 tile3_3
 height = 1
 type = grass
-slope = NW
+slope = NE
 tile3_4
 height = 0
 type = grass
@@ -98,7 +98,7 @@ slope = NS
 tile4_0
 height = 1
 type = grass
-slope = NSW
+slope = NES
 tile4_1
 height = 1
 type = grass
@@ -106,7 +106,7 @@ slope = EW
 tile4_2
 height = 1
 type = grass
-slope = NE
+slope = NW
 tile4_3
 height = 1
 type = grass
@@ -114,7 +114,7 @@ slope = N
 tile4_4
 height = 0
 type = grass
-slope = NSW
+slope = NES
 tile4_5
 height = 0
 type = grass
@@ -126,11 +126,11 @@ slope = flat
 tile5_1
 height = 1
 type = grass
-slope = NSW
+slope = NES
 tile5_2
 height = 1
 type = grass
-slope = W
+slope = E
 tile5_3
 height = 1
 type = grass
