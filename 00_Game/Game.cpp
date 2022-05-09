@@ -1,20 +1,20 @@
 //
 // Created by noop on 08.05.2022.
 //
+#include <JSONMapLoader.h>
 #include <gbttd.h>
 #include "Game.h"
-#include <JSONMapLoader.h>
 
 void Game::init()
 {
 	window = new RenderWindow(sf::VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "GBTTD");
 	view = new View(sf::FloatRect(0.f, 0.f, WINDOW_SIZE_X, WINDOW_SIZE_Y));
-	map = new Map();
-	renderer = new Renderer(*map);
-	mapLoader = new MapLoader();
 
 	window->setView(*view);
-	mapLoader->loadMap(*map, "test1");
+	//mapLoader->loadMap(*map, "test1");
+	std::string path = "map1.json";
+	map = JSONMapLoader::loadMap(path);
+	renderer = new Renderer(*map);
 	renderer->generateMap();
 }
 
@@ -190,7 +190,6 @@ void Game::cleanup()
 void Game::run()
 {
 	init();
-	JSONMapLoader::saveMap(*map);
 	while (!shouldClose)
 	{
 		poll();

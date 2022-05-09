@@ -2,14 +2,12 @@
 // Created by cpukiller on 09.05.22.
 //
 
-#ifndef GBTTD_JSONMAPLOADER_H
-#define GBTTD_JSONMAPLOADER_H
+#pragma once
 
 #include <gbttd.h>
 #include <jsoncpp/json/json.h>
 
 namespace JSONMapLoader {
-	static void saveMap(Map& map);
+	void saveMap(Map &map, std::string& path);
+	Map* loadMap(std::string& path);
 }
-
-#endif //GBTTD_JSONMAPLOADER_H

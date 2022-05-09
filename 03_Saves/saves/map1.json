@@ -1,0 +1,200 @@
+{
+   "Header" : {
+      "Size" : [ 6, 6 ]
+   },
+   "Tiles" : [
+      [
+         {
+            "Height" : 1,
+            "Slope" : 0,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 1,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 8,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 13,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 9,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 11,
+            "Type" : 1
+         }
+      ],
+      [
+         {
+            "Height" : 1,
+            "Slope" : 0,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 0,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 0,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 12,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 0,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 3,
+            "Type" : 1
+         }
+      ],
+      [
+         {
+            "Height" : 1,
+            "Slope" : 4,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 2,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 6,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 20,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 6,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 5,
+            "Type" : 1
+         }
+      ],
+      [
+         {
+            "Height" : 1,
+            "Slope" : 12,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 3,
+            "Type" : 1
+         },
+         {
+            "Height" : 2,
+            "Slope" : 0,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 12,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 13,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 10,
+            "Type" : 1
+         }
+      ],
+      [
+         {
+            "Height" : 1,
+            "Slope" : 14,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 5,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 9,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 8,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 14,
+            "Type" : 1
+         },
+         {
+            "Height" : 0,
+            "Slope" : 7,
+            "Type" : 1
+         }
+      ],
+      [
+         {
+            "Height" : 2,
+            "Slope" : 0,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 14,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 4,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 0,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 0,
+            "Type" : 1
+         },
+         {
+            "Height" : 1,
+            "Slope" : 0,
+            "Type" : 1
+         }
+      ]
+   ]
+}
+
