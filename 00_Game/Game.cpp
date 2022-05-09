@@ -3,6 +3,7 @@
 //
 #include <gbttd.h>
 #include "Game.h"
+#include <JSONMapLoader.h>
 
 void Game::init()
 {
@@ -189,6 +190,7 @@ void Game::cleanup()
 void Game::run()
 {
 	init();
+	JSONMapLoader::saveMap(*map);
 	while (!shouldClose)
 	{
 		poll();
