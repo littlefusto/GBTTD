@@ -24,33 +24,70 @@ bool Renderer::generateMap()
 			//rest is adjusting
 			int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + ((map.getSize().x * TILE_WIDTH) / 2) -
 					(TILE_WIDTH / 2);
-			int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j);
+			int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j) + 8 * (MAX_MAP_HEIGHT - content[j][i]->getHeight());
 			sf::Image* source = TextureHandler::getInstance()->getTextureByTileType(content[j][i]);
 			if (source == nullptr)
 			{
 				std::cerr << "Tile at x:" << i << " y:" << j << " has invalid type or slope" << std::endl;
 			} else
 			{
-				map_image.copy(*source, x, y + 8 * (MAX_MAP_HEIGHT - content[j][i]->getHeight()),
+				map_image.copy(*source, x, y,
 							   sf::IntRect(0, 0, 0, 0), true);
 			}
 		}
 	}
 	if (selected_tile.x >= 0)
 	{
-		int i = selected_tile.x;
-		int j = selected_tile.y;
-		int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + (map.getSize().x * TILE_WIDTH) / 2 - TILE_WIDTH / 2;
-		int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j);
-		map_image.copy(*selected_tile_image, x, y /*+ 8*/, sf::IntRect(0, 0, 0, 0),
-					   true); //MAYBE CHANGE 8 TO SMTH ELSE!!!
-	}                                                                //+ 8 offsets the hitbox to an odd place
+		map_image.copy(*selected_tile_image, selected_tile.x + 3, selected_tile.y, sf::IntRect(0, 0, 0, 0),
+					   true);
+	}
 	sf::Color color = sf::Color(255, 0, 0);
 	map_image.setPixel(point_at.x, point_at.y, color);
 	map_texture.loadFromImage(map_image);
 	map_sprite.setTexture(map_texture);
 	map_sprite.setPosition(0.f, 0.f);
 	return true;
+}
+
+Vector2i Renderer::getClickedTile(sf::Vector2i pos)
+{
+	Vector2i clicked_tile = Vector2i(-1,-1);
+	vector<vector<Tile*>> &content = map.getContent();
+	for (int i = 0; i < map.getSize().x; i++)
+	{
+		for (int j = 0; j < map.getSize().y; j++)
+		{
+			//right and down for every i
+			//left and down for every j
+			//rest is adjusting
+			int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + ((map.getSize().x * TILE_WIDTH) / 2) -
+					(TILE_WIDTH / 2);
+			int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j) + 8 * (MAX_MAP_HEIGHT - content[j][i]->getHeight());
+			sf::Image* source = TextureHandler::getInstance()->getTextureByTileType(content[j][i]);
+			if (source == nullptr)
+			{
+				std::cerr << "Tile at x:" << i << " y:" << j << " has invalid type or slope" << std::endl;
+			} else
+			{
+				int pixel_x = pos.x - x;
+				int pixel_y = pos.y - y;
+				if (pixel_x <= source->getSize().x && pixel_x >= 0 && pixel_y <= source->getSize().y && pixel_y >= 0 &&
+					source->getPixel(pixel_x, pixel_y).a == 255)
+				{
+					//printf("COCK COCK %d %d a: %d\n",bla,blub,source->getPixel(bla,blub).a);
+					//printf("COCK COCK x:%d y:%d a: \n",x,y);
+					selected_tile = Vector2i(x, y);
+					selected_tile_image->create(source->getSize().x, source->getSize().y);
+					selected_tile_image->copy(*source, 0, 0);
+					selected_tile_image->createMaskFromColor(Color(0, 255, 0), 200);
+					clicked_tile = Vector2i(i,j);
+				}
+			}
+		}
+	}
+	point_at = pos;
+	generateMap();
+	return clicked_tile;
 }
 
 void Renderer::renderMap(sf::RenderWindow &window)
@@ -69,7 +106,7 @@ int perpDotProduct(sf::Vector2i a, sf::Vector2i b, sf::Vector2i c)
 {
 	return (a.x - c.x) * (b.y - c.y) - (a.y - c.y) * (b.x - c.x);
 }
-
+/*
 void Renderer::getClickedTile(sf::Vector2i pos)
 {
 	//Using the perp dot product to determine if the clicked point is above or below a line
@@ -119,4 +156,4 @@ void Renderer::getClickedTile(sf::Vector2i pos)
 		selected_tile.y = y;
 		generateMap();
 	}
-}
+}*/
