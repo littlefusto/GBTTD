@@ -37,6 +37,7 @@ private:
 	void init();
 
 	void poll();
+	void handleInput();
 
 	void loop();
 
