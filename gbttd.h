@@ -6,6 +6,7 @@
 
 
 #include <SFML/Graphics.hpp>
+#include <json.hpp>
 
 #include <iostream>
 #include <fstream>
