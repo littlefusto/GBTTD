@@ -124,19 +124,13 @@ void MapLoader::loadMap(Map& map, std::string name){
 		int y = input[6]- '0';
 		string tile_stuff;
 		do{
-			if((getline(fileToRead, input)).eof()) { //TODO funktioniert nicht
+			if((getline(fileToRead, input)).eof()) {
 				continue_loop=false;
 				break;
 			}
-			/*if(input.empty()) { //Workaround
-				continue_loop=false;
-				break;
-			}*/
-			//printf("%d\n",input.empty());
 			tile_stuff += input + "\n";
 		} while(input.find("tile") == std::string::npos);
 		Tile* tile = loadTile(tile_stuff);
-		//cout << "MONKA" + to_string(tile->getTileSlope());
 		map.getContent()[x][y] = tile;
 	}
 }

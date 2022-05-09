@@ -86,7 +86,6 @@ TextureHandler* TextureHandler::getInstance()
 
 sf::Image* TextureHandler::getImage(const char* key)
 {
-	cout << key;
 	auto it = data.find(key);
 	if (it == data.end())
 	{
