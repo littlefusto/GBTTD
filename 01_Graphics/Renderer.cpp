@@ -14,15 +14,15 @@ Renderer::Renderer(Map &map) : map(map)
 bool Renderer::generateMap()
 {
 	vector<vector<Tile*>> &content = map.getContent();
-	map_image.create(MAP_SIZE * TILE_WIDTH, MAP_SIZE * TILE_HEIGTH + MAX_MAP_HEIGHT * 16);
-	for (int i = 0; i < MAP_SIZE; i++)
+	map_image.create(map.getSize().x * TILE_WIDTH, map.getSize().y * TILE_HEIGTH + MAX_MAP_HEIGHT * 16);
+	for (int i = 0; i < map.getSize().x; i++)
 	{
-		for (int j = 0; j < MAP_SIZE; j++)
+		for (int j = 0; j < map.getSize().y; j++)
 		{
 			//right and down for every i
 			//left and down for every j
 			//rest is adjusting
-			int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + ((MAP_SIZE * TILE_WIDTH) / 2) -
+			int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + ((map.getSize().x * TILE_WIDTH) / 2) -
 					(TILE_WIDTH / 2);
 			int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j);
 			sf::Image* source = TextureHandler::getInstance()->getTextureByTileType(content[j][i]);
@@ -40,7 +40,7 @@ bool Renderer::generateMap()
 	{
 		int i = selected_tile.x;
 		int j = selected_tile.y;
-		int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + (MAP_SIZE * TILE_WIDTH) / 2 - TILE_WIDTH / 2;
+		int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + (map.getSize().x * TILE_WIDTH) / 2 - TILE_WIDTH / 2;
 		int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j);
 		map_image.copy(*selected_tile_image, x, y /*+ 8*/, sf::IntRect(0, 0, 0, 0),
 					   true); //MAYBE CHANGE 8 TO SMTH ELSE!!!
@@ -80,11 +80,11 @@ void Renderer::getClickedTile(sf::Vector2i pos)
 	int lastRun = 1;
 	int this_run = 12;
 	int y = -1;
-	for (int i = 0; i <= MAP_SIZE; i++)
+	for (int i = 0; i <= map.getSize().x; i++)
 	{
-		sf::Vector2i v1 = { MAP_SIZE / 2 * TILE_WIDTH - i * TILE_WIDTH / 2, i * TILE_HEIGTH / 2 };
+		sf::Vector2i v1 = { map.getSize().x / 2 * TILE_WIDTH - i * TILE_WIDTH / 2, i * TILE_HEIGTH / 2 };
 		sf::Vector2i v2 = {
-				MAP_SIZE * TILE_WIDTH - i * TILE_WIDTH / 2, MAP_SIZE / 2 * TILE_HEIGTH + i * TILE_HEIGTH / 2
+				map.getSize().x * TILE_WIDTH - i * TILE_WIDTH / 2, map.getSize().y / 2 * TILE_HEIGTH + i * TILE_HEIGTH / 2
 		};
 		int pdp = perpDotProduct(v1, v2, pos);
 		this_run = (pdp > 0) ? 1 : -1;
@@ -99,10 +99,10 @@ void Renderer::getClickedTile(sf::Vector2i pos)
 	int x = -1;
 	lastRun = 1;
 	this_run = 12;
-	for (int i = 0; i <= MAP_SIZE; i++)
+	for (int i = 0; i <= map.getSize().x; i++)
 	{
-		sf::Vector2i v1 = { MAP_SIZE / 2 * TILE_WIDTH + i * TILE_WIDTH / 2, i * TILE_HEIGTH / 2 };
-		sf::Vector2i v2 = { i * TILE_WIDTH / 2, MAP_SIZE / 2 * TILE_HEIGTH + i * TILE_HEIGTH / 2 };
+		sf::Vector2i v1 = { map.getSize().x / 2 * TILE_WIDTH + i * TILE_WIDTH / 2, i * TILE_HEIGTH / 2 };
+		sf::Vector2i v2 = { i * TILE_WIDTH / 2, map.getSize().y / 2 * TILE_HEIGTH + i * TILE_HEIGTH / 2 };
 		int pdp = perpDotProduct(v1, v2, pos);
 		this_run = (pdp < 0) ? 1 : -1;
 		//printf("v1:%d %d v2: %d %d point: %d %d pdp=%d\n",v1.x,v1.y,v2.x,v2.y,point_at.x, point_at.y,pdp);

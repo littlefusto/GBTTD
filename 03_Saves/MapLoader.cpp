@@ -9,8 +9,6 @@ using namespace saves;
 MapLoader* MapLoader::singleton_ = nullptr;
 
 MapLoader::MapLoader(){
-	mapXsize = MAP_SIZE;
-	mapYsize = MAP_SIZE;
 }
 
 std::string MapLoader::saveTile(Tile* tile){
@@ -50,7 +48,8 @@ std::string MapLoader::saveTile(Tile* tile){
 }
 
 void MapLoader::saveMap(Map& map, std::string name){
-
+	mapXsize = map.getSize().x;
+	mapYsize = map.getSize().y;
 	std::string data = to_string(mapXsize) + "x" + to_string(mapYsize) + "\n";
 
 	for(int w=0; w<mapXsize;w++){
