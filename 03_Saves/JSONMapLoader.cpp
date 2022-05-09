@@ -99,7 +99,6 @@ Map* JSONMapLoader::loadMap(std::string& path) {
 	while(!getline(fileToRead, input).eof()) {
 		full_file += input;
 	}
-	printf("%s\n",full_file.c_str());
 	json::JSON savefile = json::JSON::Load(full_file);
 	int mapXsize = savefile["Header"]["Size"][0].ToInt();
 	int mapYsize = savefile["Header"]["Size"][1].ToInt();
