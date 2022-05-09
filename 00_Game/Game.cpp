@@ -4,13 +4,28 @@
 #include <gbttd.h>
 #include "Game.h"
 
+Game::Game() {
+	view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_SIZE_X, WINDOW_SIZE_Y));
+}
 
 void Game::init()
 {
-	window = new RenderWindow(sf::VideoMode(1280, 720), "GBTTD");
+	window = new RenderWindow(sf::VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "GBTTD");
 	map = new Map();
 	renderer = new Renderer(*map);
 	mapLoader = new MapLoader();
+}
+
+void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow& window, float zoom)
+{
+	const sf::Vector2f beforeCoord{ window.mapPixelToCoords(pixel) };
+	sf::View view{ window.getView() };
+	view.zoom(zoom);
+	window.setView(view);
+	const sf::Vector2f afterCoord{ window.mapPixelToCoords(pixel) };
+	const sf::Vector2f offsetCoords{ beforeCoord - afterCoord };
+	view.move(offsetCoords);
+	window.setView(view);
 }
 
 void Game::poll()
@@ -39,13 +54,19 @@ void Game::poll()
 				window->close();
 				break;
 			case sf::Event::MouseWheelScrolled:
+			{
+				sf::Vector2i pos;
+				pos.x = event.mouseWheelScroll.x;
+				pos.y = event.mouseWheelScroll.y;
 				if (event.mouseWheelScroll.delta > 0.0f)
 				{
-					context.zoom *= 1.1;
+					zoomViewAt(pos, *window, 0.9f);
 				} else
 				{
-					context.zoom /= 1.1;
+					zoomViewAt(pos, *window, 1.1f);
 				}
+				view = window->getView();
+			}
 				break;
 			case sf::Event::KeyPressed:
 				switch (event.key.code)
@@ -97,7 +118,12 @@ void Game::poll()
 					sf::Vector2i pos;
 					pos.x = event.mouseButton.x;
 					pos.y = event.mouseButton.y;
-					renderer->getClickedTile(pos, context);
+					sf::Vector2f pos_world = window->mapPixelToCoords(pos);
+					//convert to integers
+					//maybe change renderer to float
+					pos.x = pos_world.x;
+					pos.y = pos_world.y;
+					renderer->getClickedTile(pos);
 				}
 				break;
 			case Event::MouseButtonReleased:
@@ -109,8 +135,9 @@ void Game::poll()
 			case Event::MouseMoved:
 				if (RMBPressed)
 				{
-					context.camera_pos.x -= oldMouse.x - event.mouseMove.x;
-					context.camera_pos.y -= oldMouse.y - event.mouseMove.y;
+					float zoom_x_mult = (float)view.getSize().x/window->getSize().x;
+					float zoom_y_mult = (float)view.getSize().y/window->getSize().y;
+					view.move(zoom_x_mult*(oldMouse.x - event.mouseMove.x),zoom_y_mult*(oldMouse.y - event.mouseMove.y));
 					oldMouse.x = event.mouseMove.x;
 					oldMouse.y = event.mouseMove.y;
 				} else
@@ -129,8 +156,8 @@ void Game::poll()
 			break;
 		}
 	}
-	context.camera_pos.x += movement.x;
-	context.camera_pos.y += movement.y;
+	view.move(movement);
+	window->setView(view);
 	if (!window->isOpen()) shouldClose = true;
 }
 
@@ -140,7 +167,7 @@ void Game::loop()
 
 void Game::draw()
 {
-	renderer->renderMap(*window, context);
+	renderer->renderMap(*window);
 }
 
 void Game::cleanup()
@@ -156,6 +183,7 @@ void Game::cleanup()
 void Game::run()
 {
 	init();
+	window->setView(view);
 	mapLoader->loadMap(*map, "test1");
 	renderer->generateMap();
 	while (!shouldClose)

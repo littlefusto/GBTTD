@@ -3,6 +3,9 @@
 //
 #pragma once
 
+#define WINDOW_SIZE_X 1280
+#define WINDOW_SIZE_Y 720
+
 #include <gbttd.h>
 
 enum game_state
@@ -15,11 +18,11 @@ struct Game
 {
 private:
 	sf::RenderWindow* window = nullptr;
+	sf::View view;
 	Map* map = nullptr;
 	MapLoader* mapLoader = nullptr;
 	Renderer* renderer = nullptr;
 
-	CameraContext context{ .zoom = 2.0, .camera_pos = Vector2f{ 0.0, 0.0 }};
 	Vector2f movement{ 0.0, 0.0 };
 	Vector2f oldMouse{ 0.0, 0.0 };
 
@@ -40,6 +43,7 @@ private:
 	void cleanup();
 
 public:
+	Game();
 	void run();
 };
 //GBTTD_GAME_H

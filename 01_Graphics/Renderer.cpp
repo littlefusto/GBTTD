@@ -53,14 +53,9 @@ bool Renderer::generateMap()
 	return true;
 }
 
-void Renderer::renderMap(sf::RenderWindow &window, CameraContext &context)
+void Renderer::renderMap(sf::RenderWindow &window)
 {
 	window.clear();
-	pos = context.camera_pos;
-	pos.x -= MAP_SIZE * TILE_WIDTH * (context.zoom / 2 - 1);
-	pos.y -= MAP_SIZE * TILE_HEIGTH * (context.zoom / 2 - 1);
-	map_sprite.setPosition(pos);
-	map_sprite.setScale(context.zoom, context.zoom);
 	window.draw(map_sprite);
 	window.display();
 }
@@ -75,15 +70,8 @@ int perpDotProduct(sf::Vector2i a, sf::Vector2i b, sf::Vector2i c)
 	return (a.x - c.x) * (b.y - c.y) - (a.y - c.y) * (b.x - c.x);
 }
 
-void Renderer::getClickedTile(sf::Vector2i pos, CameraContext &context)
+void Renderer::getClickedTile(sf::Vector2i pos)
 {
-	//Remove zoom and shift of the map
-	sf::Vector2f map_pos = map_sprite.getPosition();
-	pos.x -= map_pos.x;
-	pos.y -= map_pos.y;
-	point_at.x = pos.x / context.zoom;
-	point_at.y = pos.y / context.zoom;
-
 	//Using the perp dot product to determine if the clicked point is above or below a line
 	//Considered lines are along the edges of the tiles
 	//TODO: Alternative: calculate the distance of the clicked point from one edge of the map
@@ -98,7 +86,7 @@ void Renderer::getClickedTile(sf::Vector2i pos, CameraContext &context)
 		sf::Vector2i v2 = {
 				MAP_SIZE * TILE_WIDTH - i * TILE_WIDTH / 2, MAP_SIZE / 2 * TILE_HEIGTH + i * TILE_HEIGTH / 2
 		};
-		int pdp = perpDotProduct(v1, v2, point_at);
+		int pdp = perpDotProduct(v1, v2, pos);
 		this_run = (pdp > 0) ? 1 : -1;
 		//printf("v1:%d %d v2: %d %d point: %d %d pdp=%d\n",v1.x,v1.y,v2.x,v2.y,point_at.x, point_at.y,pdp);
 		if (lastRun == 1 && this_run == -1)
@@ -115,7 +103,7 @@ void Renderer::getClickedTile(sf::Vector2i pos, CameraContext &context)
 	{
 		sf::Vector2i v1 = { MAP_SIZE / 2 * TILE_WIDTH + i * TILE_WIDTH / 2, i * TILE_HEIGTH / 2 };
 		sf::Vector2i v2 = { i * TILE_WIDTH / 2, MAP_SIZE / 2 * TILE_HEIGTH + i * TILE_HEIGTH / 2 };
-		int pdp = perpDotProduct(v1, v2, point_at);
+		int pdp = perpDotProduct(v1, v2, pos);
 		this_run = (pdp < 0) ? 1 : -1;
 		//printf("v1:%d %d v2: %d %d point: %d %d pdp=%d\n",v1.x,v1.y,v2.x,v2.y,point_at.x, point_at.y,pdp);
 		if (lastRun == 1 && this_run == -1)
