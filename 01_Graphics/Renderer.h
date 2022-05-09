@@ -7,12 +7,6 @@
 
 #include <gbttd.h>
 
-struct CameraContext
-{
-	float zoom{};
-	sf::Vector2f camera_pos;
-};
-
 class Renderer
 {
 private:
@@ -29,9 +23,9 @@ public:
 
 	bool generateMap();
 
-	void renderMap(sf::RenderWindow &window, CameraContext &context);
+	void renderMap(sf::RenderWindow &window);
 
-	void getClickedTile(sf::Vector2i pos, CameraContext &context);
+	void getClickedTile(sf::Vector2i pos);
 };
 
 
