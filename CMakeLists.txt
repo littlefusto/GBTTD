@@ -35,6 +35,3 @@ if(SFML_FOUND)
     target_link_libraries(GBTTD sfml-network)
     target_link_libraries(GBTTD sfml-system)
 endif()
-
-find_package(jsoncpp REQUIRED)
-target_link_libraries(GBTTD jsoncpp)
