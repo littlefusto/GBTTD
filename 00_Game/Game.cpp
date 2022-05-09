@@ -12,7 +12,7 @@ void Game::init()
 
 	window->setView(*view);
 	//mapLoader->loadMap(*map, "test1");
-	std::string path = "map1.json";
+	std::string path = "map1";
 	map = JSONMapLoader::loadMap(path);
 	renderer = new Renderer(*map);
 	renderer->generateMap();
@@ -40,6 +40,17 @@ void Game::poll()
 			switch (event.type)
 			{
 			case sf::Event::KeyPressed:
+				if (event.key.code == sf::Keyboard::L) {
+					std::string path = "map1";
+					map->~Map();
+					map = JSONMapLoader::loadMap(path);
+					renderer->generateMap();
+					gameState = state_map;
+				}
+				if (event.key.code == sf::Keyboard::S) {
+					std::string path = "map1";
+					JSONMapLoader::saveMap(map, path);
+				}
 				if (event.key.code == sf::Keyboard::Escape) { gameState = state_map; }
 				break;
 			case sf::Event::Closed:
@@ -166,6 +177,7 @@ void Game::poll()
 
 void Game::loop()
 {
+
 }
 
 void Game::draw()

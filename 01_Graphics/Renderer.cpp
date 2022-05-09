@@ -38,7 +38,7 @@ bool Renderer::generateMap()
 	}
 	if (selected_tile.x >= 0)
 	{
-		map_image.copy(*selected_tile_image, selected_tile.x + 3, selected_tile.y, sf::IntRect(0, 0, 0, 0),
+		map_image.copy(*selected_tile_image, selected_tile.x, selected_tile.y - 1, sf::IntRect(0, 0, 0, 0),
 					   true);
 	}
 	sf::Color color = sf::Color(255, 0, 0);
@@ -74,8 +74,6 @@ Vector2i Renderer::getClickedTile(sf::Vector2i pos)
 				if (pixel_x <= source->getSize().x && pixel_x >= 0 && pixel_y <= source->getSize().y && pixel_y >= 0 &&
 					source->getPixel(pixel_x, pixel_y).a == 255)
 				{
-					//printf("COCK COCK %d %d a: %d\n",bla,blub,source->getPixel(bla,blub).a);
-					//printf("COCK COCK x:%d y:%d a: \n",x,y);
 					selected_tile = Vector2i(x, y);
 					selected_tile_image->create(source->getSize().x, source->getSize().y);
 					selected_tile_image->copy(*source, 0, 0);

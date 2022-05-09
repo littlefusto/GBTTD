@@ -8,6 +8,6 @@
 #include <jsoncpp/json/json.h>
 
 namespace JSONMapLoader {
-	void saveMap(Map &map, std::string& path);
+	void saveMap(Map* map, std::string& path);
 	Map* loadMap(std::string& path);
 }

@@ -68,11 +68,11 @@ TileType stringToTileType(const std::string& tile_type_string) {
 	}
 }
 
-void JSONMapLoader::saveMap(Map &map, std::string& path)
+void JSONMapLoader::saveMap(Map* map, std::string& path)
 {
-	vector<vector<Tile*>> &content = map.getContent();
-	int mapXsize = map.getSize().x;
-	int mapYsize = map.getSize().y;
+	vector<vector<Tile*>> &content = map->getContent();
+	int mapXsize = map->getSize().x;
+	int mapYsize = map->getSize().y;
 	Json::Value savefile;
 	savefile["Header"]["Size"][0] = mapXsize;
 	savefile["Header"]["Size"][1] = mapYsize;
@@ -86,14 +86,14 @@ void JSONMapLoader::saveMap(Map &map, std::string& path)
 			savefile["Tiles"][w][h]["Height"] = content[h][w]->getHeight();
 		}
 	}
-	printf("%s\n",savefile.toStyledString().c_str());
-	std::ofstream outfile(saves::saves + path);
+	//printf("%s\n",savefile.toStyledString().c_str());
+	std::ofstream outfile(saves::saves + path + ".json");
 	outfile << savefile.toStyledString() << std::endl;
 	outfile.close();
 }
 
 Map* JSONMapLoader::loadMap(std::string& path) {
-	ifstream fileToRead(saves::saves + path);
+	ifstream fileToRead(saves::saves + path + ".json");
 	Json::Value savefile;
 	fileToRead >> savefile;
 	Map* map = new Map();
