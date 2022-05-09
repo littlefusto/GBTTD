@@ -8,8 +8,8 @@
 
 class MapLoader {
 private:
-	int mapXsize;
-	int mapYsize;
+	int mapXsize = -1;
+	int mapYsize = -1;
 	static MapLoader* singleton_;
 	static std::string saveTile(Tile* tile);
 	static std::string getAttribute(const std::string& tileString, const std::string& attribute);
