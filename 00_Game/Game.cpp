@@ -129,51 +129,28 @@ void Game::poll()
 						if (event.mouseButton.button == sf::Mouse::Right)
 						{
 							RMBPressed = true;
-							mouseWasMoved = false;
 						} else if (event.mouseButton.button == sf::Mouse::Left)
 						{
 							sf::Vector2i pos;
 							pos.x = event.mouseButton.x;
 							pos.y = event.mouseButton.y;
 							sf::Vector2f pos_world = window->mapPixelToCoords(pos);
+							//convert to integers
+							//maybe change renderer to float
 							pos.x = pos_world.x;
 							pos.y = pos_world.y;
-							pos = renderer->getClickedTile(pos);
-							if(map->getContent()[pos.y][pos.x] == nullptr && map->getContent()[pos.y][pos.x]->getHeight() < MAX_MAP_HEIGHT ){
-								map->getContent()[pos.y][pos.x] = new Tile(
-										map->getContent()[pos.y][pos.x]->getHeight()+1,
-										map->getContent()[pos.y][pos.x]->getTileType(),
-										map->getContent()[pos.y][pos.x]->getTileSlope()
-								);
-							}
+							renderer->getClickedTile(pos);
 						}
 						break;
 					case Event::MouseButtonReleased:
 						if (event.mouseButton.button == sf::Mouse::Right)
 						{
 							RMBPressed = false;
-							if(!mouseWasMoved){
-								sf::Vector2i pos;
-								pos.x = event.mouseButton.x;
-								pos.y = event.mouseButton.y;
-								sf::Vector2f pos_world = window->mapPixelToCoords(pos);
-								pos.x = pos_world.x;
-								pos.y = pos_world.y;
-								pos = renderer->getClickedTile(pos);
-								if(map->getContent()[pos.y][pos.x]->getHeight() < MAX_MAP_HEIGHT){
-									map->getContent()[pos.y][pos.x] = new Tile(
-											map->getContent()[pos.y][pos.x]->getHeight()-1,
-											map->getContent()[pos.y][pos.x]->getTileType(),
-											map->getContent()[pos.y][pos.x]->getTileSlope()
-									);
-								}
-							}
 						}
 						break;
 					case Event::MouseMoved:
 						if (RMBPressed)
 						{
-							mouseWasMoved = true;
 							float zoom_x_mult = (float) view->getSize().x / window->getSize().x;
 							float zoom_y_mult = (float) view->getSize().y / window->getSize().y;
 							view->move(zoom_x_mult * (oldMouse.x - event.mouseMove.x),
@@ -262,28 +239,51 @@ void Game::poll()
 						if (event.mouseButton.button == sf::Mouse::Right)
 						{
 							RMBPressed = true;
+							mouseWasMoved = false;
 						} else if (event.mouseButton.button == sf::Mouse::Left)
 						{
 							sf::Vector2i pos;
 							pos.x = event.mouseButton.x;
 							pos.y = event.mouseButton.y;
 							sf::Vector2f pos_world = window->mapPixelToCoords(pos);
-							//convert to integers
-							//maybe change renderer to float
 							pos.x = pos_world.x;
 							pos.y = pos_world.y;
-							renderer->getClickedTile(pos);
+							pos = renderer->getClickedTile(pos);
+							if(map->getContent()[pos.y][pos.x] == nullptr && map->getContent()[pos.y][pos.x]->getHeight() < MAX_MAP_HEIGHT ){
+								map->getContent()[pos.y][pos.x] = new Tile(
+										map->getContent()[pos.y][pos.x]->getHeight()+1,
+										map->getContent()[pos.y][pos.x]->getTileType(),
+										map->getContent()[pos.y][pos.x]->getTileSlope()
+								);
+							}
 						}
 						break;
 					case Event::MouseButtonReleased:
 						if (event.mouseButton.button == sf::Mouse::Right)
 						{
 							RMBPressed = false;
+							if(!mouseWasMoved){
+								sf::Vector2i pos;
+								pos.x = event.mouseButton.x;
+								pos.y = event.mouseButton.y;
+								sf::Vector2f pos_world = window->mapPixelToCoords(pos);
+								pos.x = pos_world.x;
+								pos.y = pos_world.y;
+								pos = renderer->getClickedTile(pos);
+								if(map->getContent()[pos.y][pos.x]->getHeight() < MAX_MAP_HEIGHT){
+									map->getContent()[pos.y][pos.x] = new Tile(
+											map->getContent()[pos.y][pos.x]->getHeight()-1,
+											map->getContent()[pos.y][pos.x]->getTileType(),
+											map->getContent()[pos.y][pos.x]->getTileSlope()
+									);
+								}
+							}
 						}
 						break;
 					case Event::MouseMoved:
 						if (RMBPressed)
 						{
+							mouseWasMoved = true;
 							float zoom_x_mult = (float) view->getSize().x / window->getSize().x;
 							float zoom_y_mult = (float) view->getSize().y / window->getSize().y;
 							view->move(zoom_x_mult * (oldMouse.x - event.mouseMove.x),
