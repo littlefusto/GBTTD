@@ -3,6 +3,8 @@
 //
 
 #include <gbttd.h>
+#include "Tile.h"
+
 
 Tile::Tile( int heightTemp, TileType tile_typeTemp, Slope slopeTemp ){
 	if(heightTemp<=MAX_MAP_HEIGHT && heightTemp>= 0 && tile_typeTemp>=DEFAULT && tile_typeTemp<= GRASS && slopeTemp>=FLAT && slopeTemp<= STEEP_N) {
@@ -13,3 +15,6 @@ Tile::Tile( int heightTemp, TileType tile_typeTemp, Slope slopeTemp ){
 		throw std::invalid_argument("Tile arguments incorrect");
 	}
 }
+
+Tile::Tile()
+= default;
