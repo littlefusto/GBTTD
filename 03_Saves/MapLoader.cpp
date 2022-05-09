@@ -131,7 +131,7 @@ void MapLoader::loadMap(Map& map, std::string name){
 			tile_stuff += input + "\n";
 		} while(input.find("tile") == std::string::npos);
 		Tile* tile = loadTile(tile_stuff);
-		map.getContent()[x][y] = tile;
+		map.getContent()[y][x] = tile;
 	}
 }
 
