@@ -1,6 +1,6 @@
 {
    "Header" : {
-      "Size" : [ 60, 60 ]
+      "Size" : [ 16, 16 ]
    },
    "Tiles" : [
       [
@@ -33,6 +33,56 @@
             "Height" : 0,
             "Slope" : "NSW",
             "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
          }
       ],
       [
@@ -64,6 +114,56 @@
          {
             "Height" : 0,
             "Slope" : "SW",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
             "Type" : "grass"
          }
       ],
@@ -97,6 +197,56 @@
             "Height" : 0,
             "Slope" : "EW",
             "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
          }
       ],
       [
@@ -128,6 +278,56 @@
          {
             "Height" : 0,
             "Slope" : "NS",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
             "Type" : "grass"
          }
       ],
@@ -161,6 +361,56 @@
             "Height" : 0,
             "Slope" : "ESW",
             "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
          }
       ],
       [
@@ -191,6 +441,876 @@
          },
          {
             "Height" : 1,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         }
+      ],
+      [
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         }
+      ],
+      [
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         }
+      ],
+      [
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         }
+      ],
+      [
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         }
+      ],
+      [
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         }
+      ],
+      [
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         }
+      ],
+      [
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         }
+      ],
+      [
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         }
+      ],
+      [
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         }
+      ],
+      [
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
+            "Slope" : "flat",
+            "Type" : "grass"
+         },
+         {
+            "Height" : 0,
             "Slope" : "flat",
             "Type" : "grass"
          }

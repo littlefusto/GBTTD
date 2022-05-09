@@ -11,7 +11,8 @@
 enum game_state
 {
 	state_menu = 0,
-	state_map = 1
+	state_map = 1,
+	state_build = 2
 };
 
 struct Game
@@ -30,6 +31,7 @@ private:
 	sf::Event event{};
 
 	bool RMBPressed = false;
+	bool mouseWasMoved = false;
 	bool shouldClose = false;
 
 	void init();

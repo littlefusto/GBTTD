@@ -13,7 +13,7 @@ Map::Map(int width, int height){
 		content[i].resize(x);
 		for (int j = 0; j < getSize().x; j++)
 		{
-			content[i][j] = new Tile(1, DEFAULT, FLAT);
+			content[i][j] = new Tile(1, GRASS, FLAT);
 		}
 	}
 }
