@@ -68,7 +68,8 @@ void MapLoader::saveMap(Map& map, std::string name){
 std::string MapLoader::getAttribute(std::string tileString, std::string attribute){
 	std::string handlerString = "";
 	handlerString = tileString.substr(tileString.find(attribute + " = ")+attribute.length() + 3);
-	handlerString = handlerString.substr(0,handlerString.length()-handlerString.find("\n"));
+	handlerString = handlerString.substr(0,handlerString.find('\n'));
+	//cout << handlerString << endl;
 	return handlerString;
 }
 
@@ -84,29 +85,26 @@ Tile* MapLoader::loadTile(std::string tileString){
 		tileType = GRASS;
 	}
 
-	Slope slope = FLAT;
+	unsigned char slope = FLAT;
 	currAttribute = getAttribute(tileString, "slope");
 
-	if(currAttribute.find("steep") != std::string::npos){
-		slope = STEEP;
-//		if(currAttribute.find("N") != std::string::npos){
-//			slope = STEEP_N;
-//		}else if(currAttribute.find("E") != std::string::npos){
-//			slope = STEEP_E;
-//		}else if(currAttribute.find("S") != std::string::npos){
-//			slope = STEEP_S;
-//		}else if(currAttribute.find("W") != std::string::npos){
-//			slope = STEEP_W;
-//		}
-	}else{
-		if(currAttribute.find("N") != std::string::npos) slope = N;
-		if(currAttribute.find("E") != std::string::npos) slope = E;
-		if(currAttribute.find("S") != std::string::npos) slope = S;
-		if(currAttribute.find("W") != std::string::npos) slope = W;
+	if(currAttribute.find("steep") != std::string::npos) {
+		slope |= STEEP;
+		currAttribute.substr(5,currAttribute.length()-5);
 	}
-	cout << (to_string(height) + to_string(tileType) + to_string(slope) + " \n");
-
-	return new Tile(height, tileType, slope);
+	if(currAttribute.find("N") != std::string::npos) {
+		slope |= N;
+	}
+	if(currAttribute.find("E") != std::string::npos) {
+		slope |= E;
+	}
+	if(currAttribute.find("S") != std::string::npos) {
+		slope |= S;
+	}
+	if(currAttribute.find("W") != std::string::npos) {
+		slope |= W;
+	}
+	return new Tile(height, tileType, static_cast<Slope>(slope));
 }
 
 void MapLoader::loadMap(Map& map, std::string name){
@@ -134,11 +132,11 @@ void MapLoader::loadMap(Map& map, std::string name){
 				continue_loop=false;
 				break;
 			}*/
-			printf("%d\n",input.empty());
-			tile_stuff += input;
-		} while(input.find("tile")== std::string::npos);
-		//printf("TileStuff:\n%s\n",tile_stuff.c_str());
+			//printf("%d\n",input.empty());
+			tile_stuff += input + "\n";
+		} while(input.find("tile") == std::string::npos);
 		Tile* tile = loadTile(tile_stuff);
+		//cout << "MONKA" + to_string(tile->getTileSlope());
 		map.getContent()[x][y] = tile;
 	}
 }

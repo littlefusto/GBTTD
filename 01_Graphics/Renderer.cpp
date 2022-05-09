@@ -14,7 +14,7 @@ Renderer::Renderer(Map &map) : map(map)
 bool Renderer::generateMap()
 {
 	vector<vector<Tile*>> &content = map.getContent();
-	map_image.create(MAP_SIZE * TILE_WIDTH, MAP_SIZE * TILE_HEIGTH);
+	map_image.create(MAP_SIZE * TILE_WIDTH, MAP_SIZE * TILE_HEIGTH + MAX_MAP_HEIGHT * 16);
 	for (int i = 0; i < MAP_SIZE; i++)
 	{
 		for (int j = 0; j < MAP_SIZE; j++)

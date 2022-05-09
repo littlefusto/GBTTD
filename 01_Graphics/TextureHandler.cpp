@@ -9,24 +9,27 @@ TextureHandler* TextureHandler::singleton_ = 0;
 const std::string tiles[] = {
 		"grass_flat.png",
 		"grass_sloped_N.png",
-		"grass_steep_E.png",
-		"grass_sloped_E.png",
-		"grass_sloped_NS.png",
-		"grass_steep_N.png",
-		"grass_sloped_ES.png",
-		"grass_sloped_NSW.png",
-		"grass_steep_S.png",
-		"grass_sloped_ESW.png",
-		"grass_sloped_NW.png",
-		"grass_steep_W.png",
 		"grass_sloped_NE.png",
-		"grass_sloped_S.png",
-		"selected_tile.png",
 		"grass_sloped_NES.png",
-		"grass_sloped_SW.png",
-		"tile.png",
 		"grass_sloped_NEW.png",
-		"grass_sloped_W.png"
+		"grass_sloped_NS.png",
+		"grass_sloped_NSW.png",
+		"grass_sloped_NW.png",
+		"grass_sloped_E.png",
+		"grass_sloped_ES.png",
+		"grass_sloped_ESW.png",
+		"grass_sloped_EW.png",
+		"grass_sloped_S.png",
+		"grass_sloped_SW.png",
+		"grass_sloped_W.png",
+
+		"grass_steep_N.png",
+		"grass_steep_E.png",
+		"grass_steep_S.png",
+		"grass_steep_W.png",
+
+		"selected_tile.png",
+		"tile.png"
 };
 
 TextureHandler::TextureHandler()
@@ -83,6 +86,7 @@ TextureHandler* TextureHandler::getInstance()
 
 sf::Image* TextureHandler::getImage(const char* key)
 {
+	cout << key;
 	auto it = data.find(key);
 	if (it == data.end())
 	{
