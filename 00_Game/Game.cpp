@@ -139,7 +139,7 @@ void Game::poll()
 							//maybe change renderer to float
 							pos.x = pos_world.x;
 							pos.y = pos_world.y;
-							renderer->getClickedTile(pos);
+							renderer->getClickedTiles(pos);
 						}
 						break;
 					case Event::MouseButtonReleased:
@@ -248,14 +248,19 @@ void Game::poll()
 							sf::Vector2f pos_world = window->mapPixelToCoords(pos);
 							pos.x = pos_world.x;
 							pos.y = pos_world.y;
-							pos = renderer->getClickedTile(pos);
-							if(map->getContent()[pos.y][pos.x] == nullptr && map->getContent()[pos.y][pos.x]->getHeight() < MAX_MAP_HEIGHT ){
+							vector<Tile*> clicked_tiles = renderer->getClickedTiles(pos);
+							/*if(map->getContent()[pos.y][pos.x] == nullptr && map->getContent()[pos.y][pos.x]->getHeight() < MAX_MAP_HEIGHT ){
 								map->getContent()[pos.y][pos.x] = new Tile(
 										map->getContent()[pos.y][pos.x]->getHeight()+1,
 										map->getContent()[pos.y][pos.x]->getTileType(),
 										map->getContent()[pos.y][pos.x]->getTileSlope()
 								);
-							}
+							}*/
+							clicked_tiles[0]->setHeight(clicked_tiles[0]->getHeight()+1);
+							clicked_tiles[1]->setHeight(clicked_tiles[1]->getHeight()+2);
+							clicked_tiles[2]->setHeight(clicked_tiles[2]->getHeight()+3);
+							clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight()+4);
+							renderer->generateMap();
 						}
 						break;
 					case Event::MouseButtonReleased:
@@ -269,14 +274,26 @@ void Game::poll()
 								sf::Vector2f pos_world = window->mapPixelToCoords(pos);
 								pos.x = pos_world.x;
 								pos.y = pos_world.y;
-								pos = renderer->getClickedTile(pos);
+								/*pos = renderer->getClickedTile(pos);
 								if(map->getContent()[pos.y][pos.x]->getHeight() < MAX_MAP_HEIGHT){
 									map->getContent()[pos.y][pos.x] = new Tile(
 											map->getContent()[pos.y][pos.x]->getHeight()-1,
 											map->getContent()[pos.y][pos.x]->getTileType(),
 											map->getContent()[pos.y][pos.x]->getTileSlope()
 									);
-								}
+								}*/
+								vector<Tile*> clicked_tiles = renderer->getClickedTiles(pos);
+								/*if(map->getContent()[pos.y][pos.x] == nullptr && map->getContent()[pos.y][pos.x]->getHeight() < MAX_MAP_HEIGHT ){
+									map->getContent()[pos.y][pos.x] = new Tile(
+											map->getContent()[pos.y][pos.x]->getHeight()+1,
+											map->getContent()[pos.y][pos.x]->getTileType(),
+											map->getContent()[pos.y][pos.x]->getTileSlope()
+									);
+								}*/
+								clicked_tiles[0]->setHeight(clicked_tiles[0]->getHeight()+1);
+								clicked_tiles[1]->setHeight(clicked_tiles[1]->getHeight()+2);
+								clicked_tiles[2]->setHeight(clicked_tiles[2]->getHeight()+3);
+								clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight()+4);
 							}
 						}
 						break;

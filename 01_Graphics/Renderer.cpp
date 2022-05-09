@@ -3,6 +3,7 @@
 //
 
 #include <gbttd.h>
+#include <cmath>
 
 Renderer::Renderer(Map &map) : map(map)
 {
@@ -25,7 +26,7 @@ bool Renderer::generateMap()
 			int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + ((map.getSize().x * TILE_WIDTH) / 2) -
 					(TILE_WIDTH / 2);
 			int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j) + 8 * (MAX_MAP_HEIGHT - content[j][i]->getHeight());
-			sf::Image* source = TextureHandler::getInstance()->getTextureByTileType(content[j][i]);
+			sf::Image* source = TextureHandler::getInstance()->getTextureByTileType(content[j][i]).texture;
 			if (source == nullptr)
 			{
 				std::cerr << "Tile at x:" << i << " y:" << j << " has invalid type or slope" << std::endl;
@@ -49,9 +50,16 @@ bool Renderer::generateMap()
 	return true;
 }
 
-Vector2i Renderer::getClickedTile(sf::Vector2i pos)
+double calculateDistance(Vector2i &a, Vector2i &b)
 {
-	Vector2i clicked_tile = Vector2i(-1,-1);
+	return sqrt(pow(a.x - b.x, 2) +
+				pow(a.y - b.y, 2));
+}
+
+//Returns 4 Tiles in clockwise order around a vertex/their intersection point
+vector<Tile*> Renderer::getClickedTiles(sf::Vector2i pos)
+{
+	vector<Tile*> clicked_tiles;
 	vector<vector<Tile*>> &content = map.getContent();
 	for (int i = 0; i < map.getSize().x; i++)
 	{
@@ -63,29 +71,46 @@ Vector2i Renderer::getClickedTile(sf::Vector2i pos)
 			int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + ((map.getSize().x * TILE_WIDTH) / 2) -
 					(TILE_WIDTH / 2);
 			int y = (TILE_HEIGTH / 2 * i) + (TILE_HEIGTH / 2 * j) + 8 * (MAX_MAP_HEIGHT - content[j][i]->getHeight());
-			sf::Image* source = TextureHandler::getInstance()->getTextureByTileType(content[j][i]);
+			textureInfo& texture_info = TextureHandler::getInstance()->getTextureByTileType(content[j][i]);
+			sf::Image* source = texture_info.texture;
 			if (source == nullptr)
 			{
 				std::cerr << "Tile at x:" << i << " y:" << j << " has invalid type or slope" << std::endl;
 			} else
 			{
-				int pixel_x = pos.x - x;
-				int pixel_y = pos.y - y;
-				if (pixel_x <= source->getSize().x && pixel_x >= 0 && pixel_y <= source->getSize().y && pixel_y >= 0 &&
-					source->getPixel(pixel_x, pixel_y).a == 255)
+				Vector2i pixel_pos = Vector2i(pos.x - x,pos.y - y);
+				if (pixel_pos.x <= source->getSize().x && pixel_pos.x >= 0 && pixel_pos.y <= source->getSize().y && pixel_pos.y >= 0 &&
+					source->getPixel(pixel_pos.x, pixel_pos.y).a > 0)
 				{
 					selected_tile = Vector2i(x, y);
 					selected_tile_image->create(source->getSize().x, source->getSize().y);
 					selected_tile_image->copy(*source, 0, 0);
 					selected_tile_image->createMaskFromColor(Color(0, 255, 0), 200);
-					clicked_tile = Vector2i(i,j);
+					int32_t smallest_distance = INT32_MAX;
+					int n = calculateDistance(pixel_pos,texture_info.maxNorthPixel);
+					int e = calculateDistance(pixel_pos,texture_info.maxEastPixel);
+					int s = calculateDistance(pixel_pos,texture_info.maxSouthPixel);
+					int w = calculateDistance(pixel_pos,texture_info.maxWestPixel);
+					smallest_distance = min(min(n,e),min(s,w));
+					if(smallest_distance == n) {
+						point_at = Vector2i(x,y) + texture_info.maxNorthPixel;
+						clicked_tiles = {content[j-1][i-1],content[j-1][i],content[j][i],content[j][i-1]};
+					} else if(smallest_distance == e) {
+						point_at = Vector2i(x,y) + texture_info.maxEastPixel;
+						clicked_tiles = {content[j-1][i],content[j-1][i+1],content[j][i+1],content[j][i]};
+					} else if(smallest_distance == s) {
+						point_at = Vector2i(x,y) + texture_info.maxSouthPixel;
+						clicked_tiles = {content[j][i],content[j][i+1],content[j+1][i+1],content[j+1][i]};
+					} else if(smallest_distance == w) {
+						point_at = Vector2i(x,y) + texture_info.maxWestPixel;
+						clicked_tiles = {content[j][i-1],content[j][i],content[j+1][i],content[j+1][i-1]};
+					}
 				}
 			}
 		}
 	}
-	point_at = pos;
 	generateMap();
-	return clicked_tile;
+	return clicked_tiles;
 }
 
 void Renderer::renderMap(sf::RenderWindow &window)

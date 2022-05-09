@@ -24,7 +24,7 @@ public:
 
 	void renderMap(sf::RenderWindow &window);
 
-	Vector2i getClickedTile(sf::Vector2i pos);
+	vector<Tile*> getClickedTiles(sf::Vector2i pos);
 };
 
 

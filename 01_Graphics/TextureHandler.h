@@ -7,6 +7,14 @@
 #include <gbttd.h>
 #include <Tile.h>
 
+struct textureInfo {
+	Image* texture;
+	Vector2i maxNorthPixel;
+	Vector2i maxEastPixel;
+	Vector2i maxSouthPixel;
+	Vector2i maxWestPixel;
+};
+
 class TextureHandler
 {
 private:
@@ -19,7 +27,7 @@ private:
 
 	void deleteImages();
 
-	sf::Image* textures_map[2][0b11111];
+	textureInfo textures_map[2][0b11111];
 public:
 	TextureHandler(TextureHandler &other) = delete;
 
@@ -31,7 +39,7 @@ public:
 
 	static std::string tileTypePathName(TileType tile_type, Slope slope);
 
-	sf::Image* getTextureByTileType(Tile* tile);
+	textureInfo& getTextureByTileType(Tile* tile);
 
 	sf::Image* getImage(std::string &key);
 

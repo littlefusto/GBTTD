@@ -52,10 +52,38 @@ TextureHandler::TextureHandler()
 			try
 			{
 				std::string tile_name = tileTypePathName((TileType) i, (Slope) j);
-				textures_map[i][j] = getImage(tile_name);
+				sf::Image* tile_texture = getImage(tile_name);
+				Vector2i maxNorthPixel = Vector2i(0,INT32_MAX);
+				Vector2i maxEastPixel = Vector2i(0,0);
+				Vector2i maxSouthPixel = Vector2i(0,0);
+				Vector2i maxWestPixel = Vector2i(INT32_MAX,0);
+				for(int x=0; x< tile_texture->getSize().x; x++) {
+					for(int y=0; y< tile_texture->getSize().y; y++) {
+						if(tile_texture->getPixel(x,y).a > 0) {
+							if(maxNorthPixel.y > y) maxNorthPixel = Vector2i(x,y);
+							if(maxSouthPixel.y < y) maxSouthPixel = Vector2i(x,y);
+							if(maxEastPixel.x < x) maxEastPixel = Vector2i(x,y);
+							if(maxWestPixel.x > x) maxWestPixel = Vector2i(x,y);
+						}
+					}
+				}
+				textures_map[i][j] = textureInfo{
+						.texture = tile_texture,
+						.maxNorthPixel = maxNorthPixel,
+						.maxEastPixel = maxEastPixel,
+						.maxSouthPixel = maxSouthPixel,
+						.maxWestPixel = maxWestPixel
+				};
+
 			} catch (const std::invalid_argument &e)
 			{
-				textures_map[i][j] = nullptr;
+				textures_map[i][j] = textureInfo{
+						.texture = nullptr,
+						.maxNorthPixel = Vector2i(-1,-1),
+						.maxEastPixel = Vector2i(-1,-1),
+						.maxSouthPixel = Vector2i(-1,-1),
+						.maxWestPixel = Vector2i(-1,-1)
+				};;
 			}
 		}
 	}
@@ -101,7 +129,7 @@ sf::Image* TextureHandler::getImage(std::string &key)
 	return getImage(key.c_str());
 }
 
-sf::Image* TextureHandler::getTextureByTileType(Tile* tile)
+textureInfo& TextureHandler::getTextureByTileType(Tile* tile)
 {
 	return textures_map[tile->getTileType()][tile->getTileSlope()];
 }
