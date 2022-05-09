@@ -37,7 +37,7 @@ public:
 	Tile( int heightTemp, TileType tile_typeTemp, Slope slopeTemp );
 
 	int getHeight() const { return height; }
-	int setHeight(int new_height) { height = new_height; }
+	void setHeight(int new_height) { height = new_height; }
 
 	Slope getTileSlope() const { return slope; }
 
