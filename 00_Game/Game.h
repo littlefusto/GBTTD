@@ -18,7 +18,7 @@ struct Game
 {
 private:
 	sf::RenderWindow* window = nullptr;
-	sf::View view;
+	sf::View* view = nullptr;
 	Map* map = nullptr;
 	MapLoader* mapLoader = nullptr;
 	Renderer* renderer = nullptr;
@@ -43,7 +43,6 @@ private:
 	void cleanup();
 
 public:
-	Game();
 	void run();
 };
 //GBTTD_GAME_H

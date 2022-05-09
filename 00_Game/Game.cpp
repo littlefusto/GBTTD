@@ -4,13 +4,10 @@
 #include <gbttd.h>
 #include "Game.h"
 
-Game::Game() {
-	view = sf::View(sf::FloatRect(0.f, 0.f, WINDOW_SIZE_X, WINDOW_SIZE_Y));
-}
-
 void Game::init()
 {
 	window = new RenderWindow(sf::VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "GBTTD");
+	view = new View(sf::FloatRect(0.f, 0.f, WINDOW_SIZE_X, WINDOW_SIZE_Y));
 	map = new Map();
 	renderer = new Renderer(*map);
 	mapLoader = new MapLoader();
@@ -65,7 +62,7 @@ void Game::poll()
 				{
 					zoomViewAt(pos, *window, 1.1f);
 				}
-				view = window->getView();
+				*view = window->getView();
 			}
 				break;
 			case sf::Event::KeyPressed:
@@ -135,9 +132,9 @@ void Game::poll()
 			case Event::MouseMoved:
 				if (RMBPressed)
 				{
-					float zoom_x_mult = (float)view.getSize().x/window->getSize().x;
-					float zoom_y_mult = (float)view.getSize().y/window->getSize().y;
-					view.move(zoom_x_mult*(oldMouse.x - event.mouseMove.x),zoom_y_mult*(oldMouse.y - event.mouseMove.y));
+					float zoom_x_mult = (float)view->getSize().x/window->getSize().x;
+					float zoom_y_mult = (float)view->getSize().y/window->getSize().y;
+					view->move(zoom_x_mult*(oldMouse.x - event.mouseMove.x),zoom_y_mult*(oldMouse.y - event.mouseMove.y));
 					oldMouse.x = event.mouseMove.x;
 					oldMouse.y = event.mouseMove.y;
 				} else
@@ -156,8 +153,8 @@ void Game::poll()
 			break;
 		}
 	}
-	view.move(movement);
-	window->setView(view);
+	view->move(movement);
+	window->setView(*view);
 	if (!window->isOpen()) shouldClose = true;
 }
 
@@ -183,7 +180,7 @@ void Game::cleanup()
 void Game::run()
 {
 	init();
-	window->setView(view);
+	window->setView(*view);
 	mapLoader->loadMap(*map, "test1");
 	renderer->generateMap();
 	while (!shouldClose)
