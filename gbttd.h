@@ -27,7 +27,7 @@ using namespace sf;
 #include <Renderer.h>
 #include <Saves.h>
 
-
+#include <GameInput.h>
 
 #include <Game.h>
 

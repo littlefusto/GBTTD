@@ -15,12 +15,13 @@ void Game::init()
 	map = JSONMapLoader::loadMap(path);
 	renderer = new Renderer(*map);
 	renderer->generateMap();
+
+	GameInput::init();
 }
 
 void Game::poll()
 {
-	handleInput();
-	view->move(movement);
+	GameInput::handleInput(this);
 	window->setView(*view);
 	if (!window->isOpen()) shouldClose = true;
 }
@@ -58,4 +59,44 @@ void Game::run()
 		draw();
 	}
 	cleanup();
+}
+
+RenderWindow* Game::getWindow() const
+{
+	return window;
+}
+
+Map* Game::getMap() const
+{
+	return map;
+}
+
+game_state Game::getGameState() const
+{
+	return gameState;
+}
+
+void Game::setGameState(game_state gameState)
+{
+	Game::gameState = gameState;
+}
+
+void Game::setMap(Map* map)
+{
+	Game::map = map;
+}
+
+Renderer* Game::getRenderer() const
+{
+	return renderer;
+}
+
+View* Game::getView() const
+{
+	return view;
+}
+
+void Game::setView(View* view)
+{
+	Game::view = view;
 }

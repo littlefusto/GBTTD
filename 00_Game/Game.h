@@ -7,6 +7,7 @@
 #define WINDOW_SIZE_Y 720
 
 #include <gbttd.h>
+#include <GameInput.h>
 
 enum game_state
 {
@@ -20,15 +21,31 @@ struct Game
 private:
 	sf::RenderWindow* window = nullptr;
 	sf::View* view = nullptr;
+
 	Map* map = nullptr;
+
 	MapLoader* mapLoader = nullptr;
 	Renderer* renderer = nullptr;
 
-	Vector2f movement{ 0.0, 0.0 };
-	Vector2f oldMouse{ 0.0, 0.0 };
-
 	game_state gameState = state_map;
-	sf::Event event{};
+public:
+	void setGameState(game_state gameState);
+
+	View* getView() const;
+
+	void setView(View* view);
+
+	void setMap(Map* map);
+
+	Renderer* getRenderer() const;
+
+	RenderWindow* getWindow() const;
+
+	Map* getMap() const;
+
+	game_state getGameState() const;
+
+private:
 
 	bool RMBPressed = false;
 	bool mouseWasMoved = false;
@@ -37,7 +54,6 @@ private:
 	void init();
 
 	void poll();
-	void handleInput();
 
 	void loop();
 

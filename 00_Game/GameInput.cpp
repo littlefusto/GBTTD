@@ -6,6 +6,7 @@
 #include <gbttd.h>
 #include "JSONMapLoader.h"
 #include <Game.h>
+#include <GameInput.h>
 
 
 void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow &window, float zoom)
@@ -20,11 +21,21 @@ void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow &window, float zoom)
 	window.setView(view);
 }
 
-void Game::handleInput()
+void GameInput::init()
 {
-	while (window->pollEvent(event))
+	moveRight = 0, moveLeft = 0, moveUp = 0, moveDown = 0;
+	movement = { 0, 0 };
+	oldMouse = { 0, 0 };
+
+	RMBPressed = false;
+	mouseWasMoved = false;
+}
+
+void GameInput::handleInput(Game* game)
+{
+	while (game->getWindow()->pollEvent(event))
 	{
-		switch (gameState)
+		switch (game->getGameState())
 		{
 		case state_menu:
 			switch (event.type)
@@ -33,20 +44,20 @@ void Game::handleInput()
 				if (event.key.code == sf::Keyboard::L)
 				{
 					std::string path = "map1";//TODO:move <--this<- somewhere else
-					delete map;//TODO: create proper destructor!
-					map = JSONMapLoader::loadMap(path);
-					renderer->generateMap();
-					gameState = state_map;
+					delete game->getMap();//TODO: create proper destructor!
+					game->setMap(JSONMapLoader::loadMap(path));
+					game->getRenderer()->generateMap();
+					game->setGameState(state_map);
 				}
 				if (event.key.code == sf::Keyboard::S)
 				{
 					std::string path = "map1";//<--you know what to do
-					JSONMapLoader::saveMap(map, path);
+					JSONMapLoader::saveMap(game->getMap(), path);
 				}
-				if (event.key.code == sf::Keyboard::Escape) { gameState = state_map; }
+				if (event.key.code == sf::Keyboard::Escape) { game->setGameState(state_map); }
 				break;
 			case sf::Event::Closed:
-				window->close();
+				game->getWindow()->close();
 				break;
 			default:
 				break;
@@ -56,7 +67,7 @@ void Game::handleInput()
 			switch (event.type)
 			{
 			case sf::Event::Closed:
-				window->close();
+				game->getWindow()->close();
 				break;
 			case sf::Event::MouseWheelScrolled:
 			{
@@ -65,34 +76,35 @@ void Game::handleInput()
 				pos.y = event.mouseWheelScroll.y;
 				if (event.mouseWheelScroll.delta > 0.0f)
 				{
-					zoomViewAt(pos, *window, 0.9f);
+					zoomViewAt(pos, *game->getWindow(), 0.9f);
 				} else
 				{
-					zoomViewAt(pos, *window, 1.1f);
+					zoomViewAt(pos, *game->getWindow(), 1.1f);
 				}
-				*view = window->getView();
+				View* veew = (View*) ((void*) (game->getView()));
+				*veew = game->getWindow()->getView();
 			}
 				break;
 			case sf::Event::KeyPressed:
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Right:
-					movement.x += 0.1f;
+					moveRight = 0.1f;
 					break;
 				case sf::Keyboard::Left:
-					movement.x += -0.1f;
+					moveLeft = 0.1f;
 					break;
 				case sf::Keyboard::Down:
-					movement.y += 0.1f;
+					moveDown = 0.1f;
 					break;
 				case sf::Keyboard::Up:
-					movement.y += -0.1f;
+					moveUp = 0.1f;
 					break;
 				case sf::Keyboard::B:
-					gameState = state_build;
+					game->setGameState(state_build);
 					break;
 				case sf::Keyboard::Escape:
-					gameState = state_menu;
+					game->setGameState(state_menu);
 					break;
 				default:
 					break;
@@ -102,16 +114,16 @@ void Game::handleInput()
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Right:
-					movement.x = 0.0f;
+					moveRight = 0.0f;
 					break;
 				case sf::Keyboard::Left:
-					movement.x = 0.0f;
+					moveLeft = 0.0f;
 					break;
 				case sf::Keyboard::Down:
-					movement.y = 0.0f;
+					moveDown = 0.0f;
 					break;
 				case sf::Keyboard::Up:
-					movement.y = 0.0f;
+					moveUp = 0.0f;
 					break;
 				default:
 					break;
@@ -125,12 +137,12 @@ void Game::handleInput()
 					sf::Vector2i pos;
 					pos.x = event.mouseButton.x;
 					pos.y = event.mouseButton.y;
-					sf::Vector2f pos_world = window->mapPixelToCoords(pos);
+					sf::Vector2f pos_world = game->getWindow()->mapPixelToCoords(pos);
 					//convert to integers
 					//maybe change renderer to float
 					pos.x = pos_world.x;
 					pos.y = pos_world.y;
-					renderer->getClickedTiles(pos);
+					game->getRenderer()->getClickedTiles(pos);
 				}
 					break;
 				case sf::Mouse::Right:
@@ -149,10 +161,14 @@ void Game::handleInput()
 			case Event::MouseMoved:
 				if (RMBPressed)
 				{
-					float zoom_x_mult = (float) view->getSize().x / window->getSize().x;
-					float zoom_y_mult = (float) view->getSize().y / window->getSize().y;
-					view->move(zoom_x_mult * (oldMouse.x - event.mouseMove.x),
-						   zoom_y_mult * (oldMouse.y - event.mouseMove.y));
+					float
+						zoom_x_mult =
+						(float) game->getView()->getSize().x / game->getWindow()->getSize().x;
+					float
+						zoom_y_mult =
+						(float) game->getView()->getSize().y / game->getWindow()->getSize().y;
+					game->getView()->move(zoom_x_mult * (oldMouse.x - event.mouseMove.x),
+							      zoom_y_mult * (oldMouse.y - event.mouseMove.y));
 					oldMouse.x = event.mouseMove.x;
 					oldMouse.y = event.mouseMove.y;
 				} else
@@ -175,12 +191,13 @@ void Game::handleInput()
 				pos.y = event.mouseWheelScroll.y;
 				if (event.mouseWheelScroll.delta > 0.0f)
 				{
-					zoomViewAt(pos, *window, 0.9f);
+					zoomViewAt(pos, *game->getWindow(), 0.9f);
 				} else
 				{
-					zoomViewAt(pos, *window, 1.1f);
+					zoomViewAt(pos, *game->getWindow(), 1.1f);
 				}
-				*view = window->getView();
+				View* veew = (View*) ((void*) (game->getView()));
+				*veew = game->getWindow()->getView();
 			}
 				break;
 			case sf::Event::KeyPressed:
@@ -188,22 +205,22 @@ void Game::handleInput()
 				switch (event.key.code)
 				{
 				case sf::Keyboard::D:
-					movement.x += 0.1f;
+					moveRight = 0.1f;
 					break;
 				case sf::Keyboard::A:
-					movement.x += -0.1f;
+					moveLeft = 0.1f;
 					break;
 				case sf::Keyboard::S:
-					movement.y += 0.1f;
+					moveDown = 0.1f;
 					break;
 				case sf::Keyboard::W:
-					movement.y += -0.1f;
+					moveUp = 0.1f;
 					break;
 				case sf::Keyboard::B:
-					gameState = state_build;
+					game->setGameState(state_build);
 					break;
 				case sf::Keyboard::Escape:
-					gameState = state_menu;
+					game->setGameState(state_menu);
 					break;
 				default:
 					break;
@@ -214,16 +231,16 @@ void Game::handleInput()
 				switch (event.key.code)
 				{
 				case sf::Keyboard::D:
-					movement.x += -0.1f;
+					moveRight = 0;
 					break;
 				case sf::Keyboard::A:
-					movement.x += 0.1f;
+					moveLeft = 0;
 					break;
 				case sf::Keyboard::S:
-					movement.y += -0.1f;
+					moveDown = 0;
 					break;
 				case sf::Keyboard::W:
-					movement.y += 0.1f;
+					moveUp = 0;
 					break;
 				default:
 					break;
@@ -239,10 +256,10 @@ void Game::handleInput()
 					sf::Vector2i pos;
 					pos.x = event.mouseButton.x;
 					pos.y = event.mouseButton.y;
-					sf::Vector2f pos_world = window->mapPixelToCoords(pos);
+					sf::Vector2f pos_world = game->getWindow()->mapPixelToCoords(pos);
 					pos.x = pos_world.x;
 					pos.y = pos_world.y;
-					vector<Tile*> clicked_tiles = renderer->getClickedTiles(pos);
+					vector<Tile*> clicked_tiles = game->getRenderer()->getClickedTiles(pos);
 					/*if(map->getContent()[pos.y][pos.x] == nullptr && map->getContent()[pos.y][pos.x]->getHeight() < MAX_MAP_HEIGHT ){
 						map->getContent()[pos.y][pos.x] = new Tile(
 								map->getContent()[pos.y][pos.x]->getHeight()+1,
@@ -250,11 +267,15 @@ void Game::handleInput()
 								map->getContent()[pos.y][pos.x]->getTileSlope()
 						);
 					}*/
-					if(clicked_tiles[0]) clicked_tiles[0]->setHeight(clicked_tiles[0]->getHeight() + 1);
-					if(clicked_tiles[1]) clicked_tiles[1]->setHeight(clicked_tiles[1]->getHeight() + 2);
-					if(clicked_tiles[2]) clicked_tiles[2]->setHeight(clicked_tiles[2]->getHeight() + 3);
-					if(clicked_tiles[3]) clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight() + 4);
-					renderer->generateMap();
+					if (clicked_tiles[0])
+						clicked_tiles[0]->setHeight(clicked_tiles[0]->getHeight() + 1);
+					if (clicked_tiles[1])
+						clicked_tiles[1]->setHeight(clicked_tiles[1]->getHeight() + 2);
+					if (clicked_tiles[2])
+						clicked_tiles[2]->setHeight(clicked_tiles[2]->getHeight() + 3);
+					if (clicked_tiles[3])
+						clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight() + 4);
+					game->getRenderer()->generateMap();
 				}
 				break;
 			case Event::MouseButtonReleased:
@@ -266,7 +287,7 @@ void Game::handleInput()
 						sf::Vector2i pos;
 						pos.x = event.mouseButton.x;
 						pos.y = event.mouseButton.y;
-						sf::Vector2f pos_world = window->mapPixelToCoords(pos);
+						sf::Vector2f pos_world = game->getWindow()->mapPixelToCoords(pos);
 						pos.x = pos_world.x;
 						pos.y = pos_world.y;
 						/*pos = renderer->getClickedTile(pos);
@@ -277,7 +298,7 @@ void Game::handleInput()
 									map->getContent()[pos.y][pos.x]->getTileSlope()
 							);
 						}*/
-						vector<Tile*> clicked_tiles = renderer->getClickedTiles(pos);
+						vector<Tile*> clicked_tiles = game->getRenderer()->getClickedTiles(pos);
 						/*if(map->getContent()[pos.y][pos.x] == nullptr && map->getContent()[pos.y][pos.x]->getHeight() < MAX_MAP_HEIGHT ){
 							map->getContent()[pos.y][pos.x] = new Tile(
 									map->getContent()[pos.y][pos.x]->getHeight()+1,
@@ -285,10 +306,14 @@ void Game::handleInput()
 									map->getContent()[pos.y][pos.x]->getTileSlope()
 							);
 						}*/
-						if(clicked_tiles[0]) clicked_tiles[0]->setHeight(clicked_tiles[0]->getHeight() + 1);
-						if(clicked_tiles[1]) clicked_tiles[1]->setHeight(clicked_tiles[1]->getHeight() + 2);
-						if(clicked_tiles[2]) clicked_tiles[2]->setHeight(clicked_tiles[2]->getHeight() + 3);
-						if(clicked_tiles[3]) clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight() + 4);
+						if (clicked_tiles[0])
+							clicked_tiles[0]->setHeight(clicked_tiles[0]->getHeight() + 1);
+						if (clicked_tiles[1])
+							clicked_tiles[1]->setHeight(clicked_tiles[1]->getHeight() + 2);
+						if (clicked_tiles[2])
+							clicked_tiles[2]->setHeight(clicked_tiles[2]->getHeight() + 3);
+						if (clicked_tiles[3])
+							clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight() + 4);
 					}
 				}
 				break;
@@ -296,10 +321,14 @@ void Game::handleInput()
 				if (RMBPressed)
 				{
 					mouseWasMoved = true;
-					float zoom_x_mult = (float) view->getSize().x / window->getSize().x;
-					float zoom_y_mult = (float) view->getSize().y / window->getSize().y;
-					view->move(zoom_x_mult * (oldMouse.x - event.mouseMove.x),
-						   zoom_y_mult * (oldMouse.y - event.mouseMove.y));
+					float
+						zoom_x_mult =
+						(float) game->getView()->getSize().x / game->getWindow()->getSize().x;
+					float
+						zoom_y_mult =
+						(float) game->getView()->getSize().y / game->getWindow()->getSize().y;
+					game->getView()->move(zoom_x_mult * (oldMouse.x - event.mouseMove.x),
+							      zoom_y_mult * (oldMouse.y - event.mouseMove.y));
 					oldMouse.x = event.mouseMove.x;
 					oldMouse.y = event.mouseMove.y;
 				} else
@@ -313,12 +342,11 @@ void Game::handleInput()
 			}
 			break;
 		}
-		if (gameState == state_map | gameState == state_build)
+		if (game->getGameState() == state_map | game->getGameState() == state_build)
 		{
-			if (movement.x > 0.1f) movement.x = 0.1f;
-			if (movement.x < -0.1f) movement.x = -0.1f;
-			if (movement.y > 0.1f) movement.y = 0.1f;
-			if (movement.y < -0.1f) movement.y = -0.1f;
+			movement.x = (moveRight - moveLeft);
+			movement.y = (moveUp - moveDown);
 		}
 	}
+	game->getView()->move(movement);
 }
