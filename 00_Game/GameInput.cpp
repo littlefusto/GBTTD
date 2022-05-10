@@ -26,8 +26,9 @@ void GameInput::init()
 	movement = { 0, 0 };
 	oldMouse = { 0, 0 };
 
+	RMBPressedTime.restart();
+	mousedrag = 80;
 	RMBPressed = false;
-	mouseWasMoved = false;
 }
 
 void GameInput::handleInput(Game* game)
@@ -145,6 +146,7 @@ void GameInput::handleInput(Game* game)
 				}
 					break;
 				case sf::Mouse::Right:
+					RMBPressedTime.restart();
 					RMBPressed = true;
 					break;
 				default:
@@ -158,7 +160,7 @@ void GameInput::handleInput(Game* game)
 				}
 				break;
 			case Event::MouseMoved:
-				if (RMBPressed)
+				if (RMBPressed && RMBPressedTime.getElapsedTime() > milliseconds(mousedrag))
 				{
 					float
 						zoom_x_mult =
@@ -183,6 +185,9 @@ void GameInput::handleInput(Game* game)
 		case state_build:
 			switch (event.type)
 			{
+			case sf::Event::Closed:
+				game->getWindow()->close();
+				break;
 			case sf::Event::MouseWheelScrolled:
 			{
 				sf::Vector2i pos;
@@ -224,8 +229,8 @@ void GameInput::handleInput(Game* game)
 				default:
 					break;
 				}
-				break;
 			}
+				break;
 			case sf::Event::KeyReleased:
 				switch (event.key.code)
 				{
@@ -248,8 +253,8 @@ void GameInput::handleInput(Game* game)
 			case Event::MouseButtonPressed:
 				if (event.mouseButton.button == sf::Mouse::Right)
 				{
+					RMBPressedTime.restart();
 					RMBPressed = true;
-					mouseWasMoved = false;
 				} else if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					sf::Vector2i pos;
@@ -280,8 +285,7 @@ void GameInput::handleInput(Game* game)
 			case Event::MouseButtonReleased:
 				if (event.mouseButton.button == sf::Mouse::Right)
 				{
-					RMBPressed = false;
-					if (!mouseWasMoved)
+					if (RMBPressedTime.getElapsedTime() < milliseconds(mousedrag))
 					{
 						sf::Vector2i pos;
 						pos.x = event.mouseButton.x;
@@ -311,11 +315,23 @@ void GameInput::handleInput(Game* game)
 						//if(clicked_tiles[3]) clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight() + 4);
 						//first test:
 						int possible_tiles = 0;
-						if(clicked_tiles[0]) possible_tiles += clicked_tiles[0]->registerSlopeChange(S);
-						if(clicked_tiles[1]) possible_tiles += clicked_tiles[1]->registerSlopeChange(W);
-						if(clicked_tiles[2]) possible_tiles += clicked_tiles[2]->registerSlopeChange(N);
-						if(clicked_tiles[3]) possible_tiles += clicked_tiles[3]->registerSlopeChange(E);
-						if(possible_tiles==4)
+						if (clicked_tiles[0])
+							possible_tiles
+								+=
+								clicked_tiles[0]->registerSlopeChange(S);
+						if (clicked_tiles[1])
+							possible_tiles
+								+=
+								clicked_tiles[1]->registerSlopeChange(W);
+						if (clicked_tiles[2])
+							possible_tiles
+								+=
+								clicked_tiles[2]->registerSlopeChange(N);
+						if (clicked_tiles[3])
+							possible_tiles
+								+=
+								clicked_tiles[3]->registerSlopeChange(E);
+						if (possible_tiles == 4)
 						{
 							if (clicked_tiles[0]) clicked_tiles[0]->commitSlopeChange();
 							if (clicked_tiles[1]) clicked_tiles[1]->commitSlopeChange();
@@ -324,12 +340,12 @@ void GameInput::handleInput(Game* game)
 						}
 						game->getRenderer()->generateMap();
 					}
+					RMBPressed = false;
 				}
 				break;
 			case Event::MouseMoved:
-				if (RMBPressed)
+				if (RMBPressed && RMBPressedTime.getElapsedTime() > milliseconds(mousedrag))
 				{
-					mouseWasMoved = true;
 					float
 						zoom_x_mult =
 						(float) game->getView()->getSize().x / game->getWindow()->getSize().x;
@@ -354,7 +370,7 @@ void GameInput::handleInput(Game* game)
 		if (game->getGameState() == state_map | game->getGameState() == state_build)
 		{
 			movement.x = (moveRight - moveLeft);
-			movement.y = (moveUp - moveDown);
+			movement.y = (moveDown - moveUp);
 		}
 	}
 	game->getView()->move(movement);
