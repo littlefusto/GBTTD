@@ -7,9 +7,8 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
 
-struct GameInput
+namespace GameInput
 {
-private:
 	static Event event;
 
 	static float moveRight, moveLeft, moveUp, moveDown;
@@ -18,7 +17,7 @@ private:
 
 	static bool RMBPressed;
 	static bool mouseWasMoved;
-public:
-	static void init();
-	static void handleInput(Game*);
+
+	void init();
+	void handleInput(Game*);
 };
