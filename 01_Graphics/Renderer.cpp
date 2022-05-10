@@ -82,10 +82,11 @@ vector<Tile*> Renderer::getClickedTiles(sf::Vector2i pos)
 				if (pixel_pos.x <= source->getSize().x && pixel_pos.x >= 0 && pixel_pos.y <= source->getSize().y && pixel_pos.y >= 0 &&
 					source->getPixel(pixel_pos.x, pixel_pos.y).a > 0)
 				{
-					selected_tile = Vector2i(x, y);
+					/* Selected Tile not needed atm
+					 * selected_tile = Vector2i(x, y);
 					selected_tile_image->create(source->getSize().x, source->getSize().y);
 					selected_tile_image->copy(*source, 0, 0);
-					selected_tile_image->createMaskFromColor(Color(0, 255, 0), 200);
+					selected_tile_image->createMaskFromColor(Color(0, 255, 0), 200);*/
 					int32_t smallest_distance = INT32_MAX;
 					int n = calculateDistance(pixel_pos,texture_info.maxNorthPixel);
 					int e = calculateDistance(pixel_pos,texture_info.maxEastPixel);

@@ -15,7 +15,8 @@ enum Slope : unsigned char//bitflag N E S W dictates high corners
 	NE = (N | E), NES = (N | E | S), NEW = (N | E | W), NS = (N | S), NSW = (N | S | W), NW = (N | W),
 	ES = (E | S), ESW = (E | S | W), EW = (E | W), SW = (S | W),
 	NESW = (N | E | S | W),
-	STEEP = 0b10000, STEEP_N = (STEEP | N), STEEP_E = (STEEP | E), STEEP_S = (STEEP | S), STEEP_W = (STEEP | W)
+	STEEP = 0b10000, STEEP_N = (STEEP | N), STEEP_E = (STEEP | E), STEEP_S = (STEEP | S), STEEP_W = (STEEP | W),
+	INVALID = (STEEP_N | E | S | W)
 };
 
 enum TileType : unsigned char
@@ -30,6 +31,7 @@ private:
 	int height = 2;
 	TileType tile_type;
 	Slope slope = FLAT;
+	Slope registered_slope_change;
 
 public:
 	Tile();
@@ -38,10 +40,15 @@ public:
 
 	int getHeight() const { return height; }
 	void setHeight(int new_height) { height = new_height; }
+	void addToHeight(int to_add);
 
 	Slope getTileSlope() const { return slope; }
+	bool registerSlopeChange(Slope to_add);
+	bool commitSlopeChange();
 
 	TileType getTileType() const { return tile_type; }
+
+
 };
 
 
