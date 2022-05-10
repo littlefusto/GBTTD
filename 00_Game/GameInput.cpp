@@ -47,6 +47,8 @@ void GameInput::handleInput(Game *game) {
 								game->setGameState(state_map);
 								break;
 							}
+						default:
+							break;
 						}
 						break;
 					}
