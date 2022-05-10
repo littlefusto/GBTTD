@@ -323,7 +323,7 @@ void GameInput::handleInput(Game* game)
 							if (clicked_tiles[2]) clicked_tiles[2]->commitSlopeChange();
 							if (clicked_tiles[3]) clicked_tiles[3]->commitSlopeChange();
 						}
-						renderer->generateMap();
+						game->getRenderer()->generateMap();
 					}
 				}
 				break;
