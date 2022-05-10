@@ -265,13 +265,13 @@ void GameInput::handleInput(Game *game) {
 								vector<Tile *> clicked_tiles = game->getRenderer()->getClickedTiles(pos);
 								int possible_tiles = 0;
 								if (clicked_tiles[0])
-									possible_tiles += clicked_tiles[0]->registerSlopeChange(S);
+									possible_tiles += clicked_tiles[0]->registerSlopeChange(true,S);
 								if (clicked_tiles[1])
-									possible_tiles += clicked_tiles[1]->registerSlopeChange(W);
+									possible_tiles += clicked_tiles[1]->registerSlopeChange(true,W);
 								if (clicked_tiles[2])
-									possible_tiles += clicked_tiles[2]->registerSlopeChange(N);
+									possible_tiles += clicked_tiles[2]->registerSlopeChange(true,N);
 								if (clicked_tiles[3])
-									possible_tiles += clicked_tiles[3]->registerSlopeChange(E);
+									possible_tiles += clicked_tiles[3]->registerSlopeChange(true,E);
 								if (possible_tiles == 4) {
 									if (clicked_tiles[0]) clicked_tiles[0]->commitSlopeChange();
 									if (clicked_tiles[1]) clicked_tiles[1]->commitSlopeChange();
@@ -286,6 +286,29 @@ void GameInput::handleInput(Game *game) {
 								break;
 							}
 							case sf::Mouse::Right: {
+								sf::Vector2i pos;
+								pos.x = event.mouseButton.x;
+								pos.y = event.mouseButton.y;
+								sf::Vector2f pos_world = game->getWindow()->mapPixelToCoords(pos);
+								pos.x = pos_world.x;
+								pos.y = pos_world.y;
+								vector<Tile *> clicked_tiles = game->getRenderer()->getClickedTiles(pos);
+								int possible_tiles = 0;
+								if (clicked_tiles[0])
+									possible_tiles += clicked_tiles[0]->registerSlopeChange(false,S);
+								if (clicked_tiles[1])
+									possible_tiles += clicked_tiles[1]->registerSlopeChange(false,W);
+								if (clicked_tiles[2])
+									possible_tiles += clicked_tiles[2]->registerSlopeChange(false,N);
+								if (clicked_tiles[3])
+									possible_tiles += clicked_tiles[3]->registerSlopeChange(false,E);
+								if (possible_tiles == 4) {
+									if (clicked_tiles[0]) clicked_tiles[0]->commitSlopeChange();
+									if (clicked_tiles[1]) clicked_tiles[1]->commitSlopeChange();
+									if (clicked_tiles[2]) clicked_tiles[2]->commitSlopeChange();
+									if (clicked_tiles[3]) clicked_tiles[3]->commitSlopeChange();
+								}
+								game->getRenderer()->generateMap();
 								break;
 							}
 							default: {

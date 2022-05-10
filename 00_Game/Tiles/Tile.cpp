@@ -44,43 +44,89 @@ Vector3<Slope> getNeighbourDirections(Slope slope)
 	return return_vec;
 }
 
-bool Tile::registerSlopeChange(Slope to_add)
+bool Tile::registerSlopeChange(bool move_up, Slope change)
 {
-	//TODO handle MAX_MAP_HEIGHT case accurately
-	if (height == MAX_MAP_HEIGHT)
+	registered_move_up = move_up;
+	if(!move_up)
 	{
-		registered_slope_change = INVALID;
-		return false;
-	}
-	Vector3<Slope> neighbours = getNeighbourDirections(to_add);
-	//Case: Two opposite directions are up already => STEEP
-	if (slope == (neighbours.x | neighbours.y | to_add))
-	{
-		registered_slope_change = static_cast<Slope>(STEEP | to_add);
-		return true;
-	}
-	//Case: Slope is STEEP
-	if ((slope & STEEP) == STEEP)
-	{
-		//is only possible if we try to up the opposite direction of the tile
-		if (to_add == getNeighbourDirections(slope).z)
-		{
-			registered_slope_change = static_cast<Slope>(slope ^ STEEP);
-			return true;
-		} else
+		if (height == 0)
 		{
 			registered_slope_change = INVALID;
 			return false;
 		}
-	}
-	//if this edge is already up we cant up it again
-	if ((slope & to_add) == to_add)
+		if (slope==change) {
+			registered_slope_change = FLAT;
+			return true;
+		}
+		Vector3<Slope> neighbours = getNeighbourDirections(change);
+		//Case: Slope is STEEP
+		if ((slope & STEEP) == STEEP)
+		{
+			//is only possible if we try to up the opposite direction of the tile
+			if (change == (slope & ~STEEP))
+			{
+				registered_slope_change = static_cast<Slope>(change | neighbours.x | neighbours.y);
+				return true;
+			} else
+			{
+				registered_slope_change = INVALID;
+				return false;
+			}
+		}
+		//if flat: all up except change
+		if (slope == FLAT)
+		{
+			registered_slope_change = static_cast<Slope>(NESW & ~change);
+			return true;
+		}
+		if( slope == neighbours.z) {
+			registered_slope_change = static_cast<Slope>(STEEP | neighbours.z);
+			return true;
+		}
+		if( (slope & change) != change) {
+			registered_slope_change = INVALID;
+			return false;
+		}
+		registered_slope_change = (Slope) (slope & ~change);
+		return true;
+	} else
 	{
-		registered_slope_change = INVALID;
-		return false;
+		//TODO handle MAX_MAP_HEIGHT case accurately
+		if (height == MAX_MAP_HEIGHT)
+		{
+			registered_slope_change = INVALID;
+			return false;
+		}
+		Vector3<Slope> neighbours = getNeighbourDirections(change);
+		//Case: Two opposite directions are up already => STEEP
+		if (slope == (neighbours.x | neighbours.y | change))
+		{
+			registered_slope_change = static_cast<Slope>(STEEP | change);
+			return true;
+		}
+		//Case: Slope is STEEP
+		if ((slope & STEEP) == STEEP)
+		{
+			//is only possible if we try to up the opposite direction of the tile
+			if (change == getNeighbourDirections(slope).z)
+			{
+				registered_slope_change = static_cast<Slope>(slope ^ STEEP);
+				return true;
+			} else
+			{
+				registered_slope_change = INVALID;
+				return false;
+			}
+		}
+		//if this edge is already up we cant up it again
+		if ((slope & change) == change)
+		{
+			registered_slope_change = INVALID;
+			return false;
+		}
+		registered_slope_change = (Slope) (slope | change);
+		return true;
 	}
-	registered_slope_change = (Slope) (slope | to_add);
-	return true;
 }
 
 bool Tile::commitSlopeChange()
@@ -91,14 +137,26 @@ bool Tile::commitSlopeChange()
 		slope = FLAT;
 		return false;
 	}
-	//if the slope was steep before increase height by one
-	if ((slope & STEEP) == STEEP && (registered_slope_change & STEEP) == 0) addToHeight(1);
-	slope = registered_slope_change;
-	if (slope == NESW)
+	if(registered_move_up)
 	{
-		//All edges where pushed up; increase height
-		slope = FLAT;
-		addToHeight(1);
+		//if the slope was steep before increase height by one
+		if ((slope & STEEP) == STEEP && (registered_slope_change & STEEP) == 0) addToHeight(1);
+		slope = registered_slope_change;
+		if (slope == NESW)
+		{
+			//All edges where pushed up; increase height
+			slope = FLAT;
+			addToHeight(1);
+		}
+	} else {
+		//if the slope was steep before increase height by one
+		if ((registered_slope_change & STEEP) == STEEP && (slope & STEEP) == 0) addToHeight(-1);
+		if (slope == FLAT)
+		{
+			//All edges where pushed up; increase height
+			addToHeight(-1);
+		}
+		slope = registered_slope_change;
 	}
 	return true;
 }

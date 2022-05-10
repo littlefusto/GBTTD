@@ -32,6 +32,7 @@ private:
 	TileType tile_type;
 	Slope slope = FLAT;
 	Slope registered_slope_change;
+	bool registered_move_up;
 
 public:
 	Tile();
@@ -43,7 +44,7 @@ public:
 	void addToHeight(int to_add);
 
 	Slope getTileSlope() const { return slope; }
-	bool registerSlopeChange(Slope to_add);
+	bool registerSlopeChange(bool move_up, Slope change);
 	bool commitSlopeChange();
 
 	TileType getTileType() const { return tile_type; }
