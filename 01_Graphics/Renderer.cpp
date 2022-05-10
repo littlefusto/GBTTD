@@ -59,7 +59,7 @@ double calculateDistance(Vector2i &a, Vector2i &b)
 //Returns 4 Tiles in clockwise order around a vertex/their intersection point
 vector<Tile*> Renderer::getClickedTiles(sf::Vector2i pos)
 {
-	vector<Tile*> clicked_tiles;
+	vector<Tile*> clicked_tiles = { nullptr,nullptr,nullptr,nullptr};
 	vector<vector<Tile*>> &content = map.getContent();
 	for (int i = 0; i < map.getSize().x; i++)
 	{
@@ -94,16 +94,16 @@ vector<Tile*> Renderer::getClickedTiles(sf::Vector2i pos)
 					smallest_distance = min(min(n,e),min(s,w));
 					if(smallest_distance == n) {
 						point_at = Vector2i(x,y) + texture_info.maxNorthPixel;
-						clicked_tiles = {content[j-1][i-1],content[j-1][i],content[j][i],content[j][i-1]};
+						clicked_tiles = {map.getTile(i-1,j-1),map.getTile(i,j-1),map.getTile(i,j),map.getTile(i-1,j)};
 					} else if(smallest_distance == e) {
 						point_at = Vector2i(x,y) + texture_info.maxEastPixel;
-						clicked_tiles = {content[j-1][i],content[j-1][i+1],content[j][i+1],content[j][i]};
+						clicked_tiles = {map.getTile(i,j-1),map.getTile(i+1,j-1),map.getTile(i+1,j),map.getTile(i,j)};
 					} else if(smallest_distance == s) {
 						point_at = Vector2i(x,y) + texture_info.maxSouthPixel;
-						clicked_tiles = {content[j][i],content[j][i+1],content[j+1][i+1],content[j+1][i]};
+						clicked_tiles = {map.getTile(i,j),map.getTile(i+1,j),map.getTile(i+1,j+1),map.getTile(i,j+1)};
 					} else if(smallest_distance == w) {
 						point_at = Vector2i(x,y) + texture_info.maxWestPixel;
-						clicked_tiles = {content[j][i-1],content[j][i],content[j+1][i],content[j+1][i-1]};
+						clicked_tiles = {map.getTile(i-1,j),map.getTile(i,j),map.getTile(i,j+1),map.getTile(i-1,j+1)};
 					}
 				}
 			}

@@ -25,6 +25,8 @@ public:
 	Vector2<int> getSize();
 
 	vector<vector<Tile*>> &getContent() { return content; }
+
+	Tile* getTile(int x, int y);
 };
 
 

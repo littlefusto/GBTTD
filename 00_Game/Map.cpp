@@ -30,6 +30,11 @@ void Map::fillMap(vector<vector<TileType>> &map) {
 	}
 }
 
+Tile* Map::getTile(int x, int y) {
+	if(x<0 || x >= this->x || y < 0 || y >= this->y) return nullptr;
+	return content[y][x];
+}
+
 Vector2<int> Map::getSize() {
 	Vector2<int> vector;
 	vector.x = this->x;

@@ -250,10 +250,10 @@ void Game::handleInput()
 								map->getContent()[pos.y][pos.x]->getTileSlope()
 						);
 					}*/
-					clicked_tiles[0]->setHeight(clicked_tiles[0]->getHeight() + 1);
-					clicked_tiles[1]->setHeight(clicked_tiles[1]->getHeight() + 2);
-					clicked_tiles[2]->setHeight(clicked_tiles[2]->getHeight() + 3);
-					clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight() + 4);
+					if(clicked_tiles[0]) clicked_tiles[0]->setHeight(clicked_tiles[0]->getHeight() + 1);
+					if(clicked_tiles[1]) clicked_tiles[1]->setHeight(clicked_tiles[1]->getHeight() + 2);
+					if(clicked_tiles[2]) clicked_tiles[2]->setHeight(clicked_tiles[2]->getHeight() + 3);
+					if(clicked_tiles[3]) clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight() + 4);
 					renderer->generateMap();
 				}
 				break;
@@ -285,10 +285,10 @@ void Game::handleInput()
 									map->getContent()[pos.y][pos.x]->getTileSlope()
 							);
 						}*/
-						clicked_tiles[0]->setHeight(clicked_tiles[0]->getHeight() + 1);
-						clicked_tiles[1]->setHeight(clicked_tiles[1]->getHeight() + 2);
-						clicked_tiles[2]->setHeight(clicked_tiles[2]->getHeight() + 3);
-						clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight() + 4);
+						if(clicked_tiles[0]) clicked_tiles[0]->setHeight(clicked_tiles[0]->getHeight() + 1);
+						if(clicked_tiles[1]) clicked_tiles[1]->setHeight(clicked_tiles[1]->getHeight() + 2);
+						if(clicked_tiles[2]) clicked_tiles[2]->setHeight(clicked_tiles[2]->getHeight() + 3);
+						if(clicked_tiles[3]) clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight() + 4);
 					}
 				}
 				break;
