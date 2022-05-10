@@ -7,17 +7,19 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
 
-namespace GameInput
-{
+namespace GameInput {
 	static Event event;
 
 	static float moveRight, moveLeft, moveUp, moveDown;
 	static Vector2f movement;
 	static Vector2f oldMouse;
+	static Vector2f click;
 
+	static Clock RMBPressedTime;
+	static int mousedrag;
 	static bool RMBPressed;
-	static bool mouseWasMoved;
 
 	void init();
+
 	void handleInput(Game*);
 };
