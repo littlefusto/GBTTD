@@ -18,6 +18,14 @@ Map::Map(int width, int height){
 	}
 }
 
+Map::~Map(){
+	for( int i = 0; i < y; i++){
+		for( int j = 0; j < x; j++){
+			free(content[i][j]);
+		}
+	}
+}
+
 void Map::fillMap(vector<vector<TileType>> &map) {
 	map.resize(getSize().x);
 	for (int w = 0; w < getSize().x; w++)

@@ -67,6 +67,7 @@ TileType stringToTileType(const std::string& tile_type_string) {
 	}else if(tile_type_string == "grass"){
 		tileType = GRASS;
 	}
+	return tileType;
 }
 
 void JSONMapLoader::saveMap(Map* map, std::string& path)

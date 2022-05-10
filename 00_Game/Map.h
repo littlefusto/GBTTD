@@ -19,6 +19,7 @@ private:
 public:
 
 	Map(int width, int height);
+	~Map();
 
 	void fillMap(vector<vector<TileType>> &map);
 
