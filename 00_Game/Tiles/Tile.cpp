@@ -33,32 +33,37 @@ void Tile::addToHeight(int to_add)
 //x = clockwise left
 //y = clockwise right
 //z = opposite
-Vector3<Slope> getNearSlopes(Slope slope)
+Vector3<Slope> getNeighbourDirections(Slope slope)
 {
 	slope = static_cast<Slope>(slope & NESW);
 	Vector3<Slope> return_vec = Vector3<Slope>(FLAT, FLAT, FLAT);
-	if (slope == N) return_vec.x = W; else return_vec.x = static_cast<Slope>(slope << 1);
-	if (slope == W) return_vec.y = N; else return_vec.y = static_cast<Slope>(slope >> 1);
-	return_vec.z = static_cast<Slope>(NESW & ~(return_vec.x | return_vec.y | slope));
+	unsigned char shift = (slope | slope << 4);
+	return_vec.x = (Slope) ((shift >> 3) & NESW);
+	return_vec.y = (Slope) ((shift >> 1) & NESW);
+	return_vec.z = (Slope) ((shift >> 2) & NESW);
 	return return_vec;
 }
 
 bool Tile::registerSlopeChange(Slope to_add)
 {
+	//TODO handle MAX_MAP_HEIGHT case accurately
 	if (height == MAX_MAP_HEIGHT)
 	{
 		registered_slope_change = INVALID;
 		return false;
 	}
-	Vector3<Slope> neighbours = getNearSlopes(to_add);
+	Vector3<Slope> neighbours = getNeighbourDirections(to_add);
+	//Case: Two opposite directions are up already => STEEP
 	if (slope == (neighbours.x | neighbours.y | to_add))
 	{
 		registered_slope_change = static_cast<Slope>(STEEP | to_add);
 		return true;
 	}
+	//Case: Slope is STEEP
 	if ((slope & STEEP) == STEEP)
 	{
-		if (to_add == getNearSlopes(slope).z)
+		//is only possible if we try to up the opposite direction of the tile
+		if (to_add == getNeighbourDirections(slope).z)
 		{
 			registered_slope_change = static_cast<Slope>(slope ^ STEEP);
 			return true;
@@ -68,14 +73,11 @@ bool Tile::registerSlopeChange(Slope to_add)
 			return false;
 		}
 	}
+	//if this edge is already up we cant up it again
 	if ((slope & to_add) == to_add)
 	{
 		registered_slope_change = INVALID;
 		return false;
-	}
-	if (slope == FLAT || slope == neighbours.x || slope == neighbours.y || slope == (NESW & ~to_add) ||
-		slope == neighbours.z)
-	{
 	}
 	registered_slope_change = (Slope) (slope | to_add);
 	return true;
@@ -89,6 +91,7 @@ bool Tile::commitSlopeChange()
 		slope = FLAT;
 		return false;
 	}
+	//if the slope was steep before increase height by one
 	if ((slope & STEEP) == STEEP && (registered_slope_change & STEEP) == 0) addToHeight(1);
 	slope = registered_slope_change;
 	if (slope == NESW)
