@@ -3,7 +3,7 @@
 //
 #include <JSONMapLoader.h>
 #include <gbttd.h>
-#include "Game.h"
+#include <Game.h>
 
 void Game::init()
 {

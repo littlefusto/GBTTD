@@ -5,7 +5,7 @@
 
 #include <gbttd.h>
 #include <SFML/Graphics.hpp>
-#include "Game.h"
+#include <Game.h>
 
 namespace GameInput {
 	static Event event;
@@ -15,9 +15,7 @@ namespace GameInput {
 	static Vector2f oldMouse;
 	static Vector2f click;
 
-	static Clock RMBPressedTime;
-	static int mousedrag;
-	static bool RMBPressed;
+	static bool MMBPressed = false;
 
 	void init();
 
