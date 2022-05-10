@@ -1,7 +1,6 @@
 //
 // Created by noop on 09.05.2022.
 //
-#pragma once
 
 #include <gbttd.h>
 #include "JSONMapLoader.h"
