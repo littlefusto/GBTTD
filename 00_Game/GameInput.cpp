@@ -306,14 +306,24 @@ void GameInput::handleInput(Game* game)
 									map->getContent()[pos.y][pos.x]->getTileSlope()
 							);
 						}*/
-						if (clicked_tiles[0])
-							clicked_tiles[0]->setHeight(clicked_tiles[0]->getHeight() + 1);
-						if (clicked_tiles[1])
-							clicked_tiles[1]->setHeight(clicked_tiles[1]->getHeight() + 2);
-						if (clicked_tiles[2])
-							clicked_tiles[2]->setHeight(clicked_tiles[2]->getHeight() + 3);
-						if (clicked_tiles[3])
-							clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight() + 4);
+						//if(clicked_tiles[0]) clicked_tiles[0]->setHeight(clicked_tiles[0]->getHeight() + 1);
+						//if(clicked_tiles[1]) clicked_tiles[1]->setHeight(clicked_tiles[1]->getHeight() + 2);
+						//if(clicked_tiles[2]) clicked_tiles[2]->setHeight(clicked_tiles[2]->getHeight() + 3);
+						//if(clicked_tiles[3]) clicked_tiles[3]->setHeight(clicked_tiles[3]->getHeight() + 4);
+						//first test:
+						int possible_tiles = 0;
+						if(clicked_tiles[0]) possible_tiles += clicked_tiles[0]->registerSlopeChange(S);
+						if(clicked_tiles[1]) possible_tiles += clicked_tiles[1]->registerSlopeChange(W);
+						if(clicked_tiles[2]) possible_tiles += clicked_tiles[2]->registerSlopeChange(N);
+						if(clicked_tiles[3]) possible_tiles += clicked_tiles[3]->registerSlopeChange(E);
+						if(possible_tiles==4)
+						{
+							if (clicked_tiles[0]) clicked_tiles[0]->commitSlopeChange();
+							if (clicked_tiles[1]) clicked_tiles[1]->commitSlopeChange();
+							if (clicked_tiles[2]) clicked_tiles[2]->commitSlopeChange();
+							if (clicked_tiles[3]) clicked_tiles[3]->commitSlopeChange();
+						}
+						renderer->generateMap();
 					}
 				}
 				break;
