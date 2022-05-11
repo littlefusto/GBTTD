@@ -30,5 +30,6 @@ using namespace sf;
 #include <GameInput.h>
 
 #include <Game.h>
+#include <Structure.h>
 
 //GBTTD_GBTTD_H

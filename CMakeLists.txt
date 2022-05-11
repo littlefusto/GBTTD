@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(SRC_DIRS ${CMAKE_SOURCE_DIR}
         "00_Game"
         "00_Game/Tiles"
+        "00_Game/Structures"
 
         "01_Graphics"
 
