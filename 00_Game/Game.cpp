@@ -71,12 +71,12 @@ Map* Game::getMap() const
 	return map;
 }
 
-game_state Game::getGameState() const
+GameState Game::getGameState() const
 {
 	return gameState;
 }
 
-void Game::setGameState(game_state gameState)
+void Game::setGameState(GameState gameState)
 {
 	Game::gameState = gameState;
 }

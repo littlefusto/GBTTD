@@ -20,4 +20,7 @@ namespace GameInput {
 	void init();
 
 	void handleInput(Game*);
+	void handleMenuEvent(Game*, sf::Event&);
+	void handleBuildEvent(Game*, sf::Event&);
+	void handleMapEvent(Game*, sf::Event&);
 };

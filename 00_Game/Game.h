@@ -9,11 +9,11 @@
 #include <gbttd.h>
 #include <GameInput.h>
 
-enum game_state
+enum GameState
 {
-	state_menu = 0,
-	state_map = 1,
-	state_build = 2
+	STATE_MENU = 0,
+	STATE_MAP = 1,
+	STATE_BUILD = 2
 };
 
 struct Game
@@ -27,9 +27,9 @@ private:
 	MapLoader* mapLoader = nullptr;
 	Renderer* renderer = nullptr;
 
-	game_state gameState = state_map;
+	GameState gameState = STATE_MAP;
 public:
-	void setGameState(game_state gameState);
+	void setGameState(GameState gameState);
 
 	View* getView() const;
 
@@ -43,7 +43,7 @@ public:
 
 	Map* getMap() const;
 
-	game_state getGameState() const;
+	GameState getGameState() const;
 
 private:
 
