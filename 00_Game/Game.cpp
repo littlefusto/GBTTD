@@ -9,6 +9,7 @@ void Game::init()
 {
 	window = new RenderWindow(sf::VideoMode(WINDOW_SIZE_X, WINDOW_SIZE_Y), "GBTTD");
 	view = new View(sf::FloatRect(0.f, 0.f, WINDOW_SIZE_X, WINDOW_SIZE_Y));
+	view->setViewport(sf::FloatRect(0,0,1,1)); // can be used later to allow for multiple view ports in the gui similar to the real game
 
 	window->setView(*view);
 	std::string path = "map1";

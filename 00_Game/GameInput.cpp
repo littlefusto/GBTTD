@@ -61,11 +61,8 @@ void GameInput::handleMenuEvent(Game *game, sf::Event &event) {
  * Handles a single event assuming the current GameState is STATE_BUILD.
 */
 void GameInput::handleBuildEvent(Game *game, sf::Event &event) {
-	switch (event.type) {
-	case sf::Event::Closed: {
-		game->getWindow()->close();
-		break;
-	}
+	switch (event.type)
+	{
 	case sf::Event::KeyPressed: {
 		switch (event.key.code) {
 			case sf::Keyboard::D:
@@ -235,11 +232,8 @@ void GameInput::handleBuildEvent(Game *game, sf::Event &event) {
  * Handles a single event assuming the current GameState is STATE_MAP.
 */
 void GameInput::handleMapEvent(Game *game, sf::Event &event) {
-	switch (event.type) {
-	case sf::Event::Closed: {
-		game->getWindow()->close();
-		break;
-	}
+	switch (event.type)
+	{
 	case sf::Event::KeyPressed: {
 		switch (event.key.code) {
 			case sf::Keyboard::Right:
@@ -362,8 +356,20 @@ void GameInput::handleMapEvent(Game *game, sf::Event &event) {
 */
 void GameInput::handleInput(Game *game) {
 	while (game->getWindow()->pollEvent(event)) {
-		// Update game state if certain buttons are pressed
-		if (event.type == sf::Event::KeyReleased) {
+		if (event.type == sf::Event::Closed) { // handle closing the window
+			game->getWindow()->close();
+			break;
+		} else if (event.type == sf::Event::Resized) { // handle resizing of the window
+			View* view = game->getView();
+			sf::Vector2u windowSize = game->getWindow()->getSize();
+			sf::Vector2f viewSize = view->getSize();
+			sf::Vector2f viewScale = sf::Vector2f(viewSize.x / oldWindowSize.x, viewSize.y / oldWindowSize.y);
+			sf::Vector2f viewCenter = view->getCenter();
+			view->setSize(windowSize.x * viewScale.x, windowSize.y * viewScale.y);
+			view->setCenter(viewCenter);
+			game->getWindow()->setView(*view);
+			oldWindowSize = game->getWindow()->getSize();
+		} else if (event.type == sf::Event::KeyReleased) { // Update game state if certain buttons are pressed
 			switch (event.key.code)
 			{
 			case sf::Keyboard::Escape: {
@@ -379,7 +385,7 @@ void GameInput::handleInput(Game *game) {
 				// open/close build mode
 				if (game->getGameState() == STATE_BUILD) {
 					game->setGameState(STATE_MAP);
-				} else {
+				} else if (game->getGameState() != STATE_MENU) {
 					game->setGameState(STATE_BUILD);
 				}
 				break;
@@ -389,7 +395,8 @@ void GameInput::handleInput(Game *game) {
 			}
 		}
 		// handle events differently depending on the current game state
-		switch (game->getGameState()) {
+		switch (game->getGameState()) 
+		{
 			case STATE_MENU: {
 				handleMenuEvent(game, event);
 				break;
@@ -403,10 +410,10 @@ void GameInput::handleInput(Game *game) {
 				break;
 			}
 		}
-		if (game->getGameState() == STATE_MAP | game->getGameState() == STATE_BUILD) {
-			movement.x = (moveRight - moveLeft);
-			movement.y = (moveDown - moveUp);
-		}
+		movement.x = (moveRight - moveLeft);
+		movement.y = (moveDown - moveUp);
 	}
-	game->getView()->move(movement);
+	if (game->getGameState() == STATE_MAP || game->getGameState() == STATE_BUILD) {
+		game->getView()->move(movement);
+	}
 }

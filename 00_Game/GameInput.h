@@ -14,6 +14,8 @@ namespace GameInput {
 	static Vector2f movement;
 	static Vector2f oldMouse;
 	static Vector2f click;
+	
+	static Vector2u oldWindowSize = Vector2u(WINDOW_SIZE_X, WINDOW_SIZE_Y);
 
 	static bool MMBPressed = false;
 

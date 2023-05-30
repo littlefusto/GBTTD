@@ -5,7 +5,7 @@
 #pragma once
 
 #define TILE_WIDTH 64
-#define TILE_HEIGTH 32
+#define TILE_HEIGHT 32
 
 #include <gbttd.h>
 
