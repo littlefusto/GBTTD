@@ -8,7 +8,8 @@
 #include <Tile.h>
 
 struct textureInfo {
-	Image* texture;
+	Image* image;
+	Texture* texture;
 	Vector2i maxNorthPixel;
 	Vector2i maxEastPixel;
 	Vector2i maxSouthPixel;
@@ -18,7 +19,9 @@ struct textureInfo {
 class TextureHandler
 {
 private:
-	std::map<std::string, sf::Image*> data;
+	std::map<std::string, sf::Image*> images;
+	std::map<std::string, sf::Texture*> textures;
+	std::pair<sf::Image, sf::Texture> atlas;
 	static TextureHandler* singleton_;
 
 	TextureHandler();
@@ -27,7 +30,9 @@ private:
 
 	void deleteImages();
 
-	textureInfo textures_map[2][0b11111];
+	void deleteTextures();
+
+	textureInfo textures_map[2][32]; // 2 for tile types and 32 for tile orientations and slopes
 public:
 	TextureHandler(TextureHandler &other) = delete;
 
@@ -44,6 +49,12 @@ public:
 	sf::Image* getImage(std::string &key);
 
 	sf::Image* getImage(const char* key);
+
+	sf::Texture* getTexture(std::string &key);
+
+	sf::Texture* getTexture(const char* key);
+
+	sf::Texture* getTextureAtlas();
 };
 
 

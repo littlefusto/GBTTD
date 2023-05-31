@@ -2,6 +2,8 @@
 // Created by cpukiller on 07.05.22.
 //
 
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <gbttd.h>
 
 TextureHandler* TextureHandler::singleton_ = 0;
@@ -34,32 +36,32 @@ const std::string tiles[] = {
 
 TextureHandler::TextureHandler()
 {
-	for (const std::string &tile_path: tiles)
-	{
+	for (const std::string &tile_path: tiles) {
 		sf::Image* tile_image = new sf::Image;
-		if (!tile_image->loadFromFile("../01_Graphics/tiles/" + tile_path))
-		{
+		if (!tile_image->loadFromFile("../01_Graphics/tiles/" + tile_path))	{
 			std::cerr << "Image at" + tile_path + " not found" << std::endl;
-		} else
-		{
-			data.insert(std::pair(tile_path, tile_image));
+		} else {
+			images.insert(std::pair(tile_path, tile_image));
+			sf::Texture* tile_texture = new sf::Texture;
+			tile_texture->loadFromImage(*tile_image);
+			textures.insert(std::pair(tile_path, tile_texture));
 		}
 	}
-	for (unsigned char i = DEFAULT; i <= GRASS; i++)
-	{
-		for (unsigned char j = FLAT; j <= STEEP_N; j++)
-		{
-			try
-			{
+	atlas.first.create((STEEP_N + 1) * TILE_WIDTH, (GRASS + 1) * TILE_HEIGHT * 2, sf::Color(0x00000000));
+	for (unsigned char i = DEFAULT; i <= GRASS; i++) {
+		for (unsigned char j = FLAT; j <= STEEP_N; j++)	{
+			try	{
 				std::string tile_name = tileTypePathName((TileType) i, (Slope) j);
-				sf::Image* tile_texture = getImage(tile_name);
+				sf::Image* tile_image = getImage(tile_name);
+				atlas.first.copy(*tile_image, j * TILE_WIDTH, i * TILE_HEIGHT * 2, sf::IntRect(0,0,0,0), true);
+				sf::Texture* tile_texture = getTexture(tile_name);
 				Vector2i maxNorthPixel = Vector2i(0,INT32_MAX);
 				Vector2i maxEastPixel = Vector2i(0,0);
 				Vector2i maxSouthPixel = Vector2i(0,0);
 				Vector2i maxWestPixel = Vector2i(INT32_MAX,0);
 				for(int x=0; x< tile_texture->getSize().x; x++) {
 					for(int y=0; y< tile_texture->getSize().y; y++) {
-						if(tile_texture->getPixel(x,y).a > 0) {
+						if(tile_image->getPixel(x,y).a > 0) {
 							if(maxNorthPixel.y > y) maxNorthPixel = Vector2i(x,y);
 							if(maxSouthPixel.y < y) maxSouthPixel = Vector2i(x,y);
 							if(maxEastPixel.x < x) maxEastPixel = Vector2i(x,y);
@@ -68,6 +70,7 @@ TextureHandler::TextureHandler()
 					}
 				}
 				textures_map[i][j] = textureInfo{
+						.image = tile_image,
 						.texture = tile_texture,
 						.maxNorthPixel = maxNorthPixel,
 						.maxEastPixel = maxEastPixel,
@@ -75,9 +78,9 @@ TextureHandler::TextureHandler()
 						.maxWestPixel = maxWestPixel
 				};
 
-			} catch (const std::invalid_argument &e)
-			{
+			} catch (const std::invalid_argument &e) {
 				textures_map[i][j] = textureInfo{
+						.image = nullptr,
 						.texture = nullptr,
 						.maxNorthPixel = Vector2i(-1,-1),
 						.maxEastPixel = Vector2i(-1,-1),
@@ -87,20 +90,32 @@ TextureHandler::TextureHandler()
 			}
 		}
 	}
+	atlas.second = sf::Texture();
+	atlas.second.loadFromImage(atlas.first);
 }
 
 TextureHandler::~TextureHandler()
 {
 	deleteImages();
+	deleteTextures();
 }
 
 void TextureHandler::deleteImages()
 {
-	for (std::pair<const std::string, sf::Image*> image: data)
+	for (std::pair<const std::string, sf::Image*> image: images)
 	{
 		delete image.second;
 	}
-	data.clear();
+	images.clear();
+}
+
+void TextureHandler::deleteTextures()
+{
+	for (std::pair<const std::string, sf::Texture*> texture: textures)
+	{
+		delete texture.second;
+	}
+	images.clear();
 }
 
 TextureHandler* TextureHandler::getInstance()
@@ -114,8 +129,8 @@ TextureHandler* TextureHandler::getInstance()
 
 sf::Image* TextureHandler::getImage(const char* key)
 {
-	auto it = data.find(key);
-	if (it == data.end())
+	auto it = images.find(key);
+	if (it == images.end())
 	{
 		return NULL;
 	} else
@@ -127,6 +142,23 @@ sf::Image* TextureHandler::getImage(const char* key)
 sf::Image* TextureHandler::getImage(std::string &key)
 {
 	return getImage(key.c_str());
+}
+
+sf::Texture* TextureHandler::getTexture(const char* key)
+{
+	auto it = textures.find(key);
+	if (it == textures.end())
+	{
+		return NULL;
+	} else
+	{
+		return it->second;
+	}
+}
+
+sf::Texture* TextureHandler::getTexture(std::string &key)
+{
+	return getTexture(key.c_str());
 }
 
 textureInfo& TextureHandler::getTextureByTileType(Tile* tile)
@@ -184,4 +216,8 @@ std::string TextureHandler::tileSlopePathName(Slope slope)
 	}
 
 	return path;
+}
+
+Texture* TextureHandler::getTextureAtlas() {
+	return &atlas.second;
 }

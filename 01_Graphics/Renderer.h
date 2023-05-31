@@ -5,20 +5,24 @@
 #ifndef GBTTD_RENDERER_H
 #define GBTTD_RENDERER_H
 
+#include <SFML/Graphics/Sprite.hpp>
 #include <gbttd.h>
+
+#define CHUNK_SIZE 16
 
 class Renderer
 {
 private:
 	Map &map;
-	sf::Texture map_texture;
-	sf::Sprite map_sprite;
-	sf::Image map_image;
-	sf::Image* selected_tile_image;
-	sf::Vector2i point_at;
-	sf::Vector2i selected_tile;
+	std::vector<std::vector<RenderChunk* >> mapChunks;
+	//sf::Sprite atlas;
+	sf::Image* selectedTileImage;
+	sf::Vector2i pointAt;
+	sf::Vector2i selectedTile;
 public:
 	Renderer(Map &map);
+
+	~Renderer();
 
 	bool generateMap();
 

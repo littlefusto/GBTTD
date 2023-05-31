@@ -2,50 +2,56 @@
 // Created by cpukiller on 06.05.22.
 //
 
+#include "TextureHandler.h"
+#include "Tile.h"
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/System/Vector2.hpp>
 #include <gbttd.h>
 #include <cmath>
 
 Renderer::Renderer(Map &map) : map(map)
 {
-	point_at = sf::Vector2i(0, 0);
-	selected_tile = sf::Vector2i(-1, -1);
-	selected_tile_image = TextureHandler::getInstance()->getImage("selected_tile.png");
+	pointAt = sf::Vector2i(0, 0);
+	selectedTile = sf::Vector2i(-1, -1);
+	selectedTileImage = TextureHandler::getInstance()->getImage("selectedTile.png");
+	mapChunks = std::vector<std::vector<RenderChunk*>>((int) ceil(map.getSize().y / CHUNK_SIZE));
+	for (int y = 0; y < mapChunks.size(); y++) {
+		mapChunks[y] = std::vector<RenderChunk*>((int) ceil(map.getSize().x / CHUNK_SIZE));
+		for (int x = 0; x < mapChunks[y].size(); x++) {
+			mapChunks[y][x] = nullptr;
+		}
+	}
+	//atlas = sf::Sprite(*TextureHandler::getInstance()->getTextureAtlas());
+	//atlas.setPosition(0,0);
+	printf("Renderer init complete\n");
+}
+
+Renderer::~Renderer() {
+	for (int y = 0; y < map.getSize().y; y++) {
+		for (int x = 0; x < map.getSize().x; x++) {
+			delete mapChunks[y][x];
+		}
+	}
+	mapChunks.clear();
 }
 
 bool Renderer::generateMap()
 {
-	vector<vector<Tile*>> &content = map.getContent();
-	map_image.create(map.getSize().x * TILE_WIDTH, map.getSize().y * TILE_HEIGHT + MAX_MAP_HEIGHT * 16);
-	for (int i = 0; i < map.getSize().x; i++)
-	{
-		for (int j = 0; j < map.getSize().y; j++)
-		{
-			//right and down for every i
-			//left and down for every j
-			//rest is adjusting
-			int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + ((map.getSize().x * TILE_WIDTH) / 2) -
-					(TILE_WIDTH / 2);
-			int y = (TILE_HEIGHT / 2 * i) + (TILE_HEIGHT / 2 * j) + 8 * (MAX_MAP_HEIGHT - content[j][i]->getHeight());
-			sf::Image* source = TextureHandler::getInstance()->getTextureByTileType(content[j][i]).texture;
-			if (source == nullptr)
-			{
-				std::cerr << "Tile at x:" << i << " y:" << j << " has invalid type or slope" << std::endl;
-			} else
-			{
-				map_image.copy(*source, x, y, sf::IntRect(0, 0, 0, 0), true);
-			}
+	std::vector<std::vector<Tile*>> &content = map.getContent();
+	TextureHandler *textureHandler = TextureHandler::getInstance();
+	Vector2i renderChunkSize(CHUNK_SIZE * TILE_WIDTH, CHUNK_SIZE * TILE_HEIGHT);
+
+	for (int y = 0; y < mapChunks.size(); y++) {
+		int px = -y * renderChunkSize.x / 2;
+		int py = y * renderChunkSize.y / 2;
+		for (int x = 0; x < mapChunks[y].size(); x++) {
+			mapChunks[y][x] = new RenderChunk(map, x, y);
+			mapChunks[y][x]->setPosition(px, py);
+			px += renderChunkSize.x / 2;
+			py += renderChunkSize.y / 2;
 		}
 	}
-	if (selected_tile.x >= 0)
-	{
-		map_image.copy(*selected_tile_image, selected_tile.x, selected_tile.y - 1, sf::IntRect(0, 0, 0, 0),
-					   true);
-	}
-	sf::Color color = sf::Color(255, 0, 0);
-	map_image.setPixel(point_at.x, point_at.y, color);
-	map_texture.loadFromImage(map_image);
-	map_sprite.setTexture(map_texture);
-	map_sprite.setPosition(0.f, 0.f);
+	printf("Generated Chunks.\n");
 	return true;
 }
 
@@ -75,11 +81,10 @@ vector<Tile*> Renderer::getClickedTiles(sf::Vector2i pos)
 			//right and down for every i
 			//left and down for every j
 			//rest is adjusting
-			int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) + ((map.getSize().x * TILE_WIDTH) / 2) -
-					(TILE_WIDTH / 2);
-			int y = (TILE_HEIGHT / 2 * i) + (TILE_HEIGHT / 2 * j) + 8 * (MAX_MAP_HEIGHT - content[j][i]->getHeight());
+			int x = (TILE_WIDTH / 2 * i) - (TILE_WIDTH / 2 * j) - TILE_WIDTH / 2;
+			int y = (TILE_HEIGHT / 2 * i) + (TILE_HEIGHT / 2 * j) - 8 * content[j][i]->getHeight() - TILE_HEIGHT;
 			textureInfo& texture_info = TextureHandler::getInstance()->getTextureByTileType(content[j][i]);
-			sf::Image* source = texture_info.texture;
+			sf::Image* source = texture_info.image;
 			if (source == nullptr)
 			{
 				std::cerr << "Tile at x:" << i << " y:" << j << " has invalid type or slope" << std::endl;
@@ -90,10 +95,10 @@ vector<Tile*> Renderer::getClickedTiles(sf::Vector2i pos)
 					source->getPixel(pixel_pos.x, pixel_pos.y).a > 0)
 				{
 					/* Selected Tile not needed atm
-					 * selected_tile = Vector2i(x, y);
-					selected_tile_image->create(source->getSize().x, source->getSize().y);
-					selected_tile_image->copy(*source, 0, 0);
-					selected_tile_image->createMaskFromColor(Color(0, 255, 0), 200);*/
+					 * selectedTile = Vector2i(x, y);
+					selectedTileImage->create(source->getSize().x, source->getSize().y);
+					selectedTileImage->copy(*source, 0, 0);
+					selectedTileImage->createMaskFromColor(Color(0, 255, 0), 200);*/
 					int32_t smallest_distance = INT32_MAX;
 					int n = calculateSquaredDistance(pixel_pos,texture_info.maxNorthPixel);
 					int e = calculateSquaredDistance(pixel_pos,texture_info.maxEastPixel);
@@ -101,16 +106,16 @@ vector<Tile*> Renderer::getClickedTiles(sf::Vector2i pos)
 					int w = calculateSquaredDistance(pixel_pos,texture_info.maxWestPixel);
 					smallest_distance = min(min(n,e),min(s,w));
 					if(smallest_distance == n) {
-						point_at = Vector2i(x,y) + texture_info.maxNorthPixel;
+						pointAt = Vector2i(x,y) + texture_info.maxNorthPixel;
 						clicked_tiles = {map.getTile(i-1,j-1),map.getTile(i,j-1),map.getTile(i,j),map.getTile(i-1,j)};
 					} else if(smallest_distance == e) {
-						point_at = Vector2i(x,y) + texture_info.maxEastPixel;
+						pointAt = Vector2i(x,y) + texture_info.maxEastPixel;
 						clicked_tiles = {map.getTile(i,j-1),map.getTile(i+1,j-1),map.getTile(i+1,j),map.getTile(i,j)};
 					} else if(smallest_distance == s) {
-						point_at = Vector2i(x,y) + texture_info.maxSouthPixel;
+						pointAt = Vector2i(x,y) + texture_info.maxSouthPixel;
 						clicked_tiles = {map.getTile(i,j),map.getTile(i+1,j),map.getTile(i+1,j+1),map.getTile(i,j+1)};
 					} else if(smallest_distance == w) {
-						point_at = Vector2i(x,y) + texture_info.maxWestPixel;
+						pointAt = Vector2i(x,y) + texture_info.maxWestPixel;
 						clicked_tiles = {map.getTile(i-1,j),map.getTile(i,j),map.getTile(i,j+1),map.getTile(i-1,j+1)};
 					}
 				}
@@ -124,7 +129,12 @@ vector<Tile*> Renderer::getClickedTiles(sf::Vector2i pos)
 void Renderer::renderMap(sf::RenderWindow &window)
 {
 	window.clear();
-	window.draw(map_sprite);
+	for (int y = 0; y < mapChunks.size(); y++) {
+		for (int x = 0; x < mapChunks[y].size(); x++) {
+			window.draw(*mapChunks[y][x]);
+		}
+	}
+	// window.draw(atlas);
 	window.display();
 }
 
@@ -156,7 +166,7 @@ void Renderer::getClickedTile(sf::Vector2i pos)
 		};
 		int pdp = perpDotProduct(v1, v2, pos);
 		this_run = (pdp > 0) ? 1 : -1;
-		//printf("v1:%d %d v2: %d %d point: %d %d pdp=%d\n",v1.x,v1.y,v2.x,v2.y,point_at.x, point_at.y,pdp);
+		//printf("v1:%d %d v2: %d %d point: %d %d pdp=%d\n",v1.x,v1.y,v2.x,v2.y,pointAt.x, pointAt.y,pdp);
 		if (lastRun == 1 && this_run == -1)
 		{
 			y = i - 1;
@@ -173,7 +183,7 @@ void Renderer::getClickedTile(sf::Vector2i pos)
 		sf::Vector2i v2 = { i * TILE_WIDTH / 2, map.getSize().y / 2 * TILE_HEIGHT + i * TILE_HEIGHT / 2 };
 		int pdp = perpDotProduct(v1, v2, pos);
 		this_run = (pdp < 0) ? 1 : -1;
-		//printf("v1:%d %d v2: %d %d point: %d %d pdp=%d\n",v1.x,v1.y,v2.x,v2.y,point_at.x, point_at.y,pdp);
+		//printf("v1:%d %d v2: %d %d point: %d %d pdp=%d\n",v1.x,v1.y,v2.x,v2.y,pointAt.x, pointAt.y,pdp);
 		if (lastRun == 1 && this_run == -1)
 		{
 			x = i - 1;
@@ -183,8 +193,8 @@ void Renderer::getClickedTile(sf::Vector2i pos)
 
 	if (x >= 0 && y >= 0)
 	{
-		selected_tile.x = x;
-		selected_tile.y = y;
+		selectedTile.x = x;
+		selectedTile.y = y;
 		generateMap();
 	}
 }*/
