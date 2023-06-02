@@ -1,10 +1,8 @@
 //
 // Created by noop on 09.05.2022.
 //
-
 #include <JSONMapLoader.h>
-#include <GameInput.h>
-
+#include <gbttd.h>
 
 void zoomViewAt(sf::Vector2i pixel, sf::RenderWindow &window, float zoom) {
 	const sf::Vector2f beforeCoord{window.mapPixelToCoords(pixel)};
@@ -112,7 +110,7 @@ void GameInput::handleBuildEvent(Game *game, sf::Event &event) {
 		break;
 	}
 	case Event::MouseButtonPressed: {
-		switch(event.mouseButton.button){
+		switch(event.mouseButton.button) {
 			case sf::Mouse::Left: {
 				break;
 			}
@@ -130,31 +128,13 @@ void GameInput::handleBuildEvent(Game *game, sf::Event &event) {
 		break;
 	}
 	case Event::MouseButtonReleased: {
-		switch(event.mouseButton.button){
+		sf::Vector2i pos(event.mouseButton.x, event.mouseButton.y);
+		sf::Vector2f worldPos = game->getWindow()->mapPixelToCoords(pos);
+		sf::Vector2i clickedVertex = game->getRenderer()->getClickedVertex(worldPos);
+		switch(event.mouseButton.button) {
 			case sf::Mouse::Left: {
-				sf::Vector2i pos;
-				pos.x = event.mouseButton.x;
-				pos.y = event.mouseButton.y;
-				sf::Vector2f pos_world = game->getWindow()->mapPixelToCoords(pos);
-				pos.x = pos_world.x;
-				pos.y = pos_world.y;
-				vector<Tile *> clicked_tiles = game->getRenderer()->getClickedTiles(pos);
-				int possible_tiles = 0;
-				if (clicked_tiles[0])
-					possible_tiles += clicked_tiles[0]->registerSlopeChange(true,S);
-				if (clicked_tiles[1])
-					possible_tiles += clicked_tiles[1]->registerSlopeChange(true,W);
-				if (clicked_tiles[2])
-					possible_tiles += clicked_tiles[2]->registerSlopeChange(true,N);
-				if (clicked_tiles[3])
-					possible_tiles += clicked_tiles[3]->registerSlopeChange(true,E);
-				if (possible_tiles == 4) {
-					if (clicked_tiles[0]) clicked_tiles[0]->commitSlopeChange();
-					if (clicked_tiles[1]) clicked_tiles[1]->commitSlopeChange();
-					if (clicked_tiles[2]) clicked_tiles[2]->commitSlopeChange();
-					if (clicked_tiles[3]) clicked_tiles[3]->commitSlopeChange();
-				}
-				game->getRenderer()->generateMap();
+				game->getMap()->raiseHeight(clickedVertex.x, clickedVertex.y);
+				game->getRenderer()->updateRect(clickedVertex.x - MAX_MAP_HEIGHT, clickedVertex.y - MAX_MAP_HEIGHT, 2 * MAX_MAP_HEIGHT + 1, 2 * MAX_MAP_HEIGHT + 1);
 				break;
 			}
 			case sf::Mouse::Middle: {
@@ -162,29 +142,8 @@ void GameInput::handleBuildEvent(Game *game, sf::Event &event) {
 				break;
 			}
 			case sf::Mouse::Right: {
-				sf::Vector2i pos;
-				pos.x = event.mouseButton.x;
-				pos.y = event.mouseButton.y;
-				sf::Vector2f pos_world = game->getWindow()->mapPixelToCoords(pos);
-				pos.x = pos_world.x;
-				pos.y = pos_world.y;
-				vector<Tile *> clicked_tiles = game->getRenderer()->getClickedTiles(pos);
-				int possible_tiles = 0;
-				if (clicked_tiles[0])
-					possible_tiles += clicked_tiles[0]->registerSlopeChange(false,S);
-				if (clicked_tiles[1])
-					possible_tiles += clicked_tiles[1]->registerSlopeChange(false,W);
-				if (clicked_tiles[2])
-					possible_tiles += clicked_tiles[2]->registerSlopeChange(false,N);
-				if (clicked_tiles[3])
-					possible_tiles += clicked_tiles[3]->registerSlopeChange(false,E);
-				if (possible_tiles == 4) {
-					if (clicked_tiles[0]) clicked_tiles[0]->commitSlopeChange();
-					if (clicked_tiles[1]) clicked_tiles[1]->commitSlopeChange();
-					if (clicked_tiles[2]) clicked_tiles[2]->commitSlopeChange();
-					if (clicked_tiles[3]) clicked_tiles[3]->commitSlopeChange();
-				}
-				game->getRenderer()->generateMap();
+				game->getMap()->lowerHeight(clickedVertex.x, clickedVertex.y);
+				game->getRenderer()->updateRect(clickedVertex.x - MAX_MAP_HEIGHT, clickedVertex.y - MAX_MAP_HEIGHT, 2 * MAX_MAP_HEIGHT + 1, 2 * MAX_MAP_HEIGHT + 1);
 				break;
 			}
 			default: {
@@ -232,8 +191,7 @@ void GameInput::handleBuildEvent(Game *game, sf::Event &event) {
  * Handles a single event assuming the current GameState is STATE_MAP.
 */
 void GameInput::handleMapEvent(Game *game, sf::Event &event) {
-	switch (event.type)
-	{
+	switch (event.type)	{
 	case sf::Event::KeyPressed: {
 		switch (event.key.code) {
 			case sf::Keyboard::Right:
@@ -285,13 +243,6 @@ void GameInput::handleMapEvent(Game *game, sf::Event &event) {
 	case Event::MouseButtonPressed: {
 		switch (event.mouseButton.button) {
 			case sf::Mouse::Left: {
-				sf::Vector2i pos;
-				pos.x = event.mouseButton.x;
-				pos.y = event.mouseButton.y;
-				sf::Vector2f pos_world = game->getWindow()->mapPixelToCoords(pos);
-				pos.x = pos_world.x;
-				pos.y = pos_world.y;
-				game->getRenderer()->getClickedTiles(pos);
 				break;
 			}
 			case sf::Mouse::Middle: {
@@ -370,8 +321,7 @@ void GameInput::handleInput(Game *game) {
 			game->getWindow()->setView(*view);
 			oldWindowSize = game->getWindow()->getSize();
 		} else if (event.type == sf::Event::KeyReleased) { // Update game state if certain buttons are pressed
-			switch (event.key.code)
-			{
+			switch (event.key.code)	{
 			case sf::Keyboard::Escape: {
 				// open/close menu
 				if (game->getGameState() == STATE_MENU) {
@@ -395,8 +345,7 @@ void GameInput::handleInput(Game *game) {
 			}
 		}
 		// handle events differently depending on the current game state
-		switch (game->getGameState()) 
-		{
+		switch (game->getGameState()) {
 			case STATE_MENU: {
 				handleMenuEvent(game, event);
 				break;

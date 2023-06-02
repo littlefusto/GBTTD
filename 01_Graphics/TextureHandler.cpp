@@ -2,8 +2,6 @@
 // Created by cpukiller on 07.05.22.
 //
 
-#include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/Texture.hpp>
 #include <gbttd.h>
 
 TextureHandler* TextureHandler::singleton_ = 0;

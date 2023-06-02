@@ -40,12 +40,9 @@ public:
 	Tile( int heightTemp, TileType tile_typeTemp, Slope slopeTemp );
 
 	int getHeight() const { return height; }
-	void setHeight(int new_height) { height = new_height; }
-	void addToHeight(int to_add);
 
 	Slope getTileSlope() const { return slope; }
-	bool registerSlopeChange(bool move_up, Slope change);
-	bool commitSlopeChange();
+	bool updateSlope(unsigned char* cornerHeights);
 
 	TileType getTileType() const { return tile_type; }
 

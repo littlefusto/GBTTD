@@ -2,13 +2,11 @@
 // Created by cpukiller on 06.05.22.
 //
 
-#ifndef GBTTD_RENDERER_H
-#define GBTTD_RENDERER_H
+#pragma once
 
-#include <SFML/Graphics/Sprite.hpp>
 #include <gbttd.h>
 
-#define CHUNK_SIZE 16
+#define CHUNK_SIZE 64
 
 class Renderer
 {
@@ -19,17 +17,22 @@ private:
 	sf::Image* selectedTileImage;
 	sf::Vector2i pointAt;
 	sf::Vector2i selectedTile;
+
+	sf::Vector2f mapToWorldPos(sf::Vector2f mapPos);
+	sf::Vector2f worldToMapPos(sf::Vector2f worldPos);
+
 public:
 	Renderer(Map &map);
 
 	~Renderer();
 
 	bool generateMap();
+	void updateMap();
+	void updateRect(int x, int y, int width, int height);
 
 	void renderMap(sf::RenderWindow &window);
 
-	vector<Tile*> getClickedTiles(sf::Vector2i pos);
+	sf::Vector2i getClickedTile(sf::Vector2f worldPos);
+
+	sf::Vector2i getClickedVertex(sf::Vector2f worldPos);
 };
-
-
-#endif //GBTTD_RENDERER_H
