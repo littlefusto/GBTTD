@@ -3,7 +3,6 @@
 //
 #include <JSONMapLoader.h>
 #include <gbttd.h>
-#include <Game.h>
 
 void Game::init()
 {
@@ -13,7 +12,8 @@ void Game::init()
 
 	window->setView(*view);
 	std::string path = "map1";
-	map = JSONMapLoader::loadMap(path);
+	//map = JSONMapLoader::loadMap(path);
+	map = new Map(512, 512);
 	renderer = new Renderer(*map);
 	renderer->generateMap();
 
