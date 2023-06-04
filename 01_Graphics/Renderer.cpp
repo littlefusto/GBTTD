@@ -127,24 +127,29 @@ sf::Vector2i Renderer::getClickedVertex(sf::Vector2f worldPos) {
 		> abs(mapToWorldPos(sf::Vector2f(floor(mapPos.x), floor(mapPos.y) + 1)).x - worldPos.x))
 	{
 		curMapPos = sf::Vector2i((int) mapPos.x, (int) mapPos.y + 1);
-		curWorldPos = mapToWorldPos((sf::Vector2f) curMapPos);
 	}
 	// Start position might lie outside of the map. First move to the edge of the map.
+	if (curMapPos.x - curMapPos.y >= map.getSize().x) {
+		curMapPos = sf::Vector2i(map.getSize().x, 0);
+	} else if (curMapPos.y - curMapPos.x >= map.getSize().y) {
+		curMapPos = sf::Vector2i(0, map.getSize().y);
+	}
 	int distToMap = min(curMapPos.x, curMapPos.y);
 	if (distToMap < 0) {
 		curMapPos += sf::Vector2i(-distToMap, -distToMap);
-		curWorldPos = mapToWorldPos((sf::Vector2f) curMapPos);
 	}
 	distToMap = max(curMapPos.x - map.getSize().x, curMapPos.y - map.getSize().y);
 	if (distToMap > 0) {
 		return curMapPos - sf::Vector2i(distToMap, distToMap);
 	}
+	curWorldPos = mapToWorldPos((sf::Vector2f) curMapPos);
 	// Scince the terrain is not flat the determined positioned coordinates might be wrong.
 	// Nevertheless, for a "collumn" of vertices the world x position is the same.
 	// Because of this, we can move down the collumn until we find the closest vertex.
 	float minDist = worldPos.y - curWorldPos.y + map.getHeight(curMapPos.x, curMapPos.y) * 8;
 	int bestY = 0;
 	for (int i = 1; i < MAX_MAP_HEIGHT; i++) {
+		if (curMapPos.x+i > map.getSize().x || curMapPos.y+i > map.getSize().y) break;
 		float curDist = abs(curWorldPos.y + i * TILE_HEIGHT - map.getHeight(curMapPos.x + i, curMapPos.y + i) * 8 - worldPos.y);
 		if (curDist < minDist) {
 			minDist = curDist;

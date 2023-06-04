@@ -6,7 +6,7 @@
 
 #include <gbttd.h>
 
-#define MAX_MAP_HEIGHT 16 // real game has 30
+#define MAX_MAP_HEIGHT 32 // real game has 30
 
 using namespace std;
 
@@ -52,7 +52,7 @@ public:
 	unsigned char* getTileHeights(int x, int y);
 
 	// returns the height of a specific vertex
-	inline unsigned char getHeight(int x, int y) {return heightMap[y][x]; }
+	inline unsigned char getHeight(int x, int y) { return heightMap[y][x]; }
 
 	// raise the height of the specified vertex and all neighbouring vertices that need to be raised to achieve this
 	// returns true if the action was succesful
