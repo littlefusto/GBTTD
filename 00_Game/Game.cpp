@@ -13,7 +13,7 @@ void Game::init()
 	window->setView(*view);
 	std::string path = "map1";
 	//map = JSONMapLoader::loadMap(path);
-	map = new Map(512, 512);
+	map = new Map(4096, 4096);
 	renderer = new Renderer(*map);
 	renderer->generateMap();
 

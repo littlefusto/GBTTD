@@ -14,6 +14,8 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <cmath>
+#include <chrono>
 
 using namespace std;
 using namespace sf;

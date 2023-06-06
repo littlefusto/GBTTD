@@ -2,7 +2,6 @@
 // Created by cpukiller on 06.05.22.
 //
 #include <gbttd.h>
-#include <cmath>
 
 Renderer::Renderer(Map &map) : map(map) {
 	pointAt = sf::Vector2i(0, 0);
@@ -15,6 +14,16 @@ Renderer::Renderer(Map &map) : map(map) {
 			mapChunks[y][x] = nullptr;
 		}
 	}
+	// load font
+	if (!defaultFont.loadFromFile(BASE_FONT)) {
+		printf("No font found at the provided path: '%s'\n", BASE_FONT);
+		exit(-1);
+	}
+	lastFrame = std::chrono::duration_cast< std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
+	fpsText = sf::Text("0", defaultFont, 30);
+	fpsText.setFillColor(sf::Color(255, 255, 255, 255));
+	fpsText.setOutlineColor(sf::Color());
+	fpsText.setPosition(0, 0);
 	printf("Renderer init complete\n");
 }
 
@@ -85,14 +94,42 @@ void Renderer::updateRect(int x, int y, int width, int height) {
 }
 
 void Renderer::renderMap(sf::RenderWindow &window) {
+	std::chrono::milliseconds curTime = std::chrono::duration_cast< std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
+	float fps = 1000.0f / (curTime - lastFrame).count();
+	lastFrame = curTime;
 	window.clear();
-	for (int y = 0; y < mapChunks.size(); y++) {
-		for (int x = 0; x < mapChunks[y].size(); x++) {
+	sf::View curView = window.getView();
+	sf::Vector2f viewCenter = window.getView().getCenter();
+	sf::Vector2f viewSize = window.getView().getSize();
+	
+	sf::Vector2f topRight = worldToMapPos(sf::Vector2f(viewCenter.x + viewSize.x / 2, viewCenter.y - viewSize.y / 2)) * (1 / (float) CHUNK_SIZE);
+	sf::Vector2f bottomLeft = worldToMapPos(sf::Vector2f(viewCenter.x - viewSize.x / 2, viewCenter.y + viewSize.y / 2)) * (1 / (float) CHUNK_SIZE);
+	float leftViewEdge = viewCenter.x - viewSize.x / 2 - CHUNK_SIZE * TILE_WIDTH / 2;
+	float rightViewEdge = viewCenter.x + viewSize.x / 2 + CHUNK_SIZE * TILE_WIDTH / 2;
+	
+	
+	// Only draw chunks which are visible.
+	// Iterates diagonals top left to bottom right diagonals starting at the top right corner of the viewing rectangle.
+	int startX = (int) topRight.x - 1;
+	int endX = (int)(viewSize.y / TILE_HEIGHT / CHUNK_SIZE * 2) + 4 + startX;
+	for (int y = (int) floor(topRight.y); y < (int) mapChunks.size() && y < bottomLeft.y; y++) {
+		for (int x = max(startX, 0); x < mapChunks[y].size() && x < endX && y >= 0; x++) {
+			float chunkLeft = mapToWorldPos(sf::Vector2f(x * CHUNK_SIZE, y * CHUNK_SIZE)).x;
+			if (chunkLeft < leftViewEdge) continue;
+			if (chunkLeft > rightViewEdge) break;
 			window.draw(*mapChunks[y][x]);
 		}
+		startX--;
+		endX--;
 	}
-	// window.draw(atlas);
+	// draw "gui"/fps counter for now
+	window.setView(window.getDefaultView());
+	fpsText.setString(to_string((int)fps));
+	window.draw(fpsText);
+	window.setView(curView);
+	
 	window.display();
+	//exit(0);
 }
 
 /**
