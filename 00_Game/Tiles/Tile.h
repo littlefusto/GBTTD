@@ -9,8 +9,7 @@
 
 #include <gbttd.h>
 
-enum Slope : unsigned char//bitflag N E S W dictates high corners
-{
+enum Slope : unsigned char {//bitflag N E S W dictates high corners
 	FLAT = 0, N = 0b1000, E = 0b0100, S = 0b0010, W = 0b0001,
 	NE = (N | E), NES = (N | E | S), NEW = (N | E | W), NS = (N | S), NSW = (N | S | W), NW = (N | W),
 	ES = (E | S), ESW = (E | S | W), EW = (E | W), SW = (S | W),
@@ -19,25 +18,21 @@ enum Slope : unsigned char//bitflag N E S W dictates high corners
 	INVALID = (STEEP_N | E | S | W)
 };
 
-enum TileType : unsigned char
-{
+enum TileType : unsigned char {
 	DEFAULT = 0,
 	GRASS = 1
 };
 
-class Tile
-{
+class Tile {
 private:
-	int height = 2;
 	TileType tile_type;
 	Slope slope = FLAT;
-	Slope registered_slope_change;
-	bool registered_move_up;
+	int height = 2;
 
 public:
 	Tile();
 
-	Tile( int heightTemp, TileType tile_typeTemp, Slope slopeTemp );
+	Tile(TileType tile_typeTemp, Slope slopeTemp = FLAT, int heightTemp = 1);
 
 	int getHeight() const { return height; }
 
@@ -45,7 +40,6 @@ public:
 	bool updateSlope(unsigned char* cornerHeights);
 
 	TileType getTileType() const { return tile_type; }
-
 
 };
 

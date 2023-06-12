@@ -7,18 +7,18 @@
 Map::Map(int width, int height){
 	this->x = width;
 	this->y = height;
-	this->tiles.resize(height);
-	this->heightMap.resize(height + 1);
+	this->tiles = std::vector<std::vector<Tile*>>(height);
+	this->heightMap = std::vector<std::vector<unsigned char>>(height + 1);
 	for (int i = 0; i < height; i++) {
-		this->tiles[i].resize(width);
-		this->heightMap[i].resize(width + 1);
+		this->tiles[i] = std::vector<Tile*>(width);
+		this->heightMap[i] = std::vector<unsigned char>(width + 1);
 		for (int j = 0; j < width; j++)	{
-			this->tiles[i][j] = new Tile(1, GRASS, FLAT);
+			this->tiles[i][j] = new Tile(GRASS, FLAT, 1);
 			this->heightMap[i][j] = 1;
 		}
 		heightMap[i][width] = 1;
 	}
-	this->heightMap[height].resize(width + 1);
+	this->heightMap[height] = std::vector<unsigned char>(width + 1);
 	for (int i = 0; i <= width; i++) {
 		heightMap[height][i] = 1;
 	}
@@ -27,23 +27,11 @@ Map::Map(int width, int height){
 Map::~Map(){
 	for (int i = 0; i < this->y; i++) {
 		for (int j = 0; j < this->x; j++) {
-			free(tiles[i][j]);
+			delete tiles[i][j];
 		}
 	}
 	tiles.clear();
 	heightMap.clear();
-}
-
-void Map::fillMap(vector<vector<TileType>> &map) {
-	map.resize(x);
-	for (int w = 0; w < this->x; w++)
-	{
-		map[w].resize(y);
-		for (int h = 0; h < this->y; h++)
-		{
-			map[w][h] = TileType::GRASS;
-		}
-	}
 }
 
 Tile* Map::getTile(int x, int y) {

@@ -7,18 +7,19 @@
 // TODO: Rendering should be reverted to squares making use of the alpha of the tile.
 // Reason: Retains all pixel edges and prevents straight edges
 // Disadvantage: Probably slower since more overdraw.
-RenderChunk::RenderChunk(Map &map, unsigned int cx, unsigned cy): map(map) {
+RenderChunk::RenderChunk(Map* map, unsigned int cx, unsigned cy) {
+    this->map = map;
     this->chunkPos = sf::Vector2i(cx, cy);
     TextureHandler* textureHandler = TextureHandler::getInstance();
     tileset = textureHandler->getTextureAtlas();
-    vertices.setPrimitiveType(sf::Quads);
-    vertices.resize(CHUNK_SIZE * CHUNK_SIZE * 4);
-    std::vector<std::vector<Tile*>>& content = map.getContent();
+    vertices = sf::VertexArray(sf::Quads, CHUNK_SIZE * CHUNK_SIZE * 4);
     updateMesh();
 }
 
 RenderChunk::~RenderChunk() {
-    // TODO: Don't know if any cleanup is needed since sfml should do most of it
+    tileset = nullptr;
+    map = nullptr;
+    vertices.clear();
 }
 
 void RenderChunk::draw(sf::RenderTarget& target, sf::RenderStates states) const {
@@ -34,7 +35,7 @@ void RenderChunk::draw(sf::RenderTarget& target, sf::RenderStates states) const 
 
 void RenderChunk::updateMesh() {
     TextureHandler* textureHandler = TextureHandler::getInstance();
-    std::vector<std::vector<Tile*>>& content = map.getContent();
+    std::vector<std::vector<Tile*>>& content = map->getContent();
     // populate the vertex array, with one quad per tile
     for (int y = 0; y < CHUNK_SIZE; ++y) {
         int ox = -y * TILE_WIDTH / 2;

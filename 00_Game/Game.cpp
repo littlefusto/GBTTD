@@ -13,10 +13,8 @@ void Game::init()
 	window->setView(*view);
 	std::string path = "map1";
 	//map = JSONMapLoader::loadMap(path);
-	map = new Map(4096, 4096);
-	renderer = new Renderer(*map);
-	renderer->generateMap();
-
+	map = new Map(512, 512);
+	renderer = new Renderer(map);
 	GameInput::init();
 }
 
@@ -36,18 +34,15 @@ void Game::draw()
 	renderer->renderMap(*window);
 }
 
-void Game::cleanup()
-{
+void Game::cleanup() {
 	delete window;
 	delete map;
 	delete view;
 	delete renderer;
-	delete mapLoader;
 	window = nullptr;
 	map = nullptr;
 	view = nullptr;
 	renderer = nullptr;
-	mapLoader = nullptr;
 }
 
 void Game::run()
@@ -84,7 +79,7 @@ void Game::setGameState(GameState gameState)
 
 void Game::setMap(Map* map)
 {
-	Game::map = map;
+	this->map = map;
 }
 
 Renderer* Game::getRenderer() const

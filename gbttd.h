@@ -23,7 +23,6 @@ using namespace sf;
 #include <TextureHandler.h>
 #include <Tile.h>
 #include <Map.h>
-#include <MapLoader.h>
 #include <Textures.h>
 #include <RenderChunk.h>
 #include <Renderer.h>

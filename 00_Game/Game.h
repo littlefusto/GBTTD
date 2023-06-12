@@ -24,7 +24,6 @@ private:
 
 	Map* map = nullptr;
 
-	MapLoader* mapLoader = nullptr;
 	Renderer* renderer = nullptr;
 
 	GameState gameState = STATE_MAP;

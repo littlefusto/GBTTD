@@ -29,16 +29,10 @@ private:
 	void raiseVertex(int x, int y);
 	void lowerVertex(int x, int y);
 
-	// Update the slopes of tile in the specified area/ the complete map
-	void updateSlopesRect(int x, int y, unsigned int width, unsigned int height);
-	void updateSlopes();
-
 public:
 
 	Map(int width, int height);
 	~Map();
-
-	void fillMap(vector<vector<TileType>> &map);
 
 	Vector2<int> getSize();
 
@@ -61,5 +55,9 @@ public:
 	// lower the height of the specified vertex and all neighbouring vertices that need to be lowered to achieve this
 	// returns true if the action was succesful
 	bool lowerHeight(int x, int y);
+
+	// Update the slopes of tiles in the specified area/ the complete map
+	void updateSlopesRect(int x, int y, unsigned int width, unsigned int height);
+	void updateSlopes();
 
 };

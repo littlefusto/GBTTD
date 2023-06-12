@@ -17,7 +17,7 @@
 class Renderer
 {
 private:
-	Map &map;
+	Map* map;
 	std::vector<std::vector<RenderChunk* >> mapChunks;
 	//sf::Sprite atlas;
 	sf::Image* selectedTileImage;
@@ -31,8 +31,10 @@ private:
 	sf::Vector2f mapToWorldPos(sf::Vector2f mapPos);
 	sf::Vector2f worldToMapPos(sf::Vector2f worldPos);
 
+	void deleteChunks();
+
 public:
-	Renderer(Map &map);
+	Renderer(Map* map);
 
 	~Renderer();
 
@@ -45,4 +47,7 @@ public:
 	sf::Vector2i getClickedTile(sf::Vector2f worldPos);
 
 	sf::Vector2i getClickedVertex(sf::Vector2f worldPos);
+
+	void setMap(Map* map);
+
 };

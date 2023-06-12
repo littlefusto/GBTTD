@@ -31,10 +31,12 @@ void GameInput::handleMenuEvent(Game *game, sf::Event &event) {
 		switch(event.key.code)
 		{
 		case sf::Keyboard::L: {
-			std::string path = "map1";//TODO:move <--this<- somewhere else
-			delete game->getMap();//TODO: create proper destructor!
-			game->setMap(JSONMapLoader::loadMap(path));
-			game->getRenderer()->generateMap();
+			std::string path = "map1"; //TODO:move <--this<- somewhere else
+			Map *gameMap = game->getMap(); //TODO: create proper destructor!
+			delete gameMap;
+			auto newMap = JSONMapLoader::loadMap(path);
+			game->setMap(newMap);
+			game->getRenderer()->setMap(newMap);
 			game->setGameState(STATE_MAP);
 			break;
 		}
@@ -131,6 +133,7 @@ void GameInput::handleBuildEvent(Game *game, sf::Event &event) {
 		sf::Vector2i pos(event.mouseButton.x, event.mouseButton.y);
 		sf::Vector2f worldPos = game->getWindow()->mapPixelToCoords(pos);
 		sf::Vector2i clickedVertex = game->getRenderer()->getClickedVertex(worldPos);
+		printf("Click: %d, %d\n", clickedVertex.x, clickedVertex.y);
 		switch(event.mouseButton.button) {
 			case sf::Mouse::Left: {
 				game->getMap()->raiseHeight(clickedVertex.x, clickedVertex.y);
@@ -169,6 +172,8 @@ void GameInput::handleBuildEvent(Game *game, sf::Event &event) {
 		break;
 	}
 	case sf::Event::MouseWheelScrolled: {
+		// min zoom would be useful to prevent lags when zooming out
+		// openttd min zoom would be around 0.00009
 		sf::Vector2i pos;
 		pos.x = event.mouseWheelScroll.x;
 		pos.y = event.mouseWheelScroll.y;

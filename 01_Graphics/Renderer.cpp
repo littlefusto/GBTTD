@@ -3,17 +3,18 @@
 //
 #include <gbttd.h>
 
-Renderer::Renderer(Map &map) : map(map) {
+Renderer::Renderer(Map* map) : map(map) {
 	pointAt = sf::Vector2i(0, 0);
 	selectedTile = sf::Vector2i(-1, -1);
 	selectedTileImage = TextureHandler::getInstance()->getImage("selectedTile.png");
-	mapChunks = std::vector<std::vector<RenderChunk*>>((int) ceil(map.getSize().y / CHUNK_SIZE));
+	mapChunks = std::vector<std::vector<RenderChunk*>>((int) ceil(map->getSize().y / CHUNK_SIZE));
 	for (int y = 0; y < mapChunks.size(); y++) {
-		mapChunks[y] = std::vector<RenderChunk*>((int) ceil(map.getSize().x / CHUNK_SIZE));
+		mapChunks[y] = std::vector<RenderChunk*>((int) ceil(map->getSize().x / CHUNK_SIZE));
 		for (int x = 0; x < mapChunks[y].size(); x++) {
 			mapChunks[y][x] = nullptr;
 		}
 	}
+	generateMap();
 	// load font
 	if (!defaultFont.loadFromFile(BASE_FONT)) {
 		printf("No font found at the provided path: '%s'\n", BASE_FONT);
@@ -27,17 +28,24 @@ Renderer::Renderer(Map &map) : map(map) {
 	printf("Renderer init complete\n");
 }
 
-Renderer::~Renderer() {
-	for (int y = 0; y < map.getSize().y; y++) {
-		for (int x = 0; x < map.getSize().x; x++) {
-			delete mapChunks[y][x];
+void Renderer::deleteChunks() {
+	for (int y = 0; y < mapChunks.size(); y++) {
+		for (int x = 0; x < mapChunks[y].size(); x++) {
+			if (mapChunks[y][x] != nullptr) {
+				RenderChunk* chunk = mapChunks[y][x];
+				delete chunk;
+			}
 		}
 	}
 	mapChunks.clear();
 }
 
+Renderer::~Renderer() {
+	deleteChunks();
+}
+
 bool Renderer::generateMap() {
-	std::vector<std::vector<Tile*>> &content = map.getContent();
+	std::vector<std::vector<Tile*>> &content = map->getContent();
 	TextureHandler *textureHandler = TextureHandler::getInstance();
 	Vector2i renderChunkSize(CHUNK_SIZE * TILE_WIDTH, CHUNK_SIZE * TILE_HEIGHT);
 
@@ -74,7 +82,7 @@ int calculateSquaredDistance(Vector2i &a, Vector2i &b) {
 }
 
 void Renderer::updateMap() {
-	updateRect(0, 0, map.getSize().x, map.getSize().y);
+	updateRect(0, 0, map->getSize().x, map->getSize().y);
 }
 
 void Renderer::updateRect(int x, int y, int width, int height) {
@@ -106,8 +114,7 @@ void Renderer::renderMap(sf::RenderWindow &window) {
 	sf::Vector2f bottomLeft = worldToMapPos(sf::Vector2f(viewCenter.x - viewSize.x / 2, viewCenter.y + viewSize.y / 2)) * (1 / (float) CHUNK_SIZE);
 	float leftViewEdge = viewCenter.x - viewSize.x / 2 - CHUNK_SIZE * TILE_WIDTH / 2;
 	float rightViewEdge = viewCenter.x + viewSize.x / 2 + CHUNK_SIZE * TILE_WIDTH / 2;
-	
-	
+
 	// Only draw chunks which are visible.
 	// Iterates diagonals top left to bottom right diagonals starting at the top right corner of the viewing rectangle.
 	int startX = (int) topRight.x - 1;
@@ -166,16 +173,16 @@ sf::Vector2i Renderer::getClickedVertex(sf::Vector2f worldPos) {
 		curMapPos = sf::Vector2i((int) mapPos.x, (int) mapPos.y + 1);
 	}
 	// Start position might lie outside of the map. First move to the edge of the map.
-	if (curMapPos.x - curMapPos.y >= map.getSize().x) {
-		curMapPos = sf::Vector2i(map.getSize().x, 0);
-	} else if (curMapPos.y - curMapPos.x >= map.getSize().y) {
-		curMapPos = sf::Vector2i(0, map.getSize().y);
+	if (curMapPos.x - curMapPos.y >= map->getSize().x) {
+		curMapPos = sf::Vector2i(map->getSize().x, 0);
+	} else if (curMapPos.y - curMapPos.x >= map->getSize().y) {
+		curMapPos = sf::Vector2i(0, map->getSize().y);
 	}
 	int distToMap = min(curMapPos.x, curMapPos.y);
 	if (distToMap < 0) {
 		curMapPos += sf::Vector2i(-distToMap, -distToMap);
 	}
-	distToMap = max(curMapPos.x - map.getSize().x, curMapPos.y - map.getSize().y);
+	distToMap = max(curMapPos.x - map->getSize().x, curMapPos.y - map->getSize().y);
 	if (distToMap > 0) {
 		return curMapPos - sf::Vector2i(distToMap, distToMap);
 	}
@@ -183,11 +190,11 @@ sf::Vector2i Renderer::getClickedVertex(sf::Vector2f worldPos) {
 	// Scince the terrain is not flat the determined positioned coordinates might be wrong.
 	// Nevertheless, for a "collumn" of vertices the world x position is the same.
 	// Because of this, we can move down the collumn until we find the closest vertex.
-	float minDist = worldPos.y - curWorldPos.y + map.getHeight(curMapPos.x, curMapPos.y) * 8;
+	float minDist = worldPos.y - curWorldPos.y + map->getHeight(curMapPos.x, curMapPos.y) * 8;
 	int bestY = 0;
 	for (int i = 1; i < MAX_MAP_HEIGHT; i++) {
-		if (curMapPos.x+i > map.getSize().x || curMapPos.y+i > map.getSize().y) break;
-		float curDist = abs(curWorldPos.y + i * TILE_HEIGHT - map.getHeight(curMapPos.x + i, curMapPos.y + i) * 8 - worldPos.y);
+		if (curMapPos.x+i > map->getSize().x || curMapPos.y+i > map->getSize().y) break;
+		float curDist = abs(curWorldPos.y + i * TILE_HEIGHT - map->getHeight(curMapPos.x + i, curMapPos.y + i) * 8 - worldPos.y);
 		if (curDist < minDist) {
 			minDist = curDist;
 			bestY = i;
@@ -199,3 +206,12 @@ sf::Vector2i Renderer::getClickedVertex(sf::Vector2f worldPos) {
 	return curMapPos;
 }
 
+void Renderer::setMap(Map* map) {
+	this->map = map;
+	this->deleteChunks();
+	mapChunks = std::vector<std::vector<RenderChunk*>>((int) ceil(map->getSize().y / CHUNK_SIZE));
+	for (int y = 0; y < mapChunks.size(); y++) {
+		mapChunks[y] = std::vector<RenderChunk*>((int) ceil(map->getSize().x / CHUNK_SIZE));
+	}
+	this->generateMap();
+}
