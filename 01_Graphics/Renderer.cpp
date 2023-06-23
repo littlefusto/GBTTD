@@ -20,7 +20,6 @@ Renderer::Renderer(Map* map) : map(map) {
 		printf("No font found at the provided path: '%s'\n", BASE_FONT);
 		exit(-1);
 	}
-	lastFrame = std::chrono::duration_cast< std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
 	fpsText = sf::Text("0", defaultFont, 30);
 	fpsText.setFillColor(sf::Color(255, 255, 255, 255));
 	fpsText.setOutlineColor(sf::Color());
@@ -64,20 +63,22 @@ bool Renderer::generateMap() {
 }
 
 template<typename T>
-double length(const sf::Vector2<T> &a) {
+T length(const sf::Vector2<T> &a) {
 	return sqrt(a.x * a.x + a.y * a.y);
 }
 
 template<typename T>
-double dot(const sf::Vector2<T> &a, const sf::Vector2<T> &b) {
+T dot(const sf::Vector2<T> &a, const sf::Vector2<T> &b) {
 	return a.x * b.x + a.y * b.y;
 }
 
-double calculateDistance(Vector2i &a, Vector2i &b) {
+template<typename T>
+T calculateDistance(const sf::Vector2<T> &a, const sf::Vector2<T> &b) {
 	return length(a-b);
 }
 
-int calculateSquaredDistance(Vector2i &a, Vector2i &b) {
+template<typename T>
+T calculateSquaredDistance(const sf::Vector2<T> &a, const sf::Vector2<T> &b) {
 	return dot(a, b);
 }
 
@@ -102,9 +103,6 @@ void Renderer::updateRect(int x, int y, int width, int height) {
 }
 
 void Renderer::renderMap(sf::RenderWindow &window) {
-	std::chrono::milliseconds curTime = std::chrono::duration_cast< std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
-	float fps = 1000.0f / (curTime - lastFrame).count();
-	lastFrame = curTime;
 	window.clear();
 	sf::View curView = window.getView();
 	sf::Vector2f viewCenter = window.getView().getCenter();
@@ -131,7 +129,8 @@ void Renderer::renderMap(sf::RenderWindow &window) {
 	}
 	// draw "gui"/fps counter for now
 	window.setView(window.getDefaultView());
-	fpsText.setString(to_string((int)fps));
+	fpsText.setString(to_string(1'000'000 / frametimeClock.getElapsedTime().asMicroseconds()));
+	frametimeClock.restart();
 	window.draw(fpsText);
 	window.setView(curView);
 	

@@ -11,7 +11,7 @@
 #ifdef __linux__
 #define BASE_FONT "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc" // change to installed font, don't know which font should be present on all linux systems
 #elif _WIN32
-#define BASE_FONT "C:\Windows\Fonts\Arial.ttf" // this should work
+#define BASE_FONT "C:\\Windows\\Fonts\\Arial.ttf" // this should work
 #endif
 
 class Renderer
@@ -25,7 +25,7 @@ private:
 	sf::Vector2i selectedTile;
 
 	sf::Font defaultFont;
-	std::chrono::milliseconds lastFrame;
+	sf::Clock frametimeClock;
 	sf::Text fpsText;
 
 	sf::Vector2f mapToWorldPos(sf::Vector2f mapPos);
