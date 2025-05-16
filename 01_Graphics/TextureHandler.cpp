@@ -37,7 +37,7 @@ TextureHandler::TextureHandler()
 	for (const std::string &tile_path: tiles) {
 		sf::Image* tile_image = new sf::Image;
 		if (!tile_image->loadFromFile("../01_Graphics/tiles/" + tile_path))	{
-			std::cerr << "Image at" + tile_path + " not found" << std::endl;
+			std::cerr << "Image at " + tile_path + " not found" << std::endl;
 		} else {
 			images.insert(std::pair(tile_path, tile_image));
 			sf::Texture* tile_texture = new sf::Texture;
